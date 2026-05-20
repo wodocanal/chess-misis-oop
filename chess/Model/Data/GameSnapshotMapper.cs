@@ -7,16 +7,15 @@ internal static class GameSnapshotMapper {
         return new GameSnapshot {
             CurrentTurn = game.CurrentTurn,
             Status = game.Status,
-            Pieces = game.Board.GetPieces()
+            Pieces = [.. game.Board.GetPieces()
                 .Select(piece => new PieceSnapshot {
                     Type = piece.Type.ToString(),
                     Color = piece.Color,
                     Row = piece.Position.Row,
                     Column = piece.Position.Column,
                     MoveCount = piece.MoveCount,
-                })
-                .ToList(),
-            Moves = game.MoveHistory
+                })],
+            Moves = [.. game.MoveHistory
                 .Select(move => new MoveSnapshot {
                     PieceType = move.PieceType,
                     PieceColor = move.PieceColor,
@@ -25,8 +24,7 @@ internal static class GameSnapshotMapper {
                     ToRow = move.To.Row,
                     ToColumn = move.To.Column,
                     CapturedPieceType = move.CapturedPieceType?.ToString(),
-                })
-                .ToList(),
+                })],
         };
     }
 

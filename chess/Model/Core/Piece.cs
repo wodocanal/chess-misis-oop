@@ -1,6 +1,6 @@
 namespace Model.Core;
 
-public abstract class Piece : IPiece {
+public abstract class Piece : IAmPiece {
     protected Piece(PieceColor color, Position position, int moveCount = 0) {
         Color = color;
         Position = position;

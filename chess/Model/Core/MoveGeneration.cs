@@ -25,9 +25,8 @@ internal static class MoveGeneration {
     }
 
     public static IReadOnlyCollection<Position> GetSteppingMoves(Piece piece, Board board, params BoardVector[] offsets) {
-        return offsets
+        return [.. offsets
             .Select(offset => piece.Position + offset)
-            .Where(position => piece.CanOccupy(board, position))
-            .ToArray();
+            .Where(position => piece.CanOccupy(board, position))];
     }
 }

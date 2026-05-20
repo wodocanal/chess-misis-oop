@@ -1,6 +1,6 @@
 namespace Model.Core;
 
-public interface IPiece {
+public interface IAmPiece {
     PieceColor Color { get; }
 
     PieceType Type { get; }

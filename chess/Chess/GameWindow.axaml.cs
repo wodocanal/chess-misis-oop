@@ -29,7 +29,7 @@ public partial class GameWindow : Window {
     private readonly string _saveFilePath;
 
     private Position? _selectedPosition;
-    private IReadOnlyCollection<Position> _availableMoves = Array.Empty<Position>();
+    private IReadOnlyCollection<Position> _availableMoves = [];
 
     public GameWindow()
         : this(
@@ -211,7 +211,7 @@ public partial class GameWindow : Window {
         switch (result) {
             case MoveExecutionResult.Success:
                 _selectedPosition = null;
-                _availableMoves = Array.Empty<Position>();
+                _availableMoves = [];
                 UpdateBoard();
                 RefreshMoveLog();
                 UpdateSidebar($"Ход выполнен: {from} -> {to}.");
@@ -393,7 +393,7 @@ public partial class GameWindow : Window {
 
     private void ClearSelection(string message) {
         _selectedPosition = null;
-        _availableMoves = Array.Empty<Position>();
+        _availableMoves = [];
         UpdateSidebar(message);
         UpdateBoard();
     }
@@ -410,7 +410,7 @@ public partial class GameWindow : Window {
         }
 
         _selectedPosition = null;
-        _availableMoves = Array.Empty<Position>();
+        _availableMoves = [];
         UpdateBoard();
         RefreshMoveLog();
         UpdateSidebar("Последний ход отменён.");

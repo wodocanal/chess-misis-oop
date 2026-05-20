@@ -34,12 +34,10 @@ public partial class ChessGame {
     public IReadOnlyCollection<Position> GetLegalMoves(Position from) {
         var piece = Board.GetPiece(from);
         if (piece is null || piece.Color != CurrentTurn) {
-            return Array.Empty<Position>();
+            return [];
         }
 
-        return piece.GetAvailableMoves(Board)
-            .Where(target => WouldKeepKingSafe(Board, from, target, piece.Color))
-            .ToArray();
+        return [.. piece.GetAvailableMoves(Board).Where(target => WouldKeepKingSafe(Board, from, target, piece.Color))];
     }
 
     public MoveExecutionResult TryMove(Position from, Position to) {

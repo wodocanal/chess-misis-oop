@@ -53,16 +53,13 @@ public sealed class Board {
     }
 
     public IReadOnlyCollection<Piece> GetPieces() {
-        return _cells.Enumerate()
+        return [.. _cells.Enumerate()
             .Select(entry => entry.Value)
-            .OfType<Piece>()
-            .ToArray();
+            .OfType<Piece>()];
     }
 
     public IReadOnlyCollection<TPiece> GetPieces<TPiece>() where TPiece : Piece {
-        return GetPieces()
-            .OfType<TPiece>()
-            .ToArray();
+        return [.. GetPieces().OfType<TPiece>()];
     }
 
     public Board Clone() {
