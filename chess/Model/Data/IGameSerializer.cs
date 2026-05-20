@@ -2,7 +2,7 @@ using Model.Core;
 
 namespace Model.Data;
 
-public interface IGameSerializer {
+public interface GameSerializer {
     SerializationFormat Format { get; }
 
     string FileExtension { get; }

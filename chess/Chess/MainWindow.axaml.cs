@@ -7,7 +7,7 @@ using Model.Data;
 namespace Chess;
 
 public partial class MainWindow : Window {
-    private readonly IGameSerializer[] _serializers =
+    private readonly GameSerializer[] _serializers =
     [
         new JsonGameSerializer(),
         new XmlGameSerializer(),
@@ -94,7 +94,7 @@ public partial class MainWindow : Window {
         UpdateSuggestedSavePath();
     }
 
-    private void OpenGameWindow(ChessGame game, IGameSerializer serializer, string saveFilePath) {
+    private void OpenGameWindow(ChessGame game, GameSerializer serializer, string saveFilePath) {
         var gameWindow = new GameWindow(game, serializer, saveFilePath);
         gameWindow.Closed += (_, _) => {
             Show();
@@ -106,7 +106,7 @@ public partial class MainWindow : Window {
         Hide();
     }
 
-    private IGameSerializer GetSelectedSerializer() {
+    private GameSerializer GetSelectedSerializer() {
         var selected = FormatComboBox.SelectedItem as SerializationFormat?
             ?? SerializationFormat.Json;
         return _serializers.First(serializer => serializer.Format == selected);

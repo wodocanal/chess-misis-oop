@@ -1,7 +1,7 @@
 namespace Model.Data;
 
 public static class SaveFileValidator {
-    public static SaveFileValidationResult Validate(string filePath, IEnumerable<IGameSerializer> serializers) {
+    public static SaveFileValidationResult Validate(string filePath, IEnumerable<GameSerializer> serializers) {
         if (string.IsNullOrWhiteSpace(filePath)) {
             return SaveFileValidationResult.Invalid("Не указан путь к файлу.");
         }
