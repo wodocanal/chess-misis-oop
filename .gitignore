@@ -1,0 +1,21 @@
+# Build artifacts
+**/bin/
+**/obj/
+**/out/
+
+# IDE and editor files
+.idea/
+.vs/
+.vscode/
+*.user
+*.userprefs
+*.suo
+*.swp
+*~
+
+# NuGet packages
+packages/
+
+# OS junk
+.DS_Store
+Thumbs.db
