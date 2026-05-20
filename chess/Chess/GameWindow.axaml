@@ -1,0 +1,192 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="Chess.GameWindow"
+        Width="1310"
+        Height="860"
+        MinWidth="1230"
+        MinHeight="820"
+        Background="#EFE7D5"
+        Title="Chess Game">
+    <Grid Background="#EFE7D5">
+        <Grid RowDefinitions="Auto,Auto,Auto"
+              ColumnDefinitions="878,340"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Background="#EFE7D5">
+            <Grid Grid.Column="0"
+                  ColumnDefinitions="Auto,*,Auto"
+                  Margin="24,24,24,6">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="12"
+                        HorizontalAlignment="Left">
+                <Button Classes="command brown"
+                        Width="52"
+                        Height="52"
+                        Padding="0"
+                        Click="BackToMenuButton_OnClick"
+                        ToolTip.Tip="Вернуться в меню">
+                    <Viewbox Width="20"
+                             Height="20">
+                        <Path Fill="Black"
+                              Stretch="Uniform"
+                              Data="M14.7 3.3a1 1 0 0 1 0 1.4L9.41 10H20a1 1 0 1 1 0 2H9.41l5.29 5.29a1 1 0 0 1-1.41 1.41l-7-7a1 1 0 0 1 0-1.41l7-7a1 1 0 0 1 1.41 0Z" />
+                    </Viewbox>
+                </Button>
+
+                <Button Classes="command green"
+                        Width="52"
+                        Height="52"
+                        Padding="0"
+                        Click="SaveNowButton_OnClick"
+                        ToolTip.Tip="Сохранить партию">
+                    <Viewbox Width="20"
+                             Height="20">
+                        <Path Fill="Black"
+                              Stretch="Uniform"
+                              Data="M5 2h10l4 4v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm1 2v4h8V4H6Zm10 15V10H6v9h10Zm-7-3h4a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2Z" />
+                    </Viewbox>
+                </Button>
+            </StackPanel>
+
+            <Button x:Name="UndoMoveButton"
+                    Grid.Column="2"
+                    Classes="command neutral"
+                    Padding="16,12"
+                    Click="UndoMoveButton_OnClick"
+                    HorizontalAlignment="Right"
+                    ToolTip.Tip="Отменить последний ход">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10"
+                            VerticalAlignment="Center">
+                    <Viewbox Width="18"
+                             Height="18">
+                        <Path Fill="Black"
+                              Stretch="Uniform"
+                              Data="M9.2 3.3a1 1 0 0 1 1.4 0l5.5 5.5a1 1 0 0 1 0 1.4l-5.5 5.5a1 1 0 1 1-1.4-1.4l3.79-3.8H6.75a2.75 2.75 0 1 0 0 5.5h1a1 1 0 1 1 0 2h-1a4.75 4.75 0 1 1 0-9.5H13l-3.8-3.79a1 1 0 0 1 0-1.41Z" />
+                    </Viewbox>
+                    <TextBlock Text="Отмена хода"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            </Grid>
+
+            <Border x:Name="BoardShellBorder"
+                    Grid.Row="1"
+                    Margin="24,0,24,0"
+                    Padding="18"
+                    Background="#D7C1A0"
+                    CornerRadius="18"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <Grid RowDefinitions="30,Auto,30"
+                      ColumnDefinitions="30,Auto,30"
+                      RowSpacing="8"
+                      ColumnSpacing="8">
+                    <Grid x:Name="TopCoordinatesGrid"
+                          Grid.Column="1" />
+                    <Grid x:Name="LeftCoordinatesGrid"
+                          Grid.Row="1" />
+                    <Grid x:Name="BoardGrid"
+                          Grid.Row="1"
+                          Grid.Column="1" />
+                    <Grid x:Name="RightCoordinatesGrid"
+                          Grid.Row="1"
+                          Grid.Column="2" />
+                    <Grid x:Name="BottomCoordinatesGrid"
+                          Grid.Row="2"
+                          Grid.Column="1" />
+                </Grid>
+            </Border>
+
+            <Border x:Name="SidebarBorder"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,0,24,0"
+                    Padding="24"
+                    Background="#FFFDF8"
+                    BorderBrush="#D2BE9B"
+                    BorderThickness="1"
+                    CornerRadius="18"
+                    VerticalAlignment="Center">
+                <Grid RowDefinitions="Auto,*"
+                      RowSpacing="16">
+                    <Grid ColumnDefinitions="*,1,*"
+                          ColumnSpacing="14">
+                        <Border Padding="14"
+                                Background="#F4ECDD"
+                                CornerRadius="12">
+                            <StackPanel Spacing="6">
+                                <TextBlock FontWeight="SemiBold"
+                                           Text="Текущий ход" />
+                                <TextBlock x:Name="TurnTextBlock"
+                                           FontSize="20"
+                                           Text="Белые" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1"
+                                Width="1"
+                                Margin="0,8"
+                                Background="#D2BE9B" />
+
+                        <Border Grid.Column="2"
+                                Padding="14"
+                                Background="#F4ECDD"
+                                CornerRadius="12">
+                            <StackPanel Spacing="6">
+                                <TextBlock FontWeight="SemiBold"
+                                           Text="Состояние" />
+                                <TextBlock x:Name="StateTextBlock"
+                                           FontSize="16"
+                                           TextWrapping="Wrap"
+                                           Text="Партия началась" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Border Grid.Row="1"
+                            Padding="14"
+                            Background="#F6F0E4"
+                            BorderBrush="#D6C4A5"
+                            BorderThickness="1"
+                            CornerRadius="14">
+                        <Grid RowDefinitions="Auto,*"
+                              RowSpacing="12">
+                            <TextBlock FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Text="Журнал ходов" />
+
+                            <Border Grid.Row="1"
+                                    Padding="10"
+                                    Background="#FFFDF8"
+                                    BorderBrush="#D9C8AA"
+                                    BorderThickness="1"
+                                    CornerRadius="12">
+                                <ScrollViewer x:Name="MoveLogScrollViewer"
+                                              VerticalScrollBarVisibility="Auto"
+                                              HorizontalScrollBarVisibility="Disabled">
+                                    <StackPanel x:Name="MoveLogStackPanel"
+                                                Spacing="10" />
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <TextBlock x:Name="SavePathTextBlock"
+                       Grid.Row="2"
+                       Grid.ColumnSpan="2"
+                       Margin="24,12,24,24"
+                       HorizontalAlignment="Stretch"
+                       FontSize="14"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Text="-" />
+        </Grid>
+    </Grid>
+</Window>

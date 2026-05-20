@@ -1,0 +1,110 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="Chess.MainWindow"
+        Width="820"
+        Height="620"
+        MinWidth="760"
+        MinHeight="560"
+        Title="Chess">
+    <Border Padding="28"
+            Background="#F4EFE6">
+        <Grid RowDefinitions="Auto,*">
+            <StackPanel Spacing="8"
+                        HorizontalAlignment="Center">
+                <TextBlock FontSize="38"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Text="Chess" />
+            </StackPanel>
+
+            <Border Grid.Row="1"
+                    Margin="0,24,0,0"
+                    Padding="24"
+                    Background="#FFFDF8"
+                    BorderBrush="#D7C5A7"
+                    BorderThickness="1"
+                    CornerRadius="18">
+                <Grid ColumnDefinitions="*,*"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                      ColumnSpacing="16"
+                      RowSpacing="14">
+                    <TextBlock Grid.ColumnSpan="2"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Text="Стартовое меню" />
+
+                    <TextBlock Grid.Row="1"
+                               Text="Формат сохранения"
+                               VerticalAlignment="Center" />
+                    <ComboBox x:Name="FormatComboBox"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              SelectedIndex="0" />
+
+                    <TextBlock Grid.Row="2"
+                               Text="Папка для сохранения"
+                               VerticalAlignment="Center" />
+                    <Grid Grid.Row="2"
+                          Grid.Column="1"
+                          ColumnDefinitions="*,Auto"
+                          ColumnSpacing="10">
+                        <TextBox x:Name="SaveFolderTextBox"
+                                 PlaceholderText="Выберите папку" />
+                        <Button Grid.Column="1"
+                                Classes="command neutral"
+                                Padding="14,8"
+                                Click="BrowseFolderButton_OnClick"
+                                Content="Обзор" />
+                    </Grid>
+
+                    <TextBlock Grid.Row="3"
+                               Text="Файл для продолжения"
+                               VerticalAlignment="Center" />
+                    <Grid Grid.Row="3"
+                          Grid.Column="1"
+                          ColumnDefinitions="*,Auto"
+                          ColumnSpacing="10">
+                        <TextBox x:Name="SaveFileTextBox"
+                                 PlaceholderText="Укажите файл .json или .xml" />
+                        <Button Grid.Column="1"
+                                Classes="command neutral"
+                                Padding="14,8"
+                                Click="BrowseFileButton_OnClick"
+                                Content="Обзор" />
+                    </Grid>
+
+                    <Grid Grid.Row="4"
+                          Grid.ColumnSpan="2"
+                          ColumnDefinitions="*,*"
+                          ColumnSpacing="12">
+                        <Button Grid.Column="0"
+                                Classes="command brown"
+                                Padding="18,12"
+                                Click="NewGameButton_OnClick"
+                                Content="Новая игра" />
+                        <Button Grid.Column="1"
+                                Classes="command green"
+                                Padding="18,12"
+                                Click="ContinueGameButton_OnClick"
+                                Content="Продолжить игру" />
+                    </Grid>
+
+                    <Border Grid.Row="5"
+                            Grid.ColumnSpan="2"
+                            Padding="14"
+                            Background="#F6F0E4"
+                            BorderBrush="#D6C4A5"
+                            BorderThickness="1"
+                            CornerRadius="12">
+                        <TextBlock x:Name="ValidationTextBlock"
+                                   TextWrapping="Wrap"
+                                   Text="Готово к запуску новой партии." />
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

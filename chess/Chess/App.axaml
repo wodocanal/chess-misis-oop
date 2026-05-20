@@ -1,0 +1,108 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Chess.App"
+             RequestedThemeVariant="Default">
+    <Application.Styles>
+        <FluentTheme />
+
+        <Style Selector="Window">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style Selector="ComboBox">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style Selector="Button.command">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="#E7D8B9" />
+            <Setter Property="BorderBrush" Value="#C8B38A" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background"
+                                     Duration="0:0:0.12" />
+                    <BrushTransition Property="BorderBrush"
+                                     Duration="0:0:0.12" />
+                </Transitions>
+            </Setter>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10">
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          RecognizesAccessKey="True"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.command.neutral">
+            <Setter Property="Background" Value="#E7D8B9" />
+            <Setter Property="BorderBrush" Value="#C8B38A" />
+        </Style>
+
+        <Style Selector="Button.command.neutral:pointerover">
+            <Setter Property="Background" Value="#F0E3C7" />
+            <Setter Property="BorderBrush" Value="#D9C6A4" />
+        </Style>
+
+        <Style Selector="Button.command.brown">
+            <Setter Property="Background" Value="#C69567" />
+            <Setter Property="BorderBrush" Value="#AF7746" />
+        </Style>
+
+        <Style Selector="Button.command.brown:pointerover">
+            <Setter Property="Background" Value="#D7A87D" />
+            <Setter Property="BorderBrush" Value="#C38E5D" />
+        </Style>
+
+        <Style Selector="Button.command.green">
+            <Setter Property="Background" Value="#97B89C" />
+            <Setter Property="BorderBrush" Value="#739377" />
+        </Style>
+
+        <Style Selector="Button.command.green:pointerover">
+            <Setter Property="Background" Value="#A9C8AD" />
+            <Setter Property="BorderBrush" Value="#86A88B" />
+        </Style>
+
+        <Style Selector="Button.command:pressed">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="Button.command.brown:pressed">
+            <Setter Property="Background" Value="#B98557" />
+            <Setter Property="BorderBrush" Value="#A36E40" />
+        </Style>
+
+        <Style Selector="Button.command.green:pressed">
+            <Setter Property="Background" Value="#88A88C" />
+            <Setter Property="BorderBrush" Value="#67846B" />
+        </Style>
+
+        <Style Selector="Button.command.neutral:pressed">
+            <Setter Property="Background" Value="#DCCBA9" />
+            <Setter Property="BorderBrush" Value="#B9A27A" />
+        </Style>
+    </Application.Styles>
+</Application>
