@@ -2,22 +2,19 @@ using Avalonia;
 
 namespace Chess;
 
-internal sealed class Program
-{
-	[STAThread]
-	public static void Main(string[] args)
-	{
-		BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
-	}
+internal sealed class Program {
+    [STAThread]
+    public static void Main(string[] args) {
+        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+    }
 
-	public static AppBuilder BuildAvaloniaApp()
-	{
-		return AppBuilder.Configure<App>()
-			.UsePlatformDetect()
+    public static AppBuilder BuildAvaloniaApp() {
+        return AppBuilder.Configure<App>()
+            .UsePlatformDetect()
 #if DEBUG
-			.WithDeveloperTools()
+            .WithDeveloperTools()
 #endif
-			.WithInterFont()
-			.LogToTrace();
-	}
+            .WithInterFont()
+            .LogToTrace();
+    }
 }

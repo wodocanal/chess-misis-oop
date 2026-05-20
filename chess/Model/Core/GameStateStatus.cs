@@ -1,9 +1,8 @@
 namespace Model.Core;
 
-public enum GameStateStatus
-{
-	InProgress,
-	Check,
-	Checkmate,
-	Stalemate,
+public enum GameStateStatus {
+    InProgress,
+    Check,
+    Checkmate,
+    Stalemate,
 }

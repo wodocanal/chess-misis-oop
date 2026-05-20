@@ -1,7 +1,6 @@
 namespace Model.Data;
 
-public enum SerializationFormat
-{
-	Json,
-	Xml,
+public enum SerializationFormat {
+    Json,
+    Xml,
 }

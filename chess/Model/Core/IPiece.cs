@@ -1,16 +1,15 @@
 namespace Model.Core;
 
-public interface IPiece
-{
-	PieceColor Color { get; }
+public interface IPiece {
+    PieceColor Color { get; }
 
-	PieceType Type { get; }
+    PieceType Type { get; }
 
-	Position Position { get; }
+    Position Position { get; }
 
-	string Symbol { get; }
+    string Symbol { get; }
 
-	IReadOnlyCollection<Position> GetAvailableMoves(Board board);
+    IReadOnlyCollection<Position> GetAvailableMoves(Board board);
 
-	bool CanAttack(Position target, Board board);
+    bool CanAttack(Position target, Board board);
 }

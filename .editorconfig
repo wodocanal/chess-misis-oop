@@ -1,0 +1,72 @@
+# .editorconfig – KiraFlux formatting style (as seen in Option.hpp)
+# For the chess-misis-oop project – follow these rules strictly.
+# If you don't like it, write your own damn config.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+tab_width = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# C# specific settings (apply to all .cs files)
+[*.cs]
+indent_style = space
+indent_size = 4
+
+# Braces: K&R style – opening brace on the same line
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = false
+csharp_new_line_before_catch = false
+csharp_new_line_before_finally = false
+csharp_new_line_before_members_in_object_initializer = false
+csharp_new_line_before_members_in_anonymous_types = false
+
+# Spaces: after keywords, before parentheses for control statements
+csharp_space_after_keywords = true
+csharp_space_between_control_flow_keyword_and_opening_parenthesis = true
+csharp_space_before_method_call_parentheses = false
+csharp_space_before_method_declaration_parentheses = false
+csharp_space_before_open_brace = true   # ensures space before { on same line
+csharp_space_after_cast_parentheses = false
+csharp_space_between_parentheses = false
+
+# Indentation of labels (e.g., private:, public:) – same level as members
+csharp_indent_labels = one_less_than_current  # actually we want no extra indent, but this works
+
+# Prefer explicit type over var when not obvious
+dotnet_style_predefined_type_for_locals = true
+dotnet_style_predefined_type_for_members = true
+dotnet_style_predefined_type_for_parameters = true
+
+# Use expression-bodied members only when single-line (like the original C++ style)
+csharp_style_expression_bodied_methods = when_on_single_line
+csharp_style_expression_bodied_constructors = when_on_single_line
+csharp_style_expression_bodied_properties = when_on_single_line
+
+# No parentheses around lone boolean expressions
+csharp_style_parentheses_around_boolean_conditions = never
+
+# Use simple using statements without braces when possible
+csharp_style_using_directive_placement = outside_namespace
+
+# Force braces for multi-line statements, but allow no braces for single-line (like the original)
+csharp_prefer_braces = false
+
+# No IDE warnings about naming – we don't care
+dotnet_naming_rule.private_members_should_be_camel_case.severity = none
+dotnet_naming_rule.public_members_should_be_pascal_case.severity = none
+
+# Trailing commas – prefer none
+csharp_style_trailing_commas_in_initializers = false
+csharp_style_trailing_commas_in_multiline_initializers = false
+
+# No implicit `new` for object creation
+csharp_style_implicit_object_creation_when_type_is_apparent = false
+
+# Use `int` instead of `Int32` etc.
+dotnet_style_predefined_type_for_members = true
