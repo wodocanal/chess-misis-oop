@@ -1,0 +1,1 @@
+dotnet run --project ./chess/Chess/Chess.csproj
