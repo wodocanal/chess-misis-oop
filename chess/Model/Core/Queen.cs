@@ -23,7 +23,5 @@ public sealed class Queen(PieceColor color, position_t position, int moveCount =
             board_vector_t.south_west);
     }
 
-    public override Piece make_clone() {
-        return new Queen(get_color, get_position, get_move_count);
-    }
+    public override Piece make_clone() => new Queen(get_color, get_position, get_move_count);
 }

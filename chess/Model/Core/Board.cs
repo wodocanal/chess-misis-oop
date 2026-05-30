@@ -7,17 +7,11 @@ namespace Model.Core;
 public sealed class Board {
     private readonly GridMap<Piece> _cells = new(8, 8);
 
-    public Piece? GetPiece(position_t position) {
-        return position.is_valid ? _cells.Get(position) : null;
-    }
+    public Piece? GetPiece(position_t position) => position.is_valid ? _cells.Get(position) : null;
 
-    public Piece? GetPiece(int row, int column) {
-        return GetPiece(new position_t(row, column));
-    }
+    public Piece? GetPiece(int row, int column) => GetPiece(new position_t(row, column));
 
-    public bool IsEmpty(position_t position) {
-        return GetPiece(position) is null;
-    }
+    public bool IsEmpty(position_t position) => GetPiece(position) is null;
 
     public bool IsEnemy(position_t position, PieceColor color) {
         var piece = GetPiece(position);
@@ -29,17 +23,11 @@ public sealed class Board {
         return piece is not null && piece.get_color == color;
     }
 
-    public void PlacePiece(Piece piece) {
-        _cells.Set(piece.get_position, piece);
-    }
+    public void PlacePiece(Piece piece) => _cells.Set(piece.get_position, piece);
 
-    public void SetPiece(position_t position, Piece? piece) {
-        _cells.Set(position, piece);
-    }
+    public void SetPiece(position_t position, Piece? piece) => _cells.Set(position, piece);
 
-    public void Clear(position_t position) {
-        _cells.Set(position, null);
-    }
+    public void Clear(position_t position) => _cells.Set(position, null);
 
     public bool TryMove(position_t from, position_t to, out Piece? capturedPiece) {
         capturedPiece = null;
@@ -62,9 +50,7 @@ public sealed class Board {
             .OfType<Piece>()];
     }
 
-    public IReadOnlyCollection<TPiece> GetPieces<TPiece>() where TPiece : Piece {
-        return [.. GetPieces().OfType<TPiece>()];
-    }
+    public IReadOnlyCollection<TPiece> GetPieces<TPiece>() where TPiece : Piece => [.. GetPieces().OfType<TPiece>()];
 
     public Board Clone() {
         var clone = new Board();

@@ -11,13 +11,9 @@ public sealed class GridMap<T>(int rows, int columns) {
 
     public int Columns { get; } = columns;
 
-    public T? Get(position_t position) {
-        return _cells[position.row, position.column];
-    }
+    public T? Get(position_t position) => _cells[position.row, position.column];
 
-    public void Set(position_t position, T? value) {
-        _cells[position.row, position.column] = value;
-    }
+    public void Set(position_t position, T? value) => _cells[position.row, position.column] = value;
 
     public IEnumerable<(position_t Position, T? Value)> Enumerate() {
         for (var row = 0; row < Rows; row += 1) {

@@ -39,7 +39,5 @@ public sealed class Pawn(PieceColor color, position_t position, int moveCount = 
             || target == get_position + new board_vector_t(direction, 1);
     }
 
-    public override Piece make_clone() {
-        return new Pawn(get_color, get_position, get_move_count);
-    }
+    public override Piece make_clone() => new Pawn(get_color, get_position, get_move_count);
 }

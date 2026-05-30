@@ -11,13 +11,9 @@ public abstract class GameSerializerBase : GameSerializer {
 
     public abstract string FileExtension { get; }
 
-    public bool CanRead(string filePath) {
-        return string.Equals(Path.GetExtension(filePath), FileExtension, StringComparison.OrdinalIgnoreCase);
-    }
+    public bool CanRead(string filePath) => string.Equals(Path.GetExtension(filePath), FileExtension, StringComparison.OrdinalIgnoreCase);
 
-    public void Save(ChessGame game, string filePath) {
-        Save(GameSnapshotMapper.ToSnapshot(game), filePath);
-    }
+    public void Save(ChessGame game, string filePath) => Save(GameSnapshotMapper.ToSnapshot(game), filePath);
 
     public void Save(GameSnapshot snapshot, string filePath) {
         var directory = Path.GetDirectoryName(filePath);

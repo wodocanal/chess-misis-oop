@@ -75,9 +75,7 @@ public partial class ChessGame {
         return MoveExecutionResult.Success;
     }
 
-    public MoveExecutionResult TryMove(Move move) {
-        return TryMove(move.From, move.To);
-    }
+    public MoveExecutionResult TryMove(Move move) => TryMove(move.From, move.To);
 
     public bool TryUndoLastMove() {
         if (!CanUndo) {
@@ -89,9 +87,7 @@ public partial class ChessGame {
         return true;
     }
 
-    public bool IsInCheck(PieceColor color) {
-        return IsKingInCheck(color, Board);
-    }
+    public bool IsInCheck(PieceColor color) => IsKingInCheck(color, Board);
 
     internal bool HasAnyLegalMove(PieceColor color) {
         foreach (var piece in Board.GetPieces().Where(piece => piece.get_color == color)) {
@@ -103,9 +99,7 @@ public partial class ChessGame {
         return false;
     }
 
-    internal bool IsInCheck(PieceColor color, Board board) {
-        return IsKingInCheck(color, board);
-    }
+    internal bool IsInCheck(PieceColor color, Board board) => IsKingInCheck(color, board);
 
     private void UpdateGameState() {
         var previousStatus = Status;
@@ -145,9 +139,7 @@ public partial class ChessGame {
             .Any(piece => piece.can_attack(king.get_position, board));
     }
 
-    private static PieceColor Toggle(PieceColor color) {
-        return color == PieceColor.White ? PieceColor.Black : PieceColor.White;
-    }
+    private static PieceColor Toggle(PieceColor color) => color == PieceColor.White ? PieceColor.Black : PieceColor.White;
 
     private void RebuildBoardFromHistory() {
         var rebuiltBoard = new Board();

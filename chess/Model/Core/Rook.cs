@@ -19,7 +19,5 @@ public sealed class Rook(PieceColor color, position_t position, int moveCount = 
             board_vector_t.west);
     }
 
-    public override Piece make_clone() {
-        return new Rook(get_color, get_position, get_move_count);
-    }
+    public override Piece make_clone() => new Rook(get_color, get_position, get_move_count);
 }

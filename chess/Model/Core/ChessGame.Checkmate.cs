@@ -5,7 +5,5 @@
 namespace Model.Core;
 
 public partial class ChessGame {
-    private bool IsCheckmate(PieceColor color) {
-        return IsInCheck(color) && !HasAnyLegalMove(color);
-    }
+    private bool IsCheckmate(PieceColor color) => IsInCheck(color) && !HasAnyLegalMove(color);
 }

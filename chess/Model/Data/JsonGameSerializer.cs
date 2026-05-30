@@ -20,9 +20,7 @@ public sealed class JsonGameSerializer : GameSerializerBase {
 
     public override string FileExtension => ".json";
 
-    protected override string SerializeSnapshot(GameSnapshot snapshot) {
-        return JsonSerializer.Serialize(snapshot, SerializerOptions);
-    }
+    protected override string SerializeSnapshot(GameSnapshot snapshot) => JsonSerializer.Serialize(snapshot, SerializerOptions);
 
     protected override GameSnapshot DeserializeSnapshot(string content) {
         return JsonSerializer.Deserialize<GameSnapshot>(content, SerializerOptions)

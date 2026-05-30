@@ -21,11 +21,7 @@ public sealed class Knight(PieceColor color, position_t position, int moveCount 
 
     public override string get_symbol => "N";
 
-    public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
-        return MoveGeneration.GetSteppingMoves(this, board, offsets);
-    }
+    public override IReadOnlyCollection<position_t> get_available_moves(Board board) => MoveGeneration.GetSteppingMoves(this, board, offsets);
 
-    public override Piece make_clone() {
-        return new Knight(get_color, get_position, get_move_count);
-    }
+    public override Piece make_clone() => new Knight(get_color, get_position, get_move_count);
 }

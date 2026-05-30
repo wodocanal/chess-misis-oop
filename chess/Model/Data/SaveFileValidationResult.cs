@@ -17,11 +17,7 @@ public sealed class SaveFileValidationResult {
 
     public SerializationFormat? Format { get; }
 
-    public static SaveFileValidationResult Valid(SerializationFormat format) {
-        return new SaveFileValidationResult(true, "Save file is valid.", format);
-    }
+    public static SaveFileValidationResult Valid(SerializationFormat format) => new SaveFileValidationResult(true, "Save file is valid.", format);
 
-    public static SaveFileValidationResult Invalid(string message) {
-        return new SaveFileValidationResult(false, message, null);
-    }
+    public static SaveFileValidationResult Invalid(string message) => new SaveFileValidationResult(false, message, null);
 }
