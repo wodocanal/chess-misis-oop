@@ -19,3 +19,6 @@ packages/
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Bunderkrivika (bunderkrivika)
+bunderkrivika.py
