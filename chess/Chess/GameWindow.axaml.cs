@@ -355,18 +355,18 @@ public partial class GameWindow : Window {
         }
 
         return (piece.get_type, piece.get_color) switch {
-            (PieceType.King, PieceColor.White) => "♔",
-            (PieceType.Queen, PieceColor.White) => "♕",
-            (PieceType.Rook, PieceColor.White) => "♖",
-            (PieceType.Bishop, PieceColor.White) => "♗",
-            (PieceType.Knight, PieceColor.White) => "♘",
-            (PieceType.Pawn, PieceColor.White) => "♙",
-            (PieceType.King, PieceColor.Black) => "♚",
-            (PieceType.Queen, PieceColor.Black) => "♛",
-            (PieceType.Rook, PieceColor.Black) => "♜",
-            (PieceType.Bishop, PieceColor.Black) => "♝",
-            (PieceType.Knight, PieceColor.Black) => "♞",
-            (PieceType.Pawn, PieceColor.Black) => "♟",
+            (piece_type_t.PIECE_KING, PieceColor.White) => "♔",
+            (piece_type_t.PIECE_QUEEN, PieceColor.White) => "♕",
+            (piece_type_t.PIECE_ROOK, PieceColor.White) => "♖",
+            (piece_type_t.PIECE_BISHOP, PieceColor.White) => "♗",
+            (piece_type_t.PIECE_KNIGHT, PieceColor.White) => "♘",
+            (piece_type_t.PIECE_PAWN, PieceColor.White) => "♙",
+            (piece_type_t.PIECE_KING, PieceColor.Black) => "♚",
+            (piece_type_t.PIECE_QUEEN, PieceColor.Black) => "♛",
+            (piece_type_t.PIECE_ROOK, PieceColor.Black) => "♜",
+            (piece_type_t.PIECE_BISHOP, PieceColor.Black) => "♝",
+            (piece_type_t.PIECE_KNIGHT, PieceColor.Black) => "♞",
+            (piece_type_t.PIECE_PAWN, PieceColor.Black) => "♟",
             _ => piece.get_symbol,
         };
     }
@@ -375,14 +375,14 @@ public partial class GameWindow : Window {
         return GetPieceName(piece.get_type);
     }
 
-    private static string GetPieceName(PieceType pieceType) {
+    private static string GetPieceName(piece_type_t pieceType) {
         return pieceType switch {
-            PieceType.King => "король",
-            PieceType.Queen => "ферзь",
-            PieceType.Rook => "ладья",
-            PieceType.Bishop => "слон",
-            PieceType.Knight => "конь",
-            PieceType.Pawn => "пешка",
+            piece_type_t.PIECE_KING => "король",
+            piece_type_t.PIECE_QUEEN => "ферзь",
+            piece_type_t.PIECE_ROOK => "ладья",
+            piece_type_t.PIECE_BISHOP => "слон",
+            piece_type_t.PIECE_KNIGHT => "конь",
+            piece_type_t.PIECE_PAWN => "пешка",
             _ => "фигура",
         };
     }

@@ -7,7 +7,7 @@ namespace Model.Core;
 public interface IamInterfaceThatReperentsThatThisIsPiece {
     PieceColor get_color { get; }
 
-    PieceType get_type { get; }
+    piece_type_t get_type { get; }
 
     position_t get_position { get; }
 

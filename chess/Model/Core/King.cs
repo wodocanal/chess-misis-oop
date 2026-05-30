@@ -17,7 +17,7 @@ public sealed class King(PieceColor color, position_t position, int moveCount = 
         board_vector_t.south_west,
     ];
 
-    public override PieceType get_type => PieceType.King;
+    public override piece_type_t get_type => piece_type_t.PIECE_KING;
 
     public override string get_symbol => "K";
 

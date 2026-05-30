@@ -7,7 +7,7 @@ using Model.Core;
 namespace Model.Data;
 
 public sealed class MoveSnapshot {
-    public PieceType PieceType { get; set; }
+    public piece_type_t PieceType { get; set; }
 
     public PieceColor PieceColor { get; set; }
 

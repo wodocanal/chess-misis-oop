@@ -17,7 +17,7 @@ public sealed class Knight(PieceColor color, position_t position, int moveCount 
         new(2, 1),
     ];
 
-    public override PieceType get_type => PieceType.Knight;
+    public override piece_type_t get_type => piece_type_t.PIECE_KNIGHT;
 
     public override string get_symbol => "N";
 

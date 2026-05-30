@@ -5,7 +5,7 @@
 namespace Model.Core;
 
 public sealed class Bishop(PieceColor color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
-    public override PieceType get_type => PieceType.Bishop;
+    public override piece_type_t get_type => piece_type_t.PIECE_BISHOP;
 
     public override string get_symbol => "B";
 

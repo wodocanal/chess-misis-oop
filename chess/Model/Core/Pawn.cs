@@ -5,7 +5,7 @@
 namespace Model.Core;
 
 public sealed class Pawn(PieceColor color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
-    public override PieceType get_type => PieceType.Pawn;
+    public override piece_type_t get_type => piece_type_t.PIECE_PAWN;
 
     public override string get_symbol => "P";
 

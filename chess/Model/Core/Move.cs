@@ -4,8 +4,8 @@
 
 namespace Model.Core;
 
-public sealed class Move(PieceType pieceType, PieceColor pieceColor, position_t from, position_t to, PieceType? capturedPieceType = null) {
-    public PieceType PieceType { get; } = pieceType;
+public sealed class Move(piece_type_t pieceType, PieceColor pieceColor, position_t from, position_t to, piece_type_t? capturedPieceType = null) {
+    public piece_type_t PieceType { get; } = pieceType;
 
     public PieceColor PieceColor { get; } = pieceColor;
 
@@ -13,7 +13,7 @@ public sealed class Move(PieceType pieceType, PieceColor pieceColor, position_t 
 
     public position_t To { get; } = to;
 
-    public PieceType? CapturedPieceType { get; } = capturedPieceType;
+    public piece_type_t? CapturedPieceType { get; } = capturedPieceType;
 
     public bool IsReverseOf(Move other) {
         return PieceType == other.PieceType

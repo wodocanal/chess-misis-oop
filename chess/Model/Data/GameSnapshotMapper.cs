@@ -45,20 +45,20 @@ internal static class GameSnapshotMapper {
             new position_t(move.ToRow, move.ToColumn),
             string.IsNullOrWhiteSpace(move.CapturedPieceType)
                 ? null
-                : Enum.Parse<PieceType>(move.CapturedPieceType)));
+                : Enum.Parse<piece_type_t>(move.CapturedPieceType)));
 
         return new ChessGame(board, snapshot.CurrentTurn, moves);
     }
 
     private static Piece CreatePiece(PieceSnapshot snapshot) {
         var position = new position_t(snapshot.Row, snapshot.Column);
-        return Enum.Parse<PieceType>(snapshot.Type) switch {
-            PieceType.King => new King(snapshot.Color, position, snapshot.MoveCount),
-            PieceType.Queen => new Queen(snapshot.Color, position, snapshot.MoveCount),
-            PieceType.Rook => new Rook(snapshot.Color, position, snapshot.MoveCount),
-            PieceType.Bishop => new Bishop(snapshot.Color, position, snapshot.MoveCount),
-            PieceType.Knight => new Knight(snapshot.Color, position, snapshot.MoveCount),
-            PieceType.Pawn => new Pawn(snapshot.Color, position, snapshot.MoveCount),
+        return Enum.Parse<piece_type_t>(snapshot.Type) switch {
+            piece_type_t.PIECE_KING => new King(snapshot.Color, position, snapshot.MoveCount),
+            piece_type_t.PIECE_QUEEN => new Queen(snapshot.Color, position, snapshot.MoveCount),
+            piece_type_t.PIECE_ROOK => new Rook(snapshot.Color, position, snapshot.MoveCount),
+            piece_type_t.PIECE_BISHOP => new Bishop(snapshot.Color, position, snapshot.MoveCount),
+            piece_type_t.PIECE_KNIGHT => new Knight(snapshot.Color, position, snapshot.MoveCount),
+            piece_type_t.PIECE_PAWN => new Pawn(snapshot.Color, position, snapshot.MoveCount),
             _ => throw new InvalidOperationException($"Unknown piece type: {snapshot.Type}"),
         };
     }

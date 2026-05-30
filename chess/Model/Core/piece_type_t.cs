@@ -4,11 +4,11 @@
 
 namespace Model.Core;
 
-public enum PieceType {
-    King,
-    Queen,
-    Rook,
-    Bishop,
-    Knight,
-    Pawn,
+public enum piece_type_t {
+    PIECE_KING,
+    PIECE_QUEEN,
+    PIECE_ROOK,
+    PIECE_BISHOP,
+    PIECE_KNIGHT,
+    PIECE_PAWN,
 }
