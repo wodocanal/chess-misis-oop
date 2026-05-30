@@ -5,21 +5,21 @@
 namespace Model.Core;
 
 public sealed class GridMap<T>(int rows, int columns) {
-    private readonly T?[,] _cells = new T?[rows, columns];
+    private readonly T?[,] cells = new T?[rows, columns];
 
-    public int Rows { get; } = rows;
+    public int get_rows { get; } = rows;
 
-    public int Columns { get; } = columns;
+    public int get_columns { get; } = columns;
 
-    public T? Get(position_t position) => _cells[position.row, position.column];
+    public T? get(position_t position) => this.cells[position.row, position.column];
 
-    public void Set(position_t position, T? value) => _cells[position.row, position.column] = value;
+    public void put(position_t position, T? value) => this.cells[position.row, position.column] = value;
 
-    public IEnumerable<(position_t Position, T? Value)> Enumerate() {
-        for (var row = 0; row < Rows; row += 1) {
-            for (var column = 0; column < Columns; column += 1) {
+    public IEnumerable<(position_t Position, T? Value)> to_enumerable() {
+        for (var row = 0; row < get_rows; row += 1) {
+            for (var column = 0; column < get_columns; column += 1) {
                 var position = new position_t(row, column);
-                yield return (position, _cells[row, column]);
+                yield return (position, this.cells[row, column]);
             }
         }
     }
