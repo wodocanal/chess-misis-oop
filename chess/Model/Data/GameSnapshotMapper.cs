@@ -54,7 +54,7 @@ internal static class GameSnapshotMapper {
         var position = new position_t(snapshot.Row, snapshot.Column);
         return Enum.Parse<piece_type_t>(snapshot.Type) switch {
             piece_type_t.PIECE_KING => new king_piece_t(snapshot.Color, position, snapshot.MoveCount),
-            piece_type_t.PIECE_QUEEN => new Queen(snapshot.Color, position, snapshot.MoveCount),
+            piece_type_t.PIECE_QUEEN => new queen_piece_t(snapshot.Color, position, snapshot.MoveCount),
             piece_type_t.PIECE_ROOK => new Rook(snapshot.Color, position, snapshot.MoveCount),
             piece_type_t.PIECE_BISHOP => new Bishop(snapshot.Color, position, snapshot.MoveCount),
             piece_type_t.PIECE_KNIGHT => new knight_piece_t(snapshot.Color, position, snapshot.MoveCount),
