@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Model.Data;
 
-public sealed class JsonGameSerializer : game_serializer_t {
+public sealed class json_game_serializer_t : game_serializer_t {
     private static readonly JsonSerializerOptions SerializerOptions = new() {
         WriteIndented = true,
         Converters =

@@ -13,7 +13,7 @@ namespace Chess;
 public partial class MainWindow : Window {
     private readonly IamInterfaceThatReperentsThatThisIsGameSerializer[] _serializers =
     [
-        new JsonGameSerializer(),
+        new json_game_serializer_t(),
         new XmlGameSerializer(),
     ];
 

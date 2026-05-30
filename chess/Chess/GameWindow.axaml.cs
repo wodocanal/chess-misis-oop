@@ -38,7 +38,7 @@ public partial class GameWindow : Window {
     public GameWindow()
         : this(
             chess_game_t.create_new_game(),
-            new JsonGameSerializer(),
+            new json_game_serializer_t(),
             Path.Combine(Path.GetTempPath(), "chess-preview.json")) {
     }
 
