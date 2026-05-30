@@ -10,7 +10,7 @@ public sealed class Queen(piece_color_t color, position_t position, int moveCoun
     public override string get_symbol => "Q";
 
     public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
-        return MoveGeneration.GetSlidingMoves(
+        return MoveGenerator.generate_sliding_moves(
             this,
             board,
             board_vector_t.north,

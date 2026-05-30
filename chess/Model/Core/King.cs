@@ -21,7 +21,7 @@ public sealed class King(piece_color_t color, position_t position, int moveCount
 
     public override string get_symbol => "K";
 
-    public override IReadOnlyCollection<position_t> get_available_moves(Board board) => MoveGeneration.GetSteppingMoves(this, board, offsets);
+    public override IReadOnlyCollection<position_t> get_available_moves(Board board) => MoveGenerator.generate_stepping_moves(this, board, offsets);
 
     public override Piece make_clone() => new King(get_color, get_position, get_move_count);
 }

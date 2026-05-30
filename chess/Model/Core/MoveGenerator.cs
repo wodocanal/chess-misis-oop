@@ -4,33 +4,31 @@
 
 namespace Model.Core;
 
-internal static class MoveGeneration {
-    public static IReadOnlyCollection<position_t> GetSlidingMoves(Piece piece, Board board, params board_vector_t[] directions) {
-        var result = new List<position_t>();
+internal static class MoveGenerator {
+    public static IReadOnlyCollection<position_t> generate_sliding_moves(Piece piece, Board board, params board_vector_t[] directions) {
+        var ret = new List<position_t>();
 
         foreach (var direction in directions) {
             var cursor = piece.get_position + direction;
+
             while (cursor.is_valid) {
                 if (board.IsEmpty(cursor)) {
-                    result.Add(cursor);
+                    ret.Add(cursor);
                     cursor += direction;
                     continue;
                 }
 
                 if (board.IsEnemy(cursor, piece.get_color)) {
-                    result.Add(cursor);
+                    ret.Add(cursor);
                 }
 
                 break;
             }
         }
 
-        return result;
+        return ret;
     }
 
-    public static IReadOnlyCollection<position_t> GetSteppingMoves(Piece piece, Board board, params board_vector_t[] offsets) {
-        return [.. offsets
-            .Select(offset => piece.get_position + offset)
-            .Where(position => piece.can_occupy_tokmachka(board, position))];
-    }
+    public static IReadOnlyCollection<position_t> generate_stepping_moves(Piece piece, Board board, params board_vector_t[] offsets) =>
+        [.. offsets.Select(offset => piece.get_position + offset).Where(position => piece.can_occupy_tokmachka(board, position))];
 }
