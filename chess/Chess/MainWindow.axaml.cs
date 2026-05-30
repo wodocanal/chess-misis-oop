@@ -34,7 +34,7 @@ public partial class MainWindow : Window {
     }
 
     private void NewGameButton_OnClick(object? sender, RoutedEventArgs e) {
-        var game = ChessGame.CreateNewGame();
+        var game = chess_game_t.CreateNewGame();
         OpenGameWindow(game, GetSelectedSerializer(), GetSaveFilePath());
     }
 
@@ -98,7 +98,7 @@ public partial class MainWindow : Window {
         UpdateSuggestedSavePath();
     }
 
-    private void OpenGameWindow(ChessGame game, GameSerializer serializer, string saveFilePath) {
+    private void OpenGameWindow(chess_game_t game, GameSerializer serializer, string saveFilePath) {
         var gameWindow = new GameWindow(game, serializer, saveFilePath);
         gameWindow.Closed += (_, _) => {
             Show();

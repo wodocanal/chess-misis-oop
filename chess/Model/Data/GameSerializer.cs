@@ -13,7 +13,7 @@ public interface GameSerializer {
 
     bool CanRead(string filePath);
 
-    void Save(ChessGame game, string filePath);
+    void Save(chess_game_t game, string filePath);
 
-    ChessGame Load(string filePath);
+    chess_game_t Load(string filePath);
 }

@@ -13,7 +13,7 @@ public abstract class GameSerializerBase : GameSerializer {
 
     public bool CanRead(string filePath) => string.Equals(Path.GetExtension(filePath), FileExtension, StringComparison.OrdinalIgnoreCase);
 
-    public void Save(ChessGame game, string filePath) => Save(GameSnapshotMapper.ToSnapshot(game), filePath);
+    public void Save(chess_game_t game, string filePath) => Save(GameSnapshotMapper.ToSnapshot(game), filePath);
 
     public void Save(GameSnapshot snapshot, string filePath) {
         var directory = Path.GetDirectoryName(filePath);
@@ -24,7 +24,7 @@ public abstract class GameSerializerBase : GameSerializer {
         File.WriteAllText(filePath, SerializeSnapshot(snapshot));
     }
 
-    public ChessGame Load(string filePath) {
+    public chess_game_t Load(string filePath) {
         if (!File.Exists(filePath)) {
             throw new FileNotFoundException("Save file was not found.", filePath);
         }

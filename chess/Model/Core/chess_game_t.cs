@@ -4,12 +4,12 @@
 
 namespace Model.Core;
 
-public partial class ChessGame {
+public class chess_game_t {
     private readonly List<piece_move_t> _moveHistory = [];
 
     public event Action<game_state_status_t>? StateChanged;
 
-    public ChessGame(board_t board, piece_color_t currentTurn, IEnumerable<piece_move_t>? moveHistory = null) {
+    public chess_game_t(board_t board, piece_color_t currentTurn, IEnumerable<piece_move_t>? moveHistory = null) {
         Board = board;
         CurrentTurn = currentTurn;
         if (moveHistory is not null) {
@@ -29,10 +29,10 @@ public partial class ChessGame {
 
     public bool CanUndo => _moveHistory.Count > 0;
 
-    public static ChessGame CreateNewGame() {
+    public static chess_game_t CreateNewGame() {
         var board = new board_t();
         PlaceStartingPieces(board);
-        return new ChessGame(board, piece_color_t.PIECE_COLOR_WHITE);
+        return new chess_game_t(board, piece_color_t.PIECE_COLOR_WHITE);
     }
 
     public IReadOnlyCollection<position_t> GetLegalMoves(position_t from) {
@@ -154,6 +154,34 @@ public partial class ChessGame {
         Board = rebuiltBoard;
         CurrentTurn = currentTurn;
         UpdateGameState();
+    }
+    private bool IsCheckmate(piece_color_t color) => IsInCheck(color) && !HasAnyLegalMove(color);
+
+    private bool IsStalemate(piece_color_t color) {
+        if (IsInCheck(color)) {
+            return false;
+        }
+
+        if (!HasAnyLegalMove(color)) {
+            return true;
+        }
+
+        return IsSixReversibleHalfMovesReached();
+    }
+
+    private bool IsSixReversibleHalfMovesReached() {
+        if (_moveHistory.Count < 6) {
+            return false;
+        }
+
+        var lastMoves = _moveHistory.TakeLast(6).ToArray();
+        for (var index = 1; index < lastMoves.Length; index += 2) {
+            if (!lastMoves[index].is_reverse_of(lastMoves[index - 1])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static void PlaceStartingPieces(board_t board) {

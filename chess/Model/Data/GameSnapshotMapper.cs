@@ -7,7 +7,7 @@ using Model.Core;
 namespace Model.Data;
 
 internal static class GameSnapshotMapper {
-    public static GameSnapshot ToSnapshot(ChessGame game) {
+    public static GameSnapshot ToSnapshot(chess_game_t game) {
         return new GameSnapshot {
             CurrentTurn = game.CurrentTurn,
             Status = game.Status,
@@ -32,7 +32,7 @@ internal static class GameSnapshotMapper {
         };
     }
 
-    public static ChessGame ToGame(GameSnapshot snapshot) {
+    public static chess_game_t ToGame(GameSnapshot snapshot) {
         var board = new board_t();
         foreach (var pieceSnapshot in snapshot.Pieces) {
             board.piece_place(CreatePiece(pieceSnapshot));
@@ -47,7 +47,7 @@ internal static class GameSnapshotMapper {
                 ? null
                 : Enum.Parse<piece_type_t>(move.CapturedPieceType)));
 
-        return new ChessGame(board, snapshot.CurrentTurn, moves);
+        return new chess_game_t(board, snapshot.CurrentTurn, moves);
     }
 
     private static piece_t CreatePiece(PieceSnapshot snapshot) {

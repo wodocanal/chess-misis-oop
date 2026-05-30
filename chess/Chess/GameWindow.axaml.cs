@@ -28,7 +28,7 @@ public partial class GameWindow : Window {
     private static readonly IBrush AvailableMoveBrush = Brush.Parse("#7FB685");
 
     private readonly Button[,] _boardButtons = new Button[8, 8];
-    private readonly ChessGame _game;
+    private readonly chess_game_t _game;
     private readonly GameSerializer _serializer;
     private readonly string _saveFilePath;
 
@@ -37,12 +37,12 @@ public partial class GameWindow : Window {
 
     public GameWindow()
         : this(
-            ChessGame.CreateNewGame(),
+            chess_game_t.CreateNewGame(),
             new JsonGameSerializer(),
             Path.Combine(Path.GetTempPath(), "chess-preview.json")) {
     }
 
-    public GameWindow(ChessGame game, GameSerializer serializer, string saveFilePath) {
+    public GameWindow(chess_game_t game, GameSerializer serializer, string saveFilePath) {
         _game = game;
         _serializer = serializer;
         _saveFilePath = saveFilePath;
