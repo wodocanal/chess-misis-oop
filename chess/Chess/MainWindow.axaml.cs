@@ -46,13 +46,13 @@ public partial class MainWindow : Window {
         }
 
         var validation = SaveFileValidator.Validate(filePath, _serializers);
-        if (!validation.IsValid) {
-            SetValidationMessage(validation.Message);
+        if (!validation.is_valid) {
+            SetValidationMessage(validation.get_message);
             return;
         }
 
         try {
-            var serializer = _serializers.First(candidate => candidate.get_format == validation.Format);
+            var serializer = _serializers.First(candidate => candidate.get_format == validation.get_format);
             var game = serializer.load(filePath);
             OpenGameWindow(game, serializer, filePath);
         } catch (Exception exception) {
