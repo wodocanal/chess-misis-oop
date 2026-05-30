@@ -5,11 +5,11 @@
 namespace Model.Core;
 
 public sealed class Bishop(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
-    public override PieceType Type => PieceType.Bishop;
+    public override PieceType get_type => PieceType.Bishop;
 
-    public override string Symbol => "B";
+    public override string get_symbol => "B";
 
-    public override IReadOnlyCollection<Position> GetAvailableMoves(Board board) {
+    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
         return MoveGeneration.GetSlidingMoves(
             this,
             board,
@@ -20,6 +20,6 @@ public sealed class Bishop(PieceColor color, Position position, int moveCount = 
     }
 
     public override Piece Clone() {
-        return new Bishop(Color, Position, MoveCount);
+        return new Bishop(get_color, get_position, MoveCount);
     }
 }

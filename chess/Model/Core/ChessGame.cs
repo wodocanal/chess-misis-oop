@@ -37,11 +37,11 @@ public partial class ChessGame {
 
     public IReadOnlyCollection<Position> GetLegalMoves(Position from) {
         var piece = Board.GetPiece(from);
-        if (piece is null || piece.Color != CurrentTurn) {
+        if (piece is null || piece.get_color != CurrentTurn) {
             return [];
         }
 
-        return [.. piece.GetAvailableMoves(Board).Where(target => WouldKeepKingSafe(Board, from, target, piece.Color))];
+        return [.. piece.get_available_moves(Board).Where(target => WouldKeepKingSafe(Board, from, target, piece.get_color))];
     }
 
     public MoveExecutionResult TryMove(Position from, Position to) {
@@ -58,7 +58,7 @@ public partial class ChessGame {
             return MoveExecutionResult.InvalidSource;
         }
 
-        if (movingPiece.Color != CurrentTurn) {
+        if (movingPiece.get_color != CurrentTurn) {
             return MoveExecutionResult.WrongTurn;
         }
 
@@ -68,7 +68,7 @@ public partial class ChessGame {
 
         var capturedPiece = Board.GetPiece(to);
         Board.TryMove(from, to, out _);
-        _moveHistory.Add(new Move(movingPiece.Type, movingPiece.Color, from, to, capturedPiece?.Type));
+        _moveHistory.Add(new Move(movingPiece.get_type, movingPiece.get_color, from, to, capturedPiece?.get_type));
 
         CurrentTurn = Toggle(CurrentTurn);
         UpdateGameState();
@@ -94,8 +94,8 @@ public partial class ChessGame {
     }
 
     internal bool HasAnyLegalMove(PieceColor color) {
-        foreach (var piece in Board.GetPieces().Where(piece => piece.Color == color)) {
-            if (piece.GetAvailableMoves(Board).Any(target => WouldKeepKingSafe(Board, piece.Position, target, color))) {
+        foreach (var piece in Board.GetPieces().Where(piece => piece.get_color == color)) {
+            if (piece.get_available_moves(Board).Any(target => WouldKeepKingSafe(Board, piece.get_position, target, color))) {
                 return true;
             }
         }
@@ -135,14 +135,14 @@ public partial class ChessGame {
     }
 
     private static bool IsKingInCheck(PieceColor color, Board board) {
-        var king = board.GetPieces<King>().FirstOrDefault(piece => piece.Color == color);
+        var king = board.GetPieces<King>().FirstOrDefault(piece => piece.get_color == color);
         if (king is null) {
             return false;
         }
 
         return board.GetPieces()
-            .Where(piece => piece.Color != color)
-            .Any(piece => piece.CanAttack(king.Position, board));
+            .Where(piece => piece.get_color != color)
+            .Any(piece => piece.can_attack(king.get_position, board));
     }
 
     private static PieceColor Toggle(PieceColor color) {

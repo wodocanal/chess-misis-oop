@@ -17,15 +17,15 @@ public sealed class Knight(PieceColor color, Position position, int moveCount = 
         new(2, 1),
     ];
 
-    public override PieceType Type => PieceType.Knight;
+    public override PieceType get_type => PieceType.Knight;
 
-    public override string Symbol => "N";
+    public override string get_symbol => "N";
 
-    public override IReadOnlyCollection<Position> GetAvailableMoves(Board board) {
+    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
         return MoveGeneration.GetSteppingMoves(this, board, Offsets);
     }
 
     public override Piece Clone() {
-        return new Knight(Color, Position, MoveCount);
+        return new Knight(get_color, get_position, MoveCount);
     }
 }

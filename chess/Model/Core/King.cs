@@ -17,15 +17,15 @@ public sealed class King(PieceColor color, Position position, int moveCount = 0)
         BoardVector.SouthWest,
     ];
 
-    public override PieceType Type => PieceType.King;
+    public override PieceType get_type => PieceType.King;
 
-    public override string Symbol => "K";
+    public override string get_symbol => "K";
 
-    public override IReadOnlyCollection<Position> GetAvailableMoves(Board board) {
+    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
         return MoveGeneration.GetSteppingMoves(this, board, Offsets);
     }
 
     public override Piece Clone() {
-        return new King(Color, Position, MoveCount);
+        return new King(get_color, get_position, MoveCount);
     }
 }

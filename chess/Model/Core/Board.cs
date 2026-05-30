@@ -21,16 +21,16 @@ public sealed class Board {
 
     public bool IsEnemy(Position position, PieceColor color) {
         var piece = GetPiece(position);
-        return piece is not null && piece.Color != color;
+        return piece is not null && piece.get_color != color;
     }
 
     public bool IsFriendly(Position position, PieceColor color) {
         var piece = GetPiece(position);
-        return piece is not null && piece.Color == color;
+        return piece is not null && piece.get_color == color;
     }
 
     public void PlacePiece(Piece piece) {
-        _cells.Set(piece.Position, piece);
+        _cells.Set(piece.get_position, piece);
     }
 
     public void SetPiece(Position position, Piece? piece) {

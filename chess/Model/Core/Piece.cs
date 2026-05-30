@@ -4,31 +4,31 @@
 
 namespace Model.Core;
 
-public abstract class Piece(PieceColor color, Position position, int moveCount = 0) : IAmPiece {
-    public PieceColor Color { get; } = color;
+public abstract class Piece(PieceColor color, Position position, int moveCount = 0) : IamInterfaceThatReperentsThatThisIsPiece {
+    public PieceColor get_color { get; } = color;
 
-    public abstract PieceType Type { get; }
+    public abstract PieceType get_type { get; }
 
-    public Position Position { get; private set; } = position;
+    public Position get_position { get; private set; } = position;
 
     public int MoveCount { get; private set; } = moveCount;
 
-    public abstract string Symbol { get; }
+    public abstract string get_symbol { get; }
 
-    public virtual bool CanAttack(Position target, Board board) {
-        return GetAvailableMoves(board).Contains(target);
+    public virtual bool can_attack(Position target, Board board) {
+        return get_available_moves(board).Contains(target);
     }
 
-    public abstract IReadOnlyCollection<Position> GetAvailableMoves(Board board);
+    public abstract IReadOnlyCollection<Position> get_available_moves(Board board);
 
     public virtual void MoveTo(Position target) {
-        Position = target;
+        get_position = target;
         MoveCount += 1;
     }
 
     public abstract Piece Clone();
 
     internal bool CanOccupy(Board board, Position position) {
-        return position.IsValid && !board.IsFriendly(position, Color);
+        return position.IsValid && !board.IsFriendly(position, get_color);
     }
 }

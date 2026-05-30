@@ -5,11 +5,11 @@
 namespace Model.Core;
 
 public sealed class Rook(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
-    public override PieceType Type => PieceType.Rook;
+    public override PieceType get_type => PieceType.Rook;
 
-    public override string Symbol => "R";
+    public override string get_symbol => "R";
 
-    public override IReadOnlyCollection<Position> GetAvailableMoves(Board board) {
+    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
         return MoveGeneration.GetSlidingMoves(
             this,
             board,
@@ -20,6 +20,6 @@ public sealed class Rook(PieceColor color, Position position, int moveCount = 0)
     }
 
     public override Piece Clone() {
-        return new Rook(Color, Position, MoveCount);
+        return new Rook(get_color, get_position, MoveCount);
     }
 }

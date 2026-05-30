@@ -9,7 +9,7 @@ internal static class MoveGeneration {
         var result = new List<Position>();
 
         foreach (var direction in directions) {
-            var cursor = piece.Position + direction;
+            var cursor = piece.get_position + direction;
             while (cursor.IsValid) {
                 if (board.IsEmpty(cursor)) {
                     result.Add(cursor);
@@ -17,7 +17,7 @@ internal static class MoveGeneration {
                     continue;
                 }
 
-                if (board.IsEnemy(cursor, piece.Color)) {
+                if (board.IsEnemy(cursor, piece.get_color)) {
                     result.Add(cursor);
                 }
 
@@ -30,7 +30,7 @@ internal static class MoveGeneration {
 
     public static IReadOnlyCollection<Position> GetSteppingMoves(Piece piece, Board board, params BoardVector[] offsets) {
         return [.. offsets
-            .Select(offset => piece.Position + offset)
+            .Select(offset => piece.get_position + offset)
             .Where(position => piece.CanOccupy(board, position))];
     }
 }

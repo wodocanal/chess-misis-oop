@@ -183,7 +183,7 @@ public partial class GameWindow : Window {
             return;
         }
 
-        if (clickedPiece is not null && clickedPiece.Color == _game.CurrentTurn) {
+        if (clickedPiece is not null && clickedPiece.get_color == _game.CurrentTurn) {
             TrySelectPiece(position, clickedPiece);
             UpdateBoard();
             return;
@@ -198,7 +198,7 @@ public partial class GameWindow : Window {
             return false;
         }
 
-        if (piece.Color != _game.CurrentTurn) {
+        if (piece.get_color != _game.CurrentTurn) {
             UpdateSidebar("Сейчас ходит другой цвет.");
             return false;
         }
@@ -249,7 +249,7 @@ public partial class GameWindow : Window {
 
                 button.Content = GetPieceSymbol(piece);
                 button.Background = GetCellBackground(position);
-                button.Foreground = piece?.Color == PieceColor.White
+                button.Foreground = piece?.get_color == PieceColor.White
                     ? Brushes.White
                     : Brushes.Black;
             }
@@ -354,7 +354,7 @@ public partial class GameWindow : Window {
             return string.Empty;
         }
 
-        return (piece.Type, piece.Color) switch {
+        return (piece.get_type, piece.get_color) switch {
             (PieceType.King, PieceColor.White) => "♔",
             (PieceType.Queen, PieceColor.White) => "♕",
             (PieceType.Rook, PieceColor.White) => "♖",
@@ -367,12 +367,12 @@ public partial class GameWindow : Window {
             (PieceType.Bishop, PieceColor.Black) => "♝",
             (PieceType.Knight, PieceColor.Black) => "♞",
             (PieceType.Pawn, PieceColor.Black) => "♟",
-            _ => piece.Symbol,
+            _ => piece.get_symbol,
         };
     }
 
     private static string GetPieceName(Piece piece) {
-        return GetPieceName(piece.Type);
+        return GetPieceName(piece.get_type);
     }
 
     private static string GetPieceName(PieceType pieceType) {

@@ -13,10 +13,10 @@ internal static class GameSnapshotMapper {
             Status = game.Status,
             Pieces = [.. game.Board.GetPieces()
                 .Select(piece => new PieceSnapshot {
-                    Type = piece.Type.ToString(),
-                    Color = piece.Color,
-                    Row = piece.Position.Row,
-                    Column = piece.Position.Column,
+                    Type = piece.get_type.ToString(),
+                    Color = piece.get_color,
+                    Row = piece.get_position.Row,
+                    Column = piece.get_position.Column,
                     MoveCount = piece.MoveCount,
                 })],
             Moves = [.. game.MoveHistory

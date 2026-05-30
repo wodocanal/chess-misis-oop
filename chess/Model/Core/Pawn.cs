@@ -5,27 +5,27 @@
 namespace Model.Core;
 
 public sealed class Pawn(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
-    public override PieceType Type => PieceType.Pawn;
+    public override PieceType get_type => PieceType.Pawn;
 
-    public override string Symbol => "P";
+    public override string get_symbol => "P";
 
-    public override IReadOnlyCollection<Position> GetAvailableMoves(Board board) {
+    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
         var result = new List<Position>();
-        var direction = Color == PieceColor.White ? -1 : 1;
+        var direction = get_color == PieceColor.White ? -1 : 1;
 
-        var singleStep = Position + new BoardVector(direction, 0);
+        var singleStep = get_position + new BoardVector(direction, 0);
         if (singleStep.IsValid && board.IsEmpty(singleStep)) {
             result.Add(singleStep);
 
-            var doubleStep = Position + new BoardVector(direction * 2, 0);
+            var doubleStep = get_position + new BoardVector(direction * 2, 0);
             if (MoveCount == 0 && doubleStep.IsValid && board.IsEmpty(doubleStep)) {
                 result.Add(doubleStep);
             }
         }
 
         foreach (var attackOffset in new[] { new BoardVector(direction, -1), new BoardVector(direction, 1) }) {
-            var attackPosition = Position + attackOffset;
-            if (attackPosition.IsValid && board.IsEnemy(attackPosition, Color)) {
+            var attackPosition = get_position + attackOffset;
+            if (attackPosition.IsValid && board.IsEnemy(attackPosition, get_color)) {
                 result.Add(attackPosition);
             }
         }
@@ -33,13 +33,13 @@ public sealed class Pawn(PieceColor color, Position position, int moveCount = 0)
         return result;
     }
 
-    public override bool CanAttack(Position target, Board board) {
-        var direction = Color == PieceColor.White ? -1 : 1;
-        return target == Position + new BoardVector(direction, -1)
-            || target == Position + new BoardVector(direction, 1);
+    public override bool can_attack(Position target, Board board) {
+        var direction = get_color == PieceColor.White ? -1 : 1;
+        return target == get_position + new BoardVector(direction, -1)
+            || target == get_position + new BoardVector(direction, 1);
     }
 
     public override Piece Clone() {
-        return new Pawn(Color, Position, MoveCount);
+        return new Pawn(get_color, get_position, MoveCount);
     }
 }

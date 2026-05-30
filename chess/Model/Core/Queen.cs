@@ -5,11 +5,11 @@
 namespace Model.Core;
 
 public sealed class Queen(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
-    public override PieceType Type => PieceType.Queen;
+    public override PieceType get_type => PieceType.Queen;
 
-    public override string Symbol => "Q";
+    public override string get_symbol => "Q";
 
-    public override IReadOnlyCollection<Position> GetAvailableMoves(Board board) {
+    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
         return MoveGeneration.GetSlidingMoves(
             this,
             board,
@@ -24,6 +24,6 @@ public sealed class Queen(PieceColor color, Position position, int moveCount = 0
     }
 
     public override Piece Clone() {
-        return new Queen(Color, Position, MoveCount);
+        return new Queen(get_color, get_position, MoveCount);
     }
 }
