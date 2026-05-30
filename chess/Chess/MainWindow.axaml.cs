@@ -14,7 +14,7 @@ public partial class MainWindow : Window {
     private readonly IamInterfaceThatReperentsThatThisIsGameSerializer[] _serializers =
     [
         new json_game_serializer_t(),
-        new XmlGameSerializer(),
+        new xml_game_serializer_t(),
     ];
 
     public MainWindow() {
