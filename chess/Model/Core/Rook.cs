@@ -4,11 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class Rook : Piece {
-    public Rook(PieceColor color, Position position, int moveCount = 0)
-        : base(color, position, moveCount) {
-    }
-
+public sealed class Rook(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
     public override PieceType Type => PieceType.Rook;
 
     public override string Symbol => "R";

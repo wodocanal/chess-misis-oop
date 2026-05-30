@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class Knight : Piece {
+public sealed class Knight(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
     private static readonly BoardVector[] Offsets =
     [
         new(-2, -1),
@@ -16,10 +16,6 @@ public sealed class Knight : Piece {
         new(2, -1),
         new(2, 1),
     ];
-
-    public Knight(PieceColor color, Position position, int moveCount = 0)
-        : base(color, position, moveCount) {
-    }
 
     public override PieceType Type => PieceType.Knight;
 

@@ -4,18 +4,12 @@
 
 namespace Model.Core;
 
-public sealed class GridMap<T> {
-    private readonly T?[,] _cells;
+public sealed class GridMap<T>(int rows, int columns) {
+    private readonly T?[,] _cells = new T?[rows, columns];
 
-    public GridMap(int rows, int columns) {
-        Rows = rows;
-        Columns = columns;
-        _cells = new T?[rows, columns];
-    }
+    public int Rows { get; } = rows;
 
-    public int Rows { get; }
-
-    public int Columns { get; }
+    public int Columns { get; } = columns;
 
     public T? Get(Position position) {
         return _cells[position.Row, position.Column];

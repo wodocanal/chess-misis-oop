@@ -4,20 +4,14 @@
 
 namespace Model.Core;
 
-public abstract class Piece : IAmPiece {
-    protected Piece(PieceColor color, Position position, int moveCount = 0) {
-        Color = color;
-        Position = position;
-        MoveCount = moveCount;
-    }
-
-    public PieceColor Color { get; }
+public abstract class Piece(PieceColor color, Position position, int moveCount = 0) : IAmPiece {
+    public PieceColor Color { get; } = color;
 
     public abstract PieceType Type { get; }
 
-    public Position Position { get; private set; }
+    public Position Position { get; private set; } = position;
 
-    public int MoveCount { get; private set; }
+    public int MoveCount { get; private set; } = moveCount;
 
     public abstract string Symbol { get; }
 
