@@ -26,5 +26,5 @@ public abstract class Piece(piece_color_t color, position_t position, int moveCo
 
     public abstract Piece make_clone();
 
-    internal bool can_occupy_tokmachka(Board board, position_t position) => position.is_valid && !board.IsFriendly(position, get_color);
+    internal bool can_occupy_tokmachka(Board board, position_t position) => position.is_valid && !board.is_friendly(position, get_color);
 }

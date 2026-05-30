@@ -11,7 +11,7 @@ internal static class GameSnapshotMapper {
         return new GameSnapshot {
             CurrentTurn = game.CurrentTurn,
             Status = game.Status,
-            Pieces = [.. game.Board.GetPieces()
+            Pieces = [.. game.Board.get_pieces()
                 .Select(piece => new PieceSnapshot {
                     Type = piece.get_type.ToString(),
                     Color = piece.get_color,
@@ -35,7 +35,7 @@ internal static class GameSnapshotMapper {
     public static ChessGame ToGame(GameSnapshot snapshot) {
         var board = new Board();
         foreach (var pieceSnapshot in snapshot.Pieces) {
-            board.PlacePiece(CreatePiece(pieceSnapshot));
+            board.place_piece(CreatePiece(pieceSnapshot));
         }
 
         var moves = snapshot.Moves.Select(move => new Move(

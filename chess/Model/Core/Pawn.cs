@@ -14,18 +14,18 @@ public sealed class Pawn(piece_color_t color, position_t position, int moveCount
         var direction = get_color == piece_color_t.PIECE_COLOR_WHITE ? -1 : 1;
 
         var singleStep = get_position + new board_vector_t(direction, 0);
-        if (singleStep.is_valid && board.IsEmpty(singleStep)) {
+        if (singleStep.is_valid && board.is_empty(singleStep)) {
             result.Add(singleStep);
 
             var doubleStep = get_position + new board_vector_t(direction * 2, 0);
-            if (get_move_count == 0 && doubleStep.is_valid && board.IsEmpty(doubleStep)) {
+            if (get_move_count == 0 && doubleStep.is_valid && board.is_empty(doubleStep)) {
                 result.Add(doubleStep);
             }
         }
 
         foreach (var attack_offset in new[] { new board_vector_t(direction, -1), new board_vector_t(direction, 1) }) {
             var attack_position = get_position + attack_offset;
-            if (attack_position.is_valid && board.IsEnemy(attack_position, get_color)) {
+            if (attack_position.is_valid && board.is_enemy(attack_position, get_color)) {
                 result.Add(attack_position);
             }
         }

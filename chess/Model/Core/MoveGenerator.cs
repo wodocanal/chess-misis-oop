@@ -12,13 +12,13 @@ internal static class MoveGenerator {
             var cursor = piece.get_position + direction;
 
             while (cursor.is_valid) {
-                if (board.IsEmpty(cursor)) {
+                if (board.is_empty(cursor)) {
                     ret.Add(cursor);
                     cursor += direction;
                     continue;
                 }
 
-                if (board.IsEnemy(cursor, piece.get_color)) {
+                if (board.is_enemy(cursor, piece.get_color)) {
                     ret.Add(cursor);
                 }
 
