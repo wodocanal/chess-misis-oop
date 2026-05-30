@@ -129,51 +129,42 @@ If a user asks to re‑send a previous response (spec or any message) with the c
 
 Файл [AGENTS.md](AGENTS.md) представляет собой "намордник" для стохастического попугая (LLM-ассистента): строгие ограничения на то, что не можно и нельзя делать. Это гарантирует, что автоматические предложения не нарушат хрупкое душевное состояние одного из обоих из авторов.
 
-## Таблица возможностей представленного проекта
+---
 
-| Возможность                                                                       | Примечание                                                                                                                                                                                                                   |
-| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| + Интерфейс `IPiece`, абстрактный класс `Piece`                                   | Реализованы в [Model/Core/IPiece.cs](chess/Model/Core/IPiece.cs) и [Model/Core/Piece.cs](chess/Model/Core/Piece.cs)                                                                                                          |
-| + Классы-наследники для всех 6 типов фигур                                        | [Король](chess/Model/Core/King.cs), [Ферзь](chess/Model/Core/Queen.cs), [Ладья](chess/Model/Core/Rook.cs), [Слон](chess/Model/Core/Bishop.cs), [Конь](chess/Model/Core/Knight.cs), [Пешка](chess/Model/Core/Pawn.cs)         |
-| + Стартовое меню с кнопками «Новая игра» и «Продолжить игру»                      | [MainWindow.axaml.cs](chess/Chess/MainWindow.axaml.cs)                                                                                                                                                                       |
-| + Игровое окно с доской 8×8, управление мышью                                     | [GameWindow.axaml.cs](chess/Chess/GameWindow.axaml.cs)                                                                                                                                                                       |
-| + Сохранение/загрузка в JSON и XML                                                | Абстрактный базовый класс [GameSerializerBase](chess/Model/Data/GameSerializerBase.cs), наследники [JsonGameSerializer](chess/Model/Data/JsonGameSerializer.cs) и [XmlGameSerializer](chess/Model/Data/XmlGameSerializer.cs) |
-| + Автосохранение при закрытии окна игры                                           | Обработчик `GameWindow.OnClosing` в [GameWindow.axaml.cs](chess/Chess/GameWindow.axaml.cs)                                                                                                                                   |
-| + Шах, мат, пат (включая пат по 6 взаимно обратным ходам)                         | Реализовано в [ChessGame.Checkmate.cs](chess/Model/Core/ChessGame.Checkmate.cs) и [ChessGame.Stalemate.cs](chess/Model/Core/ChessGame.Stalemate.cs)                                                                          |
-| + Сообщения о шахе и мате                                                         | Отображаются в статусной строке ([GameWindow.axaml.cs](chess/Chess/GameWindow.axaml.cs))                                                                                                                                     |
-| + Подсветка доступных клеток для выбранной фигуры                                 | Логика в [GameWindow.axaml.cs](chess/Chess/GameWindow.axaml.cs), цветовая индикация                                                                                                                                          |
-| + Отмена выбора фигуры повторным кликом                                           | Реализована в обработчике `HandleCellClick`                                                                                                                                                                                  |
-| + Выбор папки сохранения через диалог                                             | Кнопка «Выбрать папку» в [MainWindow.axaml.cs](chess/Chess/MainWindow.axaml.cs)                                                                                                                                              |
-| + Валидация файла продолжения (при выборе некорректного формата кнопка неактивна) | [SaveFileValidator.cs](chess/Model/Data/SaveFileValidator.cs) + динамическое обновление в MainWindow                                                                                                                         |
-| + Копирование текущей игры в новый формат при смене формата сериализации          | Автоматически при смене выпадающего списка ([MainWindow.axaml.cs](chess/Chess/MainWindow.axaml.cs))                                                                                                                          |
-| + Рокировка и взятие на проходе                                                   | Реализовано в логике [King.cs](chess/Model/Core/King.cs) и [Pawn.cs](chess/Model/Core/Pawn.cs)                                                                                                                               |
-| + Partial класс для мата и пата                                                   | [ChessGame.Checkmate.cs](chess/Model/Core/ChessGame.Checkmate.cs) и [ChessGame.Stalemate.cs](chess/Model/Core/ChessGame.Stalemate.cs)                                                                                        |
-| + Папки `Core` и `Data` в библиотеке Model                                        | Бизнес-логика в [Core](chess/Model/Core), сериализация в [Data](chess/Model/Data)                                                                                                                                            |
-| + Перегрузка операторов (например, `Position + BoardVector`)                      | [Position.cs](chess/Model/Core/Position.cs) и [BoardVector.cs](chess/Model/Core/BoardVector.cs)                                                                                                                              |
-| + Обобщения (например, `GridMap<T>`, `GetPieces<TPiece>`)                         | [GridMap.cs](chess/Model/Core/GridMap.cs) и метод в [Board.cs](chess/Model/Core/Board.cs)                                                                                                                                    |
-| + Делегаты (событие `StateChanged` в `ChessGame`)                                 | `Action<GameStateStatus>` в [ChessGame.cs](chess/Model/Core/ChessGame.cs)                                                                                                                                                    |
-| + GPL-3.0 лицензия                                                                | Файл [LICENSE](LICENSE) и бейдж в README                                                                                                                                                                                     |
+## Таблица возможностей проекта
 
-## Остальные функции
+| Возможность                                     | Примечание                                                                                                                                                                                                                                                                                                           |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| + Интерфейс фигуры, абстрактный класс `piece_t` | [IamInterfaceThatReperentsThatThisIsPiece](chess/Model/Core/IamInterfaceThatReperentsThatThisIsPiece.cs), [piece_t](chess/Model/Core/piece_t.cs)                                                                                                                                                                     |
+| + Все 6 фигур                                   | [king_piece_t](chess/Model/Core/king_piece_t.cs), [queen_piece_t](chess/Model/Core/queen_piece_t.cs), [rook_piece_t](chess/Model/Core/rook_piece_t.cs), [bishop_piece_t](chess/Model/Core/bishop_piece_t.cs), [knight_piece_t](chess/Model/Core/knight_piece_t.cs), [pawn_piece_t](chess/Model/Core/pawn_piece_t.cs) |
+| + Стартовое меню                                | [MainWindow.axaml.cs](chess/Chess/MainWindow.axaml.cs)                                                                                                                                                                                                                                                               |
+| + Игровое окно                                  | [GameWindow.axaml.cs](chess/Chess/GameWindow.axaml.cs)                                                                                                                                                                                                                                                               |
+| + JSON / XML сериализация                       | [json_game_serializer_t](chess/Model/Data/json_game_serializer_t.cs), [xml_game_serializer_t](chess/Model/Data/xml_game_serializer_t.cs), [game_serializer_t](chess/Model/Data/game_serializer_t.cs)                                                                                                                 |
+| + Автосохранение при закрытии                   | `GameWindow_OnClosing`                                                                                                                                                                                                                                                                                               |
+| + Шах, мат, пат (6 обратных ходов)              | [chess_game_t.checkmate.cs](chess/Model/Core/chess_game_t.checkmate.cs), [chess_game_t.stalemate.cs](chess/Model/Core/chess_game_t.stalemate.cs)                                                                                                                                                                     |
+| + Сообщения о шахе/мате                         | Статусная строка                                                                                                                                                                                                                                                                                                     |
+| + Подсветка доступных клеток                    | Зелёный цвет                                                                                                                                                                                                                                                                                                         |
+| + Отмена выбора повторным кликом                | `ClearSelection`                                                                                                                                                                                                                                                                                                     |
+| + Выбор папки сохранения                        | Кнопка «Выбрать папку»                                                                                                                                                                                                                                                                                               |
+| + Валидация файла продолжения                   | [save_file_validator_t](chess/Model/Data/save_file_validator_t.cs)                                                                                                                                                                                                                                                   |
+| + Рокировка и взятие на проходе                 | Логика в `king_piece_t` и `pawn_piece_t`                                                                                                                                                                                                                                                                             |
+| + Partial классы (мат/пат)                      | Файлы `.checkmate.cs` и `.stalemate.cs`                                                                                                                                                                                                                                                                              |
+| + Папки Core/Data                               | +                                                                                                                                                                                                                                                                                                                    |
+| + Перегрузка операторов                         | `position_t + board_vector_t`                                                                                                                                                                                                                                                                                        |
+| + Обобщения                                     | `grid_mapping_t<T>`, `pieces_getall<T>`                                                                                                                                                                                                                                                                              |
+| + Делегаты                                      | `StateChanged`                                                                                                                                                                                                                                                                                                       |
 
-| Функция                                      | Описание                                                                         |
-| -------------------------------------------- | -------------------------------------------------------------------------------- |
-| Графический интерфейс                        | Кроссплатформенный UI на **Avalonia UI 12** (разрешён преподавателем вместо WPF) |
-| Подсветка ходов                              | При выборе фигуры доступные клетки подсвечиваются зелёным                        |
-| История ходов                                | Отображается в боковой панели, поддерживается отмена последнего хода             |
-| Выбор файла для продолжения                  | Диалог открытия файла с фильтром `.json` / `.xml`                                |
-| Автоматическое копирование при смене формата | При переключении JSON <-> XML текущая игра пересохраняется в новый формат        |
+---
 
 ## Технологии
 
-| Компонент         | Технология                                      |
-| ----------------- | ----------------------------------------------- |
-| Язык              | C# 12                                           |
-| UI                | Avalonia UI 12.0.3                              |
-| Среда выполнения  | .NET 9 (приложение) / .NET 8 (библиотека Model) |
-| Сериализация JSON | System.Text.Json                                |
-| Сериализация XML  | System.Xml.Serialization                        |
-| Сборка            | dotnet CLI / make                               |
+| Компонент    | Технология                                   |
+| ------------ | -------------------------------------------- |
+| Язык         | C# 12                                        |
+| UI           | Avalonia UI 12.0.3 (разрешён преподавателем) |
+| .NET         | 9 (приложение) / 8 (библиотека Model)        |
+| Сериализация | System.Text.Json / System.Xml.Serialization  |
+| Сборка       | dotnet CLI / Makefile                        |
 
 ## Структура проекта
 
@@ -181,48 +172,86 @@ If a user asks to re‑send a previous response (spec or any message) with the c
 | ------------------- | -------------------------------------------------- |
 | `chess/Chess/`      | Пользовательский интерфейс (Avalonia)              |
 | `chess/Model/Core/` | Бизнес-логика: фигуры, доска, правила, шах/мат/пат |
-| `chess/Model/Data/` | Сериализация JSON/XML, снапшоты, валидация файлов  |
-| `Makefile`          | Автоматизация сборки и запуска (см. ниже)          |
+| `chess/Model/Data/` | Сериализация, валидация, снапшоты                  |
+| `Makefile`          | Сборка и запуск                                    |
 
 ## Ultra-Based сборка и запуск
 
-Все операции выполняются из терминала. Для удобства в корне репозитория присутствует `Makefile`.
+```bash
+make deps    # установка .NET SDK (pacman -S dotnet-sdk)
+make build   # сборка решения
+make run     # запуск приложения
+make clean   # очистка артефактов
+make fmt     # форматирование кода
+```
 
-| Команда      | Действие                                                                                     |
-| ------------ | -------------------------------------------------------------------------------------------- |
-| `make deps`  | Установить .NET SDK (если отсутствует) через пакетный менеджер Arch (`pacman -S dotnet-sdk`) |
-| `make build` | Собрать проект (`dotnet build chess/Chess.sln`)                                              |
-| `make run`   | Собрать и запустить приложение (`dotnet run --project chess/Chess/Chess.csproj`)             |
-| `make clean` | Очистить артефакты сборки (`dotnet clean`)                                                   |
-| `make fmt`   | Применить форматирование кода (`dotnet format`)                                              |
+<details>
+
+<summary>
+
+Соответствие требованиям проекта
+
+</summary>
+
+### Базовая часть
+
+| Требование                                                | Реализация                                                                                            | Где искать                                                                                                                        |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Интерфейс с методами движения/атаки                       | + `IamInterfaceThatReperentsThatThisIsPiece` (методы `get_available_moves`, `can_attack`)             | [Model/Core/IamInterfaceThatReperentsThatThisIsPiece.cs](chess/Model/Core/IamInterfaceThatReperentsThatThisIsPiece.cs)            |
+| Абстрактный класс фигуры                                  | + `piece_t` (абстрактный)                                                                             | [Model/Core/piece_t.cs](chess/Model/Core/piece_t.cs)                                                                              |
+| Классы-наследники (6 видов)                               | + `king_piece_t`, `queen_piece_t`, `rook_piece_t`, `bishop_piece_t`, `knight_piece_t`, `pawn_piece_t` | [Model/Core/](chess/Model/Core/)                                                                                                  |
+| Стартовое меню с кнопками «Новая игра», «Продолжить игру» | +                                                                                                     | [chess/Chess/MainWindow.axaml.cs](chess/Chess/MainWindow.axaml.cs)                                                                |
+| Игровое окно с доской 8×8, управление мышью               | +                                                                                                     | [chess/Chess/GameWindow.axaml.cs](chess/Chess/GameWindow.axaml.cs)                                                                |
+| Сериализация в JSON, сохранение при закрытии окна         | +                                                                                                     | [chess/Model/Data/json_game_serializer_t.cs](chess/Model/Data/json_game_serializer_t.cs), вызов `save()` в `GameWindow.OnClosing` |
+
+### Дополнительная часть
+
+| Требование                                  | Реализация                                                                  | Где искать                                                                               |
+| ------------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Библиотека `Model`, отделение бизнес-логики | + Проект `Model`, папки `Core` и `Data`                                     | [chess/Model/](chess/Model/)                                                             |
+| Partial класс для мата                      | + `chess_game_t` – partial, метод `is_checkmate` в отдельном файле          | [chess/Model/Core/chess_game_t.checkmate.cs](chess/Model/Core/chess_game_t.checkmate.cs) |
+| Partial класс для пата (6 обратных ходов)   | + `is_stalemate` + `is_six_reversible_half_moves_reached` в отдельном файле | [chess/Model/Core/chess_game_t.stalemate.cs](chess/Model/Core/chess_game_t.stalemate.cs) |
+| Сообщения о шахе и мате                     | + Отображаются в статусной строке                                           | `GetGameStateText()` в [GameWindow.axaml.cs](chess/Chess/GameWindow.axaml.cs)            |
+| Подсветка доступных клеток                  | + При выборе фигуры зелёным цветом                                          | `GetCellBackground()` там же                                                             |
+| Отмена выбора фигуры повторным кликом       | + Повторный клик по той же клетке – сброс выделения                         | `HandleCellClick()`                                                                      |
+| Выбор папки для сохранения                  | + Кнопка «Выбрать папку»                                                    | [MainWindow.axaml.cs](chess/Chess/MainWindow.axaml.cs)                                   |
+
+### Продвинутая часть (2 балла)
+
+| Требование                                                      | Реализация                                                                                            | Где искать                                                                                                                                            |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Валидация файла продолжения (кнопка неактивна при ошибке)       | + При клике проверяется; кнопка динамически не деактивируется, но пользователь получает сообщение     | [save_file_validator_t.cs](chess/Model/Data/save_file_validator_t.cs)                                                                                 |
+| Папки `Core` и `Data`                                           | +                                                                                                     | [chess/Model/Core](chess/Model/Core), [chess/Model/Data](chess/Model/Data)                                                                            |
+| Сериализация в XML, абстрактный базовый класс                   | + `game_serializer_t` (абстрактный), `xml_game_serializer_t`                                          | [chess/Model/Data/game_serializer_t.cs](chess/Model/Data/game_serializer_t.cs), [xml_game_serializer_t.cs](chess/Model/Data/xml_game_serializer_t.cs) |
+| Выпадающий список выбора формата, копирование при смене формата | + Комбобокс JSON/XML, при смене обновляется предлагаемый путь; интерфейс для копирования предоставлен | [MainWindow.axaml.cs](chess/Chess/MainWindow.axaml.cs)                                                                                                |
+
+---
+
+## Технические критерии для оценки
+
+| Критерий                            | В проекте                                                                                                                                                     |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Интерфейсов >=2                     | `IamInterfaceThatReperentsThatThisIsPiece` и `IamInterfaceThatReperentsThatThisIsGameSerializer`                                                              |
+| Абстрактных классов >=2             | `piece_t`, `game_serializer_t`                                                                                                                                |
+| Приведений (cast) >5                | В `game_snapshot_mapper_t.create_piece` (switch с приведением), в `is_king_in_check` (приведение к `king_piece_t`), в `get_legal_moves` и др.                 |
+| Перегрузка методов >=1              | Конструкторы `chess_game_t`, перегрузка `save` в `game_serializer_t`, метод `TryMove`                                                                         |
+| Переопределение методов/свойств >=3 | В каждой фигуре переопределены `get_type`, `get_symbol`, `get_available_moves`, `make_clone`; в сериализаторах – `serialize_snapshot`, `deserialize_snapshot` |
+| Перегрузка операторов >=1           | `position_t operator + (position_t, board_vector_t)`                                                                                                          |
+| Делегаты (встроенные или свои) >=1  | `Action<game_state_status_t> StateChanged`                                                                                                                    |
+| Обобщения (generics) >=2            | `grid_mapping_t<T>`, метод `pieces_getall<T>()`                                                                                                               |
+| Разных UI-элементов >3              | В главном окне: кнопки, комбобокс, текстовые поля, лейблы. В игровом окне: кнопки, грид, текстблоки.                                                          |
+
+
+</details>
 
 ## Важные замечания
 
-| Замечание               | Пояснение                                                                                                   |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Рокировка и анпассан    | Полностью реализованы в правилах                                                                            |
-| Пат по 6 обратным ходам | При трёх повторениях туда-обратно (6 полуходов) объявляется пат                                             |
-| Автосохранение          | Происходит только при закрытии окна игры; главное окно при этом не закрывается                              |
-| Выбор папки             | Папка для сохранений задаётся в главном меню; туда автоматически пишется файл `autosave.json` (или `.xml`)  |
-| Проверка файла          | Кнопка «Продолжить игру» становится неактивной, если выбранный файл не является валидным сохранением шахмат |
-
-## Планы на развитие
-
-| Задача                               | Статус      |
-| ------------------------------------ | ----------- |
-| Полноценная сериализация JSON/XML    | Готово      |
-| Копирование данных при смене формата | Готово      |
-| Пат по повторяющимся ходам           | Готово      |
-| Рокировка и взятие на проходе        | Готово      |
-| Подсветка доступных ходов            | Готово      |
-| Отмена выбора повторным кликом       | Готово      |
-| Улучшение отрисовки доски (анимация) | Планируется |
-| Поддержка звуковых эффектов          | Планируется |
-| Таймер контроля времени              | Планируется |
-| Сетевая игра                         | Планируется |
+- Рокировка и анпассан реализованы.
+- Пат по 6 обратным ходам (три пары туда-обратно).
+- Автосохранение при закрытии окна игры.
+- Выбор папки и формата сохранения (JSON/XML).
 
 ## Лицензия
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
-Проект распространяется под лицензией **GNU General Public License v3.0 или новее** (SPDX: `GPL-3.0-or-later`). Полный текст лицензии — в файле [LICENSE](LICENSE).
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)  
+Проект распространяется под лицензией **GNU General Public License v3.0 или новее** (SPDX: `GPL-3.0-or-later`). Файл [LICENSE](LICENSE).
