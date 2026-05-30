@@ -9,7 +9,7 @@ public sealed class Pawn(piece_color_t color, position_t position, int moveCount
 
     public override string get_symbol => "P";
 
-    public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
+    public override IReadOnlyCollection<position_t> get_available_moves(board_t board) {
         var result = new List<position_t>();
         var direction = get_color == piece_color_t.PIECE_COLOR_WHITE ? -1 : 1;
 
@@ -33,7 +33,7 @@ public sealed class Pawn(piece_color_t color, position_t position, int moveCount
         return result;
     }
 
-    public override bool can_attack(position_t target, Board board) {
+    public override bool can_attack(position_t target, board_t board) {
         var direction = get_color == piece_color_t.PIECE_COLOR_WHITE ? -1 : 1;
         return target == get_position + new board_vector_t(direction, -1)
             || target == get_position + new board_vector_t(direction, 1);

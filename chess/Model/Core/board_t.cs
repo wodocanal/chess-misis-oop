@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class Board {
+public sealed class board_t {
     private readonly GridMap<piece_t> cells = new(8, 8);
 
     public piece_t? piece_get(position_t position) => position.is_valid ? this.cells.get(position) : null;
@@ -47,8 +47,8 @@ public sealed class Board {
 
     public IReadOnlyCollection<T> pieces_getall<T>() where T : piece_t => [.. this.pieces_getall().OfType<T>()];
 
-    public Board make_clone() {
-        var ret = new Board();
+    public board_t make_clone() {
+        var ret = new board_t();
 
         foreach (var piece in this.pieces_getall()) {
             ret.piece_place(piece.make_clone());

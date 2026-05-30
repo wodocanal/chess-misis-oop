@@ -9,7 +9,7 @@ public partial class ChessGame {
 
     public event Action<game_state_status_t>? StateChanged;
 
-    public ChessGame(Board board, piece_color_t currentTurn, IEnumerable<piece_move_t>? moveHistory = null) {
+    public ChessGame(board_t board, piece_color_t currentTurn, IEnumerable<piece_move_t>? moveHistory = null) {
         Board = board;
         CurrentTurn = currentTurn;
         if (moveHistory is not null) {
@@ -19,7 +19,7 @@ public partial class ChessGame {
         UpdateGameState();
     }
 
-    public Board Board { get; private set; }
+    public board_t Board { get; private set; }
 
     public piece_color_t CurrentTurn { get; private set; }
 
@@ -30,7 +30,7 @@ public partial class ChessGame {
     public bool CanUndo => _moveHistory.Count > 0;
 
     public static ChessGame CreateNewGame() {
-        var board = new Board();
+        var board = new board_t();
         PlaceStartingPieces(board);
         return new ChessGame(board, piece_color_t.PIECE_COLOR_WHITE);
     }
@@ -99,7 +99,7 @@ public partial class ChessGame {
         return false;
     }
 
-    internal bool IsInCheck(piece_color_t color, Board board) => IsKingInCheck(color, board);
+    internal bool IsInCheck(piece_color_t color, board_t board) => IsKingInCheck(color, board);
 
     private void UpdateGameState() {
         var previousStatus = Status;
@@ -122,13 +122,13 @@ public partial class ChessGame {
         return IsInCheck(color) ? game_state_status_t.GAME_STATUS_CHECK : game_state_status_t.GAME_STATUS_IN_PROGRESS;
     }
 
-    private static bool WouldKeepKingSafe(Board board, position_t from, position_t to, piece_color_t movingColor) {
+    private static bool WouldKeepKingSafe(board_t board, position_t from, position_t to, piece_color_t movingColor) {
         var clonedBoard = board.make_clone();
         clonedBoard.try_move(from, to, out _);
         return !IsKingInCheck(movingColor, clonedBoard);
     }
 
-    private static bool IsKingInCheck(piece_color_t color, Board board) {
+    private static bool IsKingInCheck(piece_color_t color, board_t board) {
         var king = board.pieces_getall<King>().FirstOrDefault(piece => piece.get_color == color);
         if (king is null) {
             return false;
@@ -142,7 +142,7 @@ public partial class ChessGame {
     private static piece_color_t Toggle(piece_color_t color) => color == piece_color_t.PIECE_COLOR_WHITE ? piece_color_t.PIECE_COLOR_BLACK : piece_color_t.PIECE_COLOR_WHITE;
 
     private void RebuildBoardFromHistory() {
-        var rebuiltBoard = new Board();
+        var rebuiltBoard = new board_t();
         PlaceStartingPieces(rebuiltBoard);
 
         var currentTurn = piece_color_t.PIECE_COLOR_WHITE;
@@ -156,7 +156,7 @@ public partial class ChessGame {
         UpdateGameState();
     }
 
-    private static void PlaceStartingPieces(Board board) {
+    private static void PlaceStartingPieces(board_t board) {
         for (var column = 0; column < 8; column += 1) {
             board.piece_place(new Pawn(piece_color_t.PIECE_COLOR_WHITE, new position_t(6, column)));
             board.piece_place(new Pawn(piece_color_t.PIECE_COLOR_BLACK, new position_t(1, column)));

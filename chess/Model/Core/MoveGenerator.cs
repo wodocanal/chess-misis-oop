@@ -5,7 +5,7 @@
 namespace Model.Core;
 
 internal static class MoveGenerator {
-    public static IReadOnlyCollection<position_t> generate_sliding_moves(piece_t piece, Board board, params board_vector_t[] directions) {
+    public static IReadOnlyCollection<position_t> generate_sliding_moves(piece_t piece, board_t board, params board_vector_t[] directions) {
         var ret = new List<position_t>();
 
         foreach (var direction in directions) {
@@ -29,6 +29,6 @@ internal static class MoveGenerator {
         return ret;
     }
 
-    public static IReadOnlyCollection<position_t> generate_stepping_moves(piece_t piece, Board board, params board_vector_t[] offsets) =>
+    public static IReadOnlyCollection<position_t> generate_stepping_moves(piece_t piece, board_t board, params board_vector_t[] offsets) =>
         [.. offsets.Select(offset => piece.get_position + offset).Where(position => piece.can_occupy_tokmachka(board, position))];
 }

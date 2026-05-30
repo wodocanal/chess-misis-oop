@@ -9,7 +9,7 @@ public sealed class Bishop(piece_color_t color, position_t position, int moveCou
 
     public override string get_symbol => "B";
 
-    public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
+    public override IReadOnlyCollection<position_t> get_available_moves(board_t board) {
         return MoveGenerator.generate_sliding_moves(
             this,
             board,

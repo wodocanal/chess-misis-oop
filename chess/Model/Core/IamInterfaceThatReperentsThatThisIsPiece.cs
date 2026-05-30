@@ -13,7 +13,7 @@ public interface IamInterfaceThatReperentsThatThisIsPiece {
 
     string get_symbol { get; }
 
-    IReadOnlyCollection<position_t> get_available_moves(Board board);
+    IReadOnlyCollection<position_t> get_available_moves(board_t board);
 
-    bool can_attack(position_t target, Board board);
+    bool can_attack(position_t target, board_t board);
 }

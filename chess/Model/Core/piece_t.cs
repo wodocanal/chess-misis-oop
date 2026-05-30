@@ -15,9 +15,9 @@ public abstract class piece_t(piece_color_t color, position_t position, int move
 
     public abstract string get_symbol { get; }
 
-    public virtual bool can_attack(position_t target, Board board) => get_available_moves(board).Contains(target);
+    public virtual bool can_attack(position_t target, board_t board) => get_available_moves(board).Contains(target);
 
-    public abstract IReadOnlyCollection<position_t> get_available_moves(Board board);
+    public abstract IReadOnlyCollection<position_t> get_available_moves(board_t board);
 
     public virtual void move_to(position_t target) {
         get_position = target;
@@ -26,5 +26,5 @@ public abstract class piece_t(piece_color_t color, position_t position, int move
 
     public abstract piece_t make_clone();
 
-    internal bool can_occupy_tokmachka(Board board, position_t position) => position.is_valid && !board.is_friendly(position, get_color);
+    internal bool can_occupy_tokmachka(board_t board, position_t position) => position.is_valid && !board.is_friendly(position, get_color);
 }

@@ -33,7 +33,7 @@ internal static class GameSnapshotMapper {
     }
 
     public static ChessGame ToGame(GameSnapshot snapshot) {
-        var board = new Board();
+        var board = new board_t();
         foreach (var pieceSnapshot in snapshot.Pieces) {
             board.piece_place(CreatePiece(pieceSnapshot));
         }
