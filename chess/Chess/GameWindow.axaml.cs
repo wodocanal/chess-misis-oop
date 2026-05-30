@@ -275,10 +275,10 @@ public partial class GameWindow : Window {
 
     private string GetGameStateText() {
         return _game.Status switch {
-            GameStateStatus.InProgress => "Партия продолжается.",
-            GameStateStatus.Check => $"Шах: под ударом {GetColorName(_game.CurrentTurn)} король.",
-            GameStateStatus.Checkmate => $"Мат: {GetColorName(_game.CurrentTurn)} проиграли.",
-            GameStateStatus.Stalemate => "Пат: партия завершена вничью.",
+            game_state_status_t.GAME_STATUS_IN_PROGRESS => "Партия продолжается.",
+            game_state_status_t.GAME_STATUS_CHECK => $"Шах: под ударом {GetColorName(_game.CurrentTurn)} король.",
+            game_state_status_t.GAME_STATUS_IN_CHECKMATE => $"Мат: {GetColorName(_game.CurrentTurn)} проиграли.",
+            game_state_status_t.GAME_STATUS_STALEMATE => "Пат: партия завершена вничью.",
             _ => "Неизвестное состояние.",
         };
     }

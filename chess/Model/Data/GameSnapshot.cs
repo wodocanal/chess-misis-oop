@@ -11,7 +11,7 @@ public sealed class GameSnapshot {
 
     public piece_color_t CurrentTurn { get; set; }
 
-    public GameStateStatus Status { get; set; }
+    public game_state_status_t Status { get; set; }
 
     public List<PieceSnapshot> Pieces { get; set; } = [];
 

@@ -7,7 +7,7 @@ namespace Model.Core;
 public partial class ChessGame {
     private readonly List<Move> _moveHistory = [];
 
-    public event Action<GameStateStatus>? StateChanged;
+    public event Action<game_state_status_t>? StateChanged;
 
     public ChessGame(Board board, piece_color_t currentTurn, IEnumerable<Move>? moveHistory = null) {
         Board = board;
@@ -23,7 +23,7 @@ public partial class ChessGame {
 
     public piece_color_t CurrentTurn { get; private set; }
 
-    public GameStateStatus Status { get; private set; }
+    public game_state_status_t Status { get; private set; }
 
     public IReadOnlyList<Move> MoveHistory => _moveHistory;
 
@@ -45,7 +45,7 @@ public partial class ChessGame {
     }
 
     public MoveExecutionResult TryMove(position_t from, position_t to) {
-        if (Status is GameStateStatus.Checkmate or GameStateStatus.Stalemate) {
+        if (Status is game_state_status_t.GAME_STATUS_IN_CHECKMATE or game_state_status_t.GAME_STATUS_STALEMATE) {
             return MoveExecutionResult.GameFinished;
         }
 
@@ -110,16 +110,16 @@ public partial class ChessGame {
         }
     }
 
-    private GameStateStatus DetermineStateFor(piece_color_t color) {
+    private game_state_status_t DetermineStateFor(piece_color_t color) {
         if (IsCheckmate(color)) {
-            return GameStateStatus.Checkmate;
+            return game_state_status_t.GAME_STATUS_IN_CHECKMATE;
         }
 
         if (IsStalemate(color)) {
-            return GameStateStatus.Stalemate;
+            return game_state_status_t.GAME_STATUS_STALEMATE;
         }
 
-        return IsInCheck(color) ? GameStateStatus.Check : GameStateStatus.InProgress;
+        return IsInCheck(color) ? game_state_status_t.GAME_STATUS_CHECK : game_state_status_t.GAME_STATUS_IN_PROGRESS;
     }
 
     private static bool WouldKeepKingSafe(Board board, position_t from, position_t to, piece_color_t movingColor) {
