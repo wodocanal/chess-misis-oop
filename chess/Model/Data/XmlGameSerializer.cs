@@ -6,19 +6,19 @@ using System.Xml.Serialization;
 
 namespace Model.Data;
 
-public sealed class XmlGameSerializer : GameSerializerBase {
+public sealed class XmlGameSerializer : GameSerializer {
     public override serialization_format_t get_format => serialization_format_t.SERIALIZATION_FORMAT_XML;
 
     public override string get_file_extension => ".xml";
 
-    protected override string SerializeSnapshot(game_snapshot_t snapshot) {
+    protected override string serialize_snapshot(game_snapshot_t snapshot) {
         var serializer = new XmlSerializer(typeof(game_snapshot_t));
         using var writer = new StringWriter();
         serializer.Serialize(writer, snapshot);
         return writer.ToString();
     }
 
-    protected override game_snapshot_t DeserializeSnapshot(string content) {
+    protected override game_snapshot_t deserialize_snapshot(string content) {
         var serializer = new XmlSerializer(typeof(game_snapshot_t));
         using var reader = new StringReader(content);
         return serializer.Deserialize(reader) as game_snapshot_t

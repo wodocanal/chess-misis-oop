@@ -6,35 +6,37 @@ using Model.Core;
 
 namespace Model.Data;
 
-public abstract class GameSerializerBase : IamInterfaceThatReperentsThatThisIsGameSerializer {
+public abstract class GameSerializer : IamInterfaceThatReperentsThatThisIsGameSerializer {
     public abstract serialization_format_t get_format { get; }
 
     public abstract string get_file_extension { get; }
 
     public bool can_read(string filePath) => string.Equals(Path.GetExtension(filePath), get_file_extension, StringComparison.OrdinalIgnoreCase);
 
-    public void save(chess_game_t game, string filePath) => Save(GameSnapshotMapper.ToSnapshot(game), filePath);
+    public void save(chess_game_t game, string filePath) => save(GameSnapshotMapper.ToSnapshot(game), filePath);
 
-    public void Save(game_snapshot_t snapshot, string filePath) {
+    public void save(game_snapshot_t snapshot, string filePath) {
         var directory = Path.GetDirectoryName(filePath);
         if (!string.IsNullOrWhiteSpace(directory)) {
             Directory.CreateDirectory(directory);
         }
 
-        File.WriteAllText(filePath, SerializeSnapshot(snapshot));
+        File.WriteAllText(filePath, serialize_snapshot(snapshot));
     }
 
     public chess_game_t load(string filePath) {
         if (!File.Exists(filePath)) {
-            throw new FileNotFoundException("Save file was not found.", filePath);
+            // ALERT: /!\ /!\ /!\  EXCEPTION DETECTED /!\ /!\ /!\ 
+            // Based Monadic Result<T, E> Type NOT FOUND!!!
+            throw new FileNotFoundException("Save file was not found.", filePath); // exception are pure evil
         }
 
         var content = File.ReadAllText(filePath);
-        var snapshot = DeserializeSnapshot(content);
+        var snapshot = deserialize_snapshot(content);
         return GameSnapshotMapper.ToGame(snapshot);
     }
 
-    protected abstract string SerializeSnapshot(game_snapshot_t snapshot);
+    protected abstract string serialize_snapshot(game_snapshot_t snapshot);
 
-    protected abstract game_snapshot_t DeserializeSnapshot(string content);
+    protected abstract game_snapshot_t deserialize_snapshot(string content);
 }
