@@ -6,7 +6,7 @@ using Model.Core;
 
 namespace Model.Data;
 
-public abstract class GameSerializer : IamInterfaceThatReperentsThatThisIsGameSerializer {
+public abstract class game_serializer_t : IamInterfaceThatReperentsThatThisIsGameSerializer {
     public abstract serialization_format_t get_format { get; }
 
     public abstract string get_file_extension { get; }

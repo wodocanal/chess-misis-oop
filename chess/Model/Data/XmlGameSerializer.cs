@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace Model.Data;
 
-public sealed class XmlGameSerializer : GameSerializer {
+public sealed class XmlGameSerializer : game_serializer_t {
     public override serialization_format_t get_format => serialization_format_t.SERIALIZATION_FORMAT_XML;
 
     public override string get_file_extension => ".xml";
