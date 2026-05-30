@@ -58,7 +58,7 @@ internal static class GameSnapshotMapper {
             piece_type_t.PIECE_ROOK => new Rook(snapshot.Color, position, snapshot.MoveCount),
             piece_type_t.PIECE_BISHOP => new Bishop(snapshot.Color, position, snapshot.MoveCount),
             piece_type_t.PIECE_KNIGHT => new Knight(snapshot.Color, position, snapshot.MoveCount),
-            piece_type_t.PIECE_PAWN => new Pawn(snapshot.Color, position, snapshot.MoveCount),
+            piece_type_t.PIECE_PAWN => new pawn_piece_t(snapshot.Color, position, snapshot.MoveCount),
             _ => throw new InvalidOperationException($"Unknown piece type: {snapshot.Type}"),
         };
     }

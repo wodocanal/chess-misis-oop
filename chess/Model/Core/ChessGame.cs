@@ -158,8 +158,8 @@ public partial class ChessGame {
 
     private static void PlaceStartingPieces(board_t board) {
         for (var column = 0; column < 8; column += 1) {
-            board.piece_place(new Pawn(piece_color_t.PIECE_COLOR_WHITE, new position_t(6, column)));
-            board.piece_place(new Pawn(piece_color_t.PIECE_COLOR_BLACK, new position_t(1, column)));
+            board.piece_place(new pawn_piece_t(piece_color_t.PIECE_COLOR_WHITE, new position_t(6, column)));
+            board.piece_place(new pawn_piece_t(piece_color_t.PIECE_COLOR_BLACK, new position_t(1, column)));
         }
 
         board.piece_place(new Rook(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 0)));
