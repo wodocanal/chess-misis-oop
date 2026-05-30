@@ -9,11 +9,11 @@ public interface IamInterfaceThatReperentsThatThisIsPiece {
 
     PieceType get_type { get; }
 
-    Position get_position { get; }
+    position_t get_position { get; }
 
     string get_symbol { get; }
 
-    IReadOnlyCollection<Position> get_available_moves(Board board);
+    IReadOnlyCollection<position_t> get_available_moves(Board board);
 
-    bool can_attack(Position target, Board board);
+    bool can_attack(position_t target, Board board);
 }

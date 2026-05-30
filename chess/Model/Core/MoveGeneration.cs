@@ -5,12 +5,12 @@
 namespace Model.Core;
 
 internal static class MoveGeneration {
-    public static IReadOnlyCollection<Position> GetSlidingMoves(Piece piece, Board board, params BoardVector[] directions) {
-        var result = new List<Position>();
+    public static IReadOnlyCollection<position_t> GetSlidingMoves(Piece piece, Board board, params board_vector_t[] directions) {
+        var result = new List<position_t>();
 
         foreach (var direction in directions) {
             var cursor = piece.get_position + direction;
-            while (cursor.IsValid) {
+            while (cursor.is_valid) {
                 if (board.IsEmpty(cursor)) {
                     result.Add(cursor);
                     cursor += direction;
@@ -28,7 +28,7 @@ internal static class MoveGeneration {
         return result;
     }
 
-    public static IReadOnlyCollection<Position> GetSteppingMoves(Piece piece, Board board, params BoardVector[] offsets) {
+    public static IReadOnlyCollection<position_t> GetSteppingMoves(Piece piece, Board board, params board_vector_t[] offsets) {
         return [.. offsets
             .Select(offset => piece.get_position + offset)
             .Where(position => piece.can_occupy_tokmachka(board, position))];

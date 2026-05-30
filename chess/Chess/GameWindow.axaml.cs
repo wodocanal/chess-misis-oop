@@ -32,8 +32,8 @@ public partial class GameWindow : Window {
     private readonly GameSerializer _serializer;
     private readonly string _saveFilePath;
 
-    private Position? _selectedPosition;
-    private IReadOnlyCollection<Position> _availableMoves = [];
+    private position_t? _selectedPosition;
+    private IReadOnlyCollection<position_t> _availableMoves = [];
 
     public GameWindow()
         : this(
@@ -76,7 +76,7 @@ public partial class GameWindow : Window {
 
         for (var row = 0; row < BoardDimension; row += 1) {
             for (var column = 0; column < BoardDimension; column += 1) {
-                var position = new Position(row, column);
+                var position = new position_t(row, column);
                 var button = new Button {
                     Width = CellSize,
                     Height = CellSize,
@@ -160,7 +160,7 @@ public partial class GameWindow : Window {
         };
     }
 
-    private void HandleCellClick(Position position) {
+    private void HandleCellClick(position_t position) {
         var clickedPiece = _game.Board.GetPiece(position);
 
         if (_selectedPosition is null) {
@@ -192,7 +192,7 @@ public partial class GameWindow : Window {
         UpdateSidebar("Эта клетка недоступна для выбранной фигуры.");
     }
 
-    private bool TrySelectPiece(Position position, Piece? piece) {
+    private bool TrySelectPiece(position_t position, Piece? piece) {
         if (piece is null) {
             UpdateSidebar("На этой клетке нет фигуры.");
             return false;
@@ -211,7 +211,7 @@ public partial class GameWindow : Window {
         return true;
     }
 
-    private void HandleMoveResult(MoveExecutionResult result, Position from, Position to) {
+    private void HandleMoveResult(MoveExecutionResult result, position_t from, position_t to) {
         switch (result) {
             case MoveExecutionResult.Success:
                 _selectedPosition = null;
@@ -243,7 +243,7 @@ public partial class GameWindow : Window {
     private void UpdateBoard() {
         for (var row = 0; row < BoardDimension; row += 1) {
             for (var column = 0; column < BoardDimension; column += 1) {
-                var position = new Position(row, column);
+                var position = new position_t(row, column);
                 var button = _boardButtons[row, column];
                 var piece = _game.Board.GetPiece(position);
 
@@ -283,7 +283,7 @@ public partial class GameWindow : Window {
         };
     }
 
-    private IBrush GetCellBackground(Position position) {
+    private IBrush GetCellBackground(position_t position) {
         if (_selectedPosition == position) {
             return SelectedCellBrush;
         }
@@ -292,7 +292,7 @@ public partial class GameWindow : Window {
             return AvailableMoveBrush;
         }
 
-        return (position.Row + position.Column) % 2 == 0
+        return (position.row + position.column) % 2 == 0
             ? LightCellBrush
             : DarkCellBrush;
     }

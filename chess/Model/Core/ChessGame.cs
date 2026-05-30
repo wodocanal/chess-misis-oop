@@ -35,7 +35,7 @@ public partial class ChessGame {
         return new ChessGame(board, PieceColor.White);
     }
 
-    public IReadOnlyCollection<Position> GetLegalMoves(Position from) {
+    public IReadOnlyCollection<position_t> GetLegalMoves(position_t from) {
         var piece = Board.GetPiece(from);
         if (piece is null || piece.get_color != CurrentTurn) {
             return [];
@@ -44,7 +44,7 @@ public partial class ChessGame {
         return [.. piece.get_available_moves(Board).Where(target => WouldKeepKingSafe(Board, from, target, piece.get_color))];
     }
 
-    public MoveExecutionResult TryMove(Position from, Position to) {
+    public MoveExecutionResult TryMove(position_t from, position_t to) {
         if (Status is GameStateStatus.Checkmate or GameStateStatus.Stalemate) {
             return MoveExecutionResult.GameFinished;
         }
@@ -128,7 +128,7 @@ public partial class ChessGame {
         return IsInCheck(color) ? GameStateStatus.Check : GameStateStatus.InProgress;
     }
 
-    private static bool WouldKeepKingSafe(Board board, Position from, Position to, PieceColor movingColor) {
+    private static bool WouldKeepKingSafe(Board board, position_t from, position_t to, PieceColor movingColor) {
         var clonedBoard = board.Clone();
         clonedBoard.TryMove(from, to, out _);
         return !IsKingInCheck(movingColor, clonedBoard);
@@ -166,26 +166,26 @@ public partial class ChessGame {
 
     private static void PlaceStartingPieces(Board board) {
         for (var column = 0; column < 8; column += 1) {
-            board.PlacePiece(new Pawn(PieceColor.White, new Position(6, column)));
-            board.PlacePiece(new Pawn(PieceColor.Black, new Position(1, column)));
+            board.PlacePiece(new Pawn(PieceColor.White, new position_t(6, column)));
+            board.PlacePiece(new Pawn(PieceColor.Black, new position_t(1, column)));
         }
 
-        board.PlacePiece(new Rook(PieceColor.White, new Position(7, 0)));
-        board.PlacePiece(new Knight(PieceColor.White, new Position(7, 1)));
-        board.PlacePiece(new Bishop(PieceColor.White, new Position(7, 2)));
-        board.PlacePiece(new Queen(PieceColor.White, new Position(7, 3)));
-        board.PlacePiece(new King(PieceColor.White, new Position(7, 4)));
-        board.PlacePiece(new Bishop(PieceColor.White, new Position(7, 5)));
-        board.PlacePiece(new Knight(PieceColor.White, new Position(7, 6)));
-        board.PlacePiece(new Rook(PieceColor.White, new Position(7, 7)));
+        board.PlacePiece(new Rook(PieceColor.White, new position_t(7, 0)));
+        board.PlacePiece(new Knight(PieceColor.White, new position_t(7, 1)));
+        board.PlacePiece(new Bishop(PieceColor.White, new position_t(7, 2)));
+        board.PlacePiece(new Queen(PieceColor.White, new position_t(7, 3)));
+        board.PlacePiece(new King(PieceColor.White, new position_t(7, 4)));
+        board.PlacePiece(new Bishop(PieceColor.White, new position_t(7, 5)));
+        board.PlacePiece(new Knight(PieceColor.White, new position_t(7, 6)));
+        board.PlacePiece(new Rook(PieceColor.White, new position_t(7, 7)));
 
-        board.PlacePiece(new Rook(PieceColor.Black, new Position(0, 0)));
-        board.PlacePiece(new Knight(PieceColor.Black, new Position(0, 1)));
-        board.PlacePiece(new Bishop(PieceColor.Black, new Position(0, 2)));
-        board.PlacePiece(new Queen(PieceColor.Black, new Position(0, 3)));
-        board.PlacePiece(new King(PieceColor.Black, new Position(0, 4)));
-        board.PlacePiece(new Bishop(PieceColor.Black, new Position(0, 5)));
-        board.PlacePiece(new Knight(PieceColor.Black, new Position(0, 6)));
-        board.PlacePiece(new Rook(PieceColor.Black, new Position(0, 7)));
+        board.PlacePiece(new Rook(PieceColor.Black, new position_t(0, 0)));
+        board.PlacePiece(new Knight(PieceColor.Black, new position_t(0, 1)));
+        board.PlacePiece(new Bishop(PieceColor.Black, new position_t(0, 2)));
+        board.PlacePiece(new Queen(PieceColor.Black, new position_t(0, 3)));
+        board.PlacePiece(new King(PieceColor.Black, new position_t(0, 4)));
+        board.PlacePiece(new Bishop(PieceColor.Black, new position_t(0, 5)));
+        board.PlacePiece(new Knight(PieceColor.Black, new position_t(0, 6)));
+        board.PlacePiece(new Rook(PieceColor.Black, new position_t(0, 7)));
     }
 }

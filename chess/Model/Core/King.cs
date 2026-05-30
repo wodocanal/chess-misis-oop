@@ -4,24 +4,24 @@
 
 namespace Model.Core;
 
-public sealed class King(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
-    private static readonly BoardVector[] offsets =
+public sealed class King(PieceColor color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
+    private static readonly board_vector_t[] offsets =
     [
-        BoardVector.North,
-        BoardVector.South,
-        BoardVector.East,
-        BoardVector.West,
-        BoardVector.NorthEast,
-        BoardVector.NorthWest,
-        BoardVector.SouthEast,
-        BoardVector.SouthWest,
+        board_vector_t.north,
+        board_vector_t.south,
+        board_vector_t.east,
+        board_vector_t.west,
+        board_vector_t.north_east,
+        board_vector_t.north_west,
+        board_vector_t.south_east,
+        board_vector_t.south_west,
     ];
 
     public override PieceType get_type => PieceType.King;
 
     public override string get_symbol => "K";
 
-    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
+    public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
         return MoveGeneration.GetSteppingMoves(this, board, offsets);
     }
 

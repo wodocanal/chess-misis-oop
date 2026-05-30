@@ -4,8 +4,8 @@
 
 namespace Model.Core;
 
-public sealed class Knight(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
-    private static readonly BoardVector[] offsets =
+public sealed class Knight(PieceColor color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
+    private static readonly board_vector_t[] offsets =
     [
         new(-2, -1),
         new(-2, 1),
@@ -21,7 +21,7 @@ public sealed class Knight(PieceColor color, Position position, int moveCount = 
 
     public override string get_symbol => "N";
 
-    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
+    public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
         return MoveGeneration.GetSteppingMoves(this, board, offsets);
     }
 

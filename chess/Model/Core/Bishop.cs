@@ -4,19 +4,19 @@
 
 namespace Model.Core;
 
-public sealed class Bishop(PieceColor color, Position position, int moveCount = 0) : Piece(color, position, moveCount) {
+public sealed class Bishop(PieceColor color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
     public override PieceType get_type => PieceType.Bishop;
 
     public override string get_symbol => "B";
 
-    public override IReadOnlyCollection<Position> get_available_moves(Board board) {
+    public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
         return MoveGeneration.GetSlidingMoves(
             this,
             board,
-            BoardVector.NorthEast,
-            BoardVector.NorthWest,
-            BoardVector.SouthEast,
-            BoardVector.SouthWest);
+            board_vector_t.north_east,
+            board_vector_t.north_west,
+            board_vector_t.south_east,
+            board_vector_t.south_west);
     }
 
     public override Piece make_clone() {

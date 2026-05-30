@@ -15,18 +15,18 @@ internal static class GameSnapshotMapper {
                 .Select(piece => new PieceSnapshot {
                     Type = piece.get_type.ToString(),
                     Color = piece.get_color,
-                    Row = piece.get_position.Row,
-                    Column = piece.get_position.Column,
+                    Row = piece.get_position.row,
+                    Column = piece.get_position.column,
                     MoveCount = piece.get_move_count,
                 })],
             Moves = [.. game.MoveHistory
                 .Select(move => new MoveSnapshot {
                     PieceType = move.PieceType,
                     PieceColor = move.PieceColor,
-                    FromRow = move.From.Row,
-                    FromColumn = move.From.Column,
-                    ToRow = move.To.Row,
-                    ToColumn = move.To.Column,
+                    FromRow = move.From.row,
+                    FromColumn = move.From.column,
+                    ToRow = move.To.row,
+                    ToColumn = move.To.column,
                     CapturedPieceType = move.CapturedPieceType?.ToString(),
                 })],
         };
@@ -41,8 +41,8 @@ internal static class GameSnapshotMapper {
         var moves = snapshot.Moves.Select(move => new Move(
             move.PieceType,
             move.PieceColor,
-            new Position(move.FromRow, move.FromColumn),
-            new Position(move.ToRow, move.ToColumn),
+            new position_t(move.FromRow, move.FromColumn),
+            new position_t(move.ToRow, move.ToColumn),
             string.IsNullOrWhiteSpace(move.CapturedPieceType)
                 ? null
                 : Enum.Parse<PieceType>(move.CapturedPieceType)));
@@ -51,7 +51,7 @@ internal static class GameSnapshotMapper {
     }
 
     private static Piece CreatePiece(PieceSnapshot snapshot) {
-        var position = new Position(snapshot.Row, snapshot.Column);
+        var position = new position_t(snapshot.Row, snapshot.Column);
         return Enum.Parse<PieceType>(snapshot.Type) switch {
             PieceType.King => new King(snapshot.Color, position, snapshot.MoveCount),
             PieceType.Queen => new Queen(snapshot.Color, position, snapshot.MoveCount),

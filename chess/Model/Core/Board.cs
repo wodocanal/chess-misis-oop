@@ -7,24 +7,24 @@ namespace Model.Core;
 public sealed class Board {
     private readonly GridMap<Piece> _cells = new(8, 8);
 
-    public Piece? GetPiece(Position position) {
-        return position.IsValid ? _cells.Get(position) : null;
+    public Piece? GetPiece(position_t position) {
+        return position.is_valid ? _cells.Get(position) : null;
     }
 
     public Piece? GetPiece(int row, int column) {
-        return GetPiece(new Position(row, column));
+        return GetPiece(new position_t(row, column));
     }
 
-    public bool IsEmpty(Position position) {
+    public bool IsEmpty(position_t position) {
         return GetPiece(position) is null;
     }
 
-    public bool IsEnemy(Position position, PieceColor color) {
+    public bool IsEnemy(position_t position, PieceColor color) {
         var piece = GetPiece(position);
         return piece is not null && piece.get_color != color;
     }
 
-    public bool IsFriendly(Position position, PieceColor color) {
+    public bool IsFriendly(position_t position, PieceColor color) {
         var piece = GetPiece(position);
         return piece is not null && piece.get_color == color;
     }
@@ -33,15 +33,15 @@ public sealed class Board {
         _cells.Set(piece.get_position, piece);
     }
 
-    public void SetPiece(Position position, Piece? piece) {
+    public void SetPiece(position_t position, Piece? piece) {
         _cells.Set(position, piece);
     }
 
-    public void Clear(Position position) {
+    public void Clear(position_t position) {
         _cells.Set(position, null);
     }
 
-    public bool TryMove(Position from, Position to, out Piece? capturedPiece) {
+    public bool TryMove(position_t from, position_t to, out Piece? capturedPiece) {
         capturedPiece = null;
         var movingPiece = GetPiece(from);
         if (movingPiece is null) {

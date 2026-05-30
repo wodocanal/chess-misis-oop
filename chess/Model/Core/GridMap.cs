@@ -11,18 +11,18 @@ public sealed class GridMap<T>(int rows, int columns) {
 
     public int Columns { get; } = columns;
 
-    public T? Get(Position position) {
-        return _cells[position.Row, position.Column];
+    public T? Get(position_t position) {
+        return _cells[position.row, position.column];
     }
 
-    public void Set(Position position, T? value) {
-        _cells[position.Row, position.Column] = value;
+    public void Set(position_t position, T? value) {
+        _cells[position.row, position.column] = value;
     }
 
-    public IEnumerable<(Position Position, T? Value)> Enumerate() {
+    public IEnumerable<(position_t Position, T? Value)> Enumerate() {
         for (var row = 0; row < Rows; row += 1) {
             for (var column = 0; column < Columns; column += 1) {
-                var position = new Position(row, column);
+                var position = new position_t(row, column);
                 yield return (position, _cells[row, column]);
             }
         }
