@@ -343,10 +343,10 @@ public partial class GameWindow : Window {
     }
 
     private static string FormatMoveSummary(Move move) {
-        var captureText = move.CapturedPieceType is null
+        var captureText = move.get_captured_piece_type is null
             ? string.Empty
-            : $", взята фигура: {GetPieceName(move.CapturedPieceType.Value)}";
-        return $"{GetTurnLabel(move.PieceColor)}: {GetPieceName(move.PieceType)} {move.From} -> {move.To}{captureText}";
+            : $", взята фигура: {GetPieceName(move.get_captured_piece_type.Value)}";
+        return $"{GetTurnLabel(move.get_piece_color)}: {GetPieceName(move.get_piece_type)} {move.get_position_from} -> {move.get_position_to}{captureText}";
     }
 
     private static string GetPieceSymbol(Piece? piece) {

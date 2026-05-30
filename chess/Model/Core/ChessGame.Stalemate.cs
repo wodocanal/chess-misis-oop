@@ -24,7 +24,7 @@ public partial class ChessGame {
 
         var lastMoves = _moveHistory.TakeLast(6).ToArray();
         for (var index = 1; index < lastMoves.Length; index += 2) {
-            if (!lastMoves[index].IsReverseOf(lastMoves[index - 1])) {
+            if (!lastMoves[index].is_reverse_of(lastMoves[index - 1])) {
                 return false;
             }
         }

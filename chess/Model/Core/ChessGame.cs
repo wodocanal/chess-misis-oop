@@ -75,7 +75,7 @@ public partial class ChessGame {
         return MoveExecutionResult.Success;
     }
 
-    public MoveExecutionResult TryMove(Move move) => TryMove(move.From, move.To);
+    public MoveExecutionResult TryMove(Move move) => TryMove(move.get_position_from, move.get_position_to);
 
     public bool TryUndoLastMove() {
         if (!CanUndo) {
@@ -147,7 +147,7 @@ public partial class ChessGame {
 
         var currentTurn = piece_color_t.PIECE_COLOR_WHITE;
         foreach (var move in _moveHistory) {
-            rebuiltBoard.try_move(move.From, move.To, out _);
+            rebuiltBoard.try_move(move.get_position_from, move.get_position_to, out _);
             currentTurn = Toggle(currentTurn);
         }
 

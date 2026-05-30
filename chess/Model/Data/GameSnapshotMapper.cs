@@ -21,13 +21,13 @@ internal static class GameSnapshotMapper {
                 })],
             Moves = [.. game.MoveHistory
                 .Select(move => new MoveSnapshot {
-                    PieceType = move.PieceType,
-                    PieceColor = move.PieceColor,
-                    FromRow = move.From.row,
-                    FromColumn = move.From.column,
-                    ToRow = move.To.row,
-                    ToColumn = move.To.column,
-                    CapturedPieceType = move.CapturedPieceType?.ToString(),
+                    PieceType = move.get_piece_type,
+                    PieceColor = move.get_piece_color,
+                    FromRow = move.get_position_from.row,
+                    FromColumn = move.get_position_from.column,
+                    ToRow = move.get_position_to.row,
+                    ToColumn = move.get_position_to.column,
+                    CapturedPieceType = move.get_captured_piece_type?.ToString(),
                 })],
         };
     }
