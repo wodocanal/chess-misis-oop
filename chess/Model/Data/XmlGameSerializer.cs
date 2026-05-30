@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2026 Maxim Naumov (KiraFlux) <kiraflux@duck.com>
+// SPDX-FileCopyrightText: 2026 Yuri Golyshev (wodocanal)
+
 using System.Xml.Serialization;
 
 namespace Model.Data;
