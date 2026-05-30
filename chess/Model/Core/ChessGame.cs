@@ -129,7 +129,7 @@ public partial class ChessGame {
     }
 
     private static bool IsKingInCheck(piece_color_t color, board_t board) {
-        var king = board.pieces_getall<King>().FirstOrDefault(piece => piece.get_color == color);
+        var king = board.pieces_getall<king_piece_t>().FirstOrDefault(piece => piece.get_color == color);
         if (king is null) {
             return false;
         }
@@ -166,7 +166,7 @@ public partial class ChessGame {
         board.piece_place(new knight_piece_t(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 1)));
         board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 2)));
         board.piece_place(new Queen(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 3)));
-        board.piece_place(new King(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 4)));
+        board.piece_place(new king_piece_t(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 4)));
         board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 5)));
         board.piece_place(new knight_piece_t(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 6)));
         board.piece_place(new Rook(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 7)));
@@ -175,7 +175,7 @@ public partial class ChessGame {
         board.piece_place(new knight_piece_t(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 1)));
         board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 2)));
         board.piece_place(new Queen(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 3)));
-        board.piece_place(new King(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 4)));
+        board.piece_place(new king_piece_t(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 4)));
         board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 5)));
         board.piece_place(new knight_piece_t(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 6)));
         board.piece_place(new Rook(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 7)));

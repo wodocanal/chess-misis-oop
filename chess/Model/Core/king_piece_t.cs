@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class King(piece_color_t color, position_t position, int moveCount = 0) : piece_t(color, position, moveCount) {
+public sealed class king_piece_t(piece_color_t color, position_t position, int moveCount = 0) : piece_t(color, position, moveCount) {
     private static readonly board_vector_t[] offsets =
     [
         board_vector_t.north,
@@ -23,5 +23,5 @@ public sealed class King(piece_color_t color, position_t position, int moveCount
 
     public override IReadOnlyCollection<position_t> get_available_moves(board_t board) => MoveGenerator.generate_stepping_moves(this, board, offsets);
 
-    public override piece_t make_clone() => new King(get_color, get_position, get_move_count);
+    public override piece_t make_clone() => new king_piece_t(get_color, get_position, get_move_count);
 }
