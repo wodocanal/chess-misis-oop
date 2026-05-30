@@ -13,7 +13,7 @@ public sealed class game_snapshot_t {
 
     public game_state_status_t get_status { get; set; }
 
-    public List<PieceSnapshot> get_pieces { get; set; } = [];
+    public List<piece_snapshot_t> get_pieces { get; set; } = [];
 
     public List<MoveSnapshot> get_moves { get; set; } = [];
 }

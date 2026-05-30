@@ -12,12 +12,12 @@ internal static class GameSnapshotMapper {
             get_current_turn = game.current_turn,
             get_status = game.status,
             get_pieces = [.. game.board.pieces_getall()
-                .Select(piece => new PieceSnapshot {
-                    Type = piece.get_type.ToString(),
-                    Color = piece.get_color,
-                    Row = piece.get_position.row,
-                    Column = piece.get_position.column,
-                    MoveCount = piece.get_move_count,
+                .Select(piece => new piece_snapshot_t {
+                    type = piece.get_type.ToString(),
+                    color = piece.get_color,
+                    row = piece.get_position.row,
+                    column = piece.get_position.column,
+                    move_count = piece.get_move_count,
                 })],
             get_moves = [.. game.get_move_history
                 .Select(move => new MoveSnapshot {
@@ -50,16 +50,16 @@ internal static class GameSnapshotMapper {
         return new chess_game_t(board, snapshot.get_current_turn, moves);
     }
 
-    private static piece_t CreatePiece(PieceSnapshot snapshot) {
-        var position = new position_t(snapshot.Row, snapshot.Column);
-        return Enum.Parse<piece_type_t>(snapshot.Type) switch {
-            piece_type_t.PIECE_TYPE_KING => new king_piece_t(snapshot.Color, position, snapshot.MoveCount),
-            piece_type_t.PIECE_TYPE_QUEEN => new queen_piece_t(snapshot.Color, position, snapshot.MoveCount),
-            piece_type_t.PIECE_TYPE_ROOK => new rook_piece_t(snapshot.Color, position, snapshot.MoveCount),
-            piece_type_t.PIECE_TYPE_BISHOP => new bishop_piece_t(snapshot.Color, position, snapshot.MoveCount),
-            piece_type_t.PIECE_TYPE_KNIGHT => new knight_piece_t(snapshot.Color, position, snapshot.MoveCount),
-            piece_type_t.PIECE_TYPE_PAWN => new pawn_piece_t(snapshot.Color, position, snapshot.MoveCount),
-            _ => throw new InvalidOperationException($"Unknown piece type: {snapshot.Type}"),
+    private static piece_t CreatePiece(piece_snapshot_t snapshot) {
+        var position = new position_t(snapshot.row, snapshot.column);
+        return Enum.Parse<piece_type_t>(snapshot.type) switch {
+            piece_type_t.PIECE_TYPE_KING => new king_piece_t(snapshot.color, position, snapshot.move_count),
+            piece_type_t.PIECE_TYPE_QUEEN => new queen_piece_t(snapshot.color, position, snapshot.move_count),
+            piece_type_t.PIECE_TYPE_ROOK => new rook_piece_t(snapshot.color, position, snapshot.move_count),
+            piece_type_t.PIECE_TYPE_BISHOP => new bishop_piece_t(snapshot.color, position, snapshot.move_count),
+            piece_type_t.PIECE_TYPE_KNIGHT => new knight_piece_t(snapshot.color, position, snapshot.move_count),
+            piece_type_t.PIECE_TYPE_PAWN => new pawn_piece_t(snapshot.color, position, snapshot.move_count),
+            _ => throw new InvalidOperationException($"Unknown piece type: {snapshot.type}"),
         };
     }
 }
