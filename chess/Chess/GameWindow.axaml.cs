@@ -355,18 +355,18 @@ public partial class GameWindow : Window {
         }
 
         return (piece.get_type, piece.get_color) switch {
-            (piece_type_t.PIECE_KING, piece_color_t.PIECE_COLOR_WHITE) => "♔",
-            (piece_type_t.PIECE_QUEEN, piece_color_t.PIECE_COLOR_WHITE) => "♕",
-            (piece_type_t.PIECE_ROOK, piece_color_t.PIECE_COLOR_WHITE) => "♖",
-            (piece_type_t.PIECE_BISHOP, piece_color_t.PIECE_COLOR_WHITE) => "♗",
-            (piece_type_t.PIECE_KNIGHT, piece_color_t.PIECE_COLOR_WHITE) => "♘",
-            (piece_type_t.PIECE_PAWN, piece_color_t.PIECE_COLOR_WHITE) => "♙",
-            (piece_type_t.PIECE_KING, piece_color_t.PIECE_COLOR_BLACK) => "♚",
-            (piece_type_t.PIECE_QUEEN, piece_color_t.PIECE_COLOR_BLACK) => "♛",
-            (piece_type_t.PIECE_ROOK, piece_color_t.PIECE_COLOR_BLACK) => "♜",
-            (piece_type_t.PIECE_BISHOP, piece_color_t.PIECE_COLOR_BLACK) => "♝",
-            (piece_type_t.PIECE_KNIGHT, piece_color_t.PIECE_COLOR_BLACK) => "♞",
-            (piece_type_t.PIECE_PAWN, piece_color_t.PIECE_COLOR_BLACK) => "♟",
+            (piece_type_t.PIECE_TYPE_KING, piece_color_t.PIECE_COLOR_WHITE) => "♔",
+            (piece_type_t.PIECE_TYPE_QUEEN, piece_color_t.PIECE_COLOR_WHITE) => "♕",
+            (piece_type_t.PIECE_TYPE_ROOK, piece_color_t.PIECE_COLOR_WHITE) => "♖",
+            (piece_type_t.PIECE_TYPE_BISHOP, piece_color_t.PIECE_COLOR_WHITE) => "♗",
+            (piece_type_t.PIECE_TYPE_KNIGHT, piece_color_t.PIECE_COLOR_WHITE) => "♘",
+            (piece_type_t.PIECE_TYPE_PAWN, piece_color_t.PIECE_COLOR_WHITE) => "♙",
+            (piece_type_t.PIECE_TYPE_KING, piece_color_t.PIECE_COLOR_BLACK) => "♚",
+            (piece_type_t.PIECE_TYPE_QUEEN, piece_color_t.PIECE_COLOR_BLACK) => "♛",
+            (piece_type_t.PIECE_TYPE_ROOK, piece_color_t.PIECE_COLOR_BLACK) => "♜",
+            (piece_type_t.PIECE_TYPE_BISHOP, piece_color_t.PIECE_COLOR_BLACK) => "♝",
+            (piece_type_t.PIECE_TYPE_KNIGHT, piece_color_t.PIECE_COLOR_BLACK) => "♞",
+            (piece_type_t.PIECE_TYPE_PAWN, piece_color_t.PIECE_COLOR_BLACK) => "♟",
             _ => piece.get_symbol,
         };
     }
@@ -377,12 +377,12 @@ public partial class GameWindow : Window {
 
     private static string GetPieceName(piece_type_t pieceType) {
         return pieceType switch {
-            piece_type_t.PIECE_KING => "король",
-            piece_type_t.PIECE_QUEEN => "ферзь",
-            piece_type_t.PIECE_ROOK => "ладья",
-            piece_type_t.PIECE_BISHOP => "слон",
-            piece_type_t.PIECE_KNIGHT => "конь",
-            piece_type_t.PIECE_PAWN => "пешка",
+            piece_type_t.PIECE_TYPE_KING => "король",
+            piece_type_t.PIECE_TYPE_QUEEN => "ферзь",
+            piece_type_t.PIECE_TYPE_ROOK => "ладья",
+            piece_type_t.PIECE_TYPE_BISHOP => "слон",
+            piece_type_t.PIECE_TYPE_KNIGHT => "конь",
+            piece_type_t.PIECE_TYPE_PAWN => "пешка",
             _ => "фигура",
         };
     }

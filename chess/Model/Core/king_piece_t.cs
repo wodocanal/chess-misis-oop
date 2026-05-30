@@ -17,7 +17,7 @@ public sealed class king_piece_t(piece_color_t color, position_t position, int m
         board_vector_t.south_west,
     ];
 
-    public override piece_type_t get_type => piece_type_t.PIECE_KING;
+    public override piece_type_t get_type => piece_type_t.PIECE_TYPE_KING;
 
     public override string get_symbol => "K";
 

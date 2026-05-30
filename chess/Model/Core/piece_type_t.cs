@@ -5,10 +5,10 @@
 namespace Model.Core;
 
 public enum piece_type_t {
-    PIECE_KING,
-    PIECE_QUEEN,
-    PIECE_ROOK,
-    PIECE_BISHOP,
-    PIECE_KNIGHT,
-    PIECE_PAWN,
+    PIECE_TYPE_KING,
+    PIECE_TYPE_QUEEN,
+    PIECE_TYPE_ROOK,
+    PIECE_TYPE_BISHOP,
+    PIECE_TYPE_KNIGHT,
+    PIECE_TYPE_PAWN
 }

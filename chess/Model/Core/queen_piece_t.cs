@@ -5,7 +5,7 @@
 namespace Model.Core;
 
 public sealed class queen_piece_t(piece_color_t color, position_t position, int moveCount = 0) : piece_t(color, position, moveCount) {
-    public override piece_type_t get_type => piece_type_t.PIECE_QUEEN;
+    public override piece_type_t get_type => piece_type_t.PIECE_TYPE_QUEEN;
 
     public override string get_symbol => "Q";
 
