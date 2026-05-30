@@ -15,7 +15,7 @@ public abstract class GameSerializerBase : IamInterfaceThatReperentsThatThisIsGa
 
     public void save(chess_game_t game, string filePath) => Save(GameSnapshotMapper.ToSnapshot(game), filePath);
 
-    public void Save(GameSnapshot snapshot, string filePath) {
+    public void Save(game_snapshot_t snapshot, string filePath) {
         var directory = Path.GetDirectoryName(filePath);
         if (!string.IsNullOrWhiteSpace(directory)) {
             Directory.CreateDirectory(directory);
@@ -34,7 +34,7 @@ public abstract class GameSerializerBase : IamInterfaceThatReperentsThatThisIsGa
         return GameSnapshotMapper.ToGame(snapshot);
     }
 
-    protected abstract string SerializeSnapshot(GameSnapshot snapshot);
+    protected abstract string SerializeSnapshot(game_snapshot_t snapshot);
 
-    protected abstract GameSnapshot DeserializeSnapshot(string content);
+    protected abstract game_snapshot_t DeserializeSnapshot(string content);
 }

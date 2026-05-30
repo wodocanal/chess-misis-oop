@@ -20,10 +20,10 @@ public sealed class JsonGameSerializer : GameSerializerBase {
 
     public override string get_file_extension => ".json";
 
-    protected override string SerializeSnapshot(GameSnapshot snapshot) => JsonSerializer.Serialize(snapshot, SerializerOptions);
+    protected override string SerializeSnapshot(game_snapshot_t snapshot) => JsonSerializer.Serialize(snapshot, SerializerOptions);
 
-    protected override GameSnapshot DeserializeSnapshot(string content) {
-        return JsonSerializer.Deserialize<GameSnapshot>(content, SerializerOptions)
+    protected override game_snapshot_t DeserializeSnapshot(string content) {
+        return JsonSerializer.Deserialize<game_snapshot_t>(content, SerializerOptions)
             ?? throw new InvalidOperationException("Unable to deserialize JSON save file.");
     }
 }

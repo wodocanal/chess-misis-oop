@@ -11,17 +11,17 @@ public sealed class XmlGameSerializer : GameSerializerBase {
 
     public override string get_file_extension => ".xml";
 
-    protected override string SerializeSnapshot(GameSnapshot snapshot) {
-        var serializer = new XmlSerializer(typeof(GameSnapshot));
+    protected override string SerializeSnapshot(game_snapshot_t snapshot) {
+        var serializer = new XmlSerializer(typeof(game_snapshot_t));
         using var writer = new StringWriter();
         serializer.Serialize(writer, snapshot);
         return writer.ToString();
     }
 
-    protected override GameSnapshot DeserializeSnapshot(string content) {
-        var serializer = new XmlSerializer(typeof(GameSnapshot));
+    protected override game_snapshot_t DeserializeSnapshot(string content) {
+        var serializer = new XmlSerializer(typeof(game_snapshot_t));
         using var reader = new StringReader(content);
-        return serializer.Deserialize(reader) as GameSnapshot
+        return serializer.Deserialize(reader) as game_snapshot_t
             ?? throw new InvalidOperationException("Unable to deserialize XML save file.");
     }
 }

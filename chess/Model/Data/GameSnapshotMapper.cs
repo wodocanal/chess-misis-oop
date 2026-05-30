@@ -7,11 +7,11 @@ using Model.Core;
 namespace Model.Data;
 
 internal static class GameSnapshotMapper {
-    public static GameSnapshot ToSnapshot(chess_game_t game) {
-        return new GameSnapshot {
-            CurrentTurn = game.current_turn,
-            Status = game.status,
-            Pieces = [.. game.board.pieces_getall()
+    public static game_snapshot_t ToSnapshot(chess_game_t game) {
+        return new game_snapshot_t {
+            get_current_turn = game.current_turn,
+            get_status = game.status,
+            get_pieces = [.. game.board.pieces_getall()
                 .Select(piece => new PieceSnapshot {
                     Type = piece.get_type.ToString(),
                     Color = piece.get_color,
@@ -19,7 +19,7 @@ internal static class GameSnapshotMapper {
                     Column = piece.get_position.column,
                     MoveCount = piece.get_move_count,
                 })],
-            Moves = [.. game.get_move_history
+            get_moves = [.. game.get_move_history
                 .Select(move => new MoveSnapshot {
                     PieceType = move.get_piece_type,
                     PieceColor = move.get_piece_color,
@@ -32,13 +32,13 @@ internal static class GameSnapshotMapper {
         };
     }
 
-    public static chess_game_t ToGame(GameSnapshot snapshot) {
+    public static chess_game_t ToGame(game_snapshot_t snapshot) {
         var board = new board_t();
-        foreach (var pieceSnapshot in snapshot.Pieces) {
+        foreach (var pieceSnapshot in snapshot.get_pieces) {
             board.piece_place(CreatePiece(pieceSnapshot));
         }
 
-        var moves = snapshot.Moves.Select(move => new piece_move_t(
+        var moves = snapshot.get_moves.Select(move => new piece_move_t(
             move.PieceType,
             move.PieceColor,
             new position_t(move.FromRow, move.FromColumn),
@@ -47,7 +47,7 @@ internal static class GameSnapshotMapper {
                 ? null
                 : Enum.Parse<piece_type_t>(move.CapturedPieceType)));
 
-        return new chess_game_t(board, snapshot.CurrentTurn, moves);
+        return new chess_game_t(board, snapshot.get_current_turn, moves);
     }
 
     private static piece_t CreatePiece(PieceSnapshot snapshot) {
