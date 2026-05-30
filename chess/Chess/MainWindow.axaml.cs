@@ -34,7 +34,7 @@ public partial class MainWindow : Window {
     }
 
     private void NewGameButton_OnClick(object? sender, RoutedEventArgs e) {
-        var game = chess_game_t.CreateNewGame();
+        var game = chess_game_t.create_new_game();
         OpenGameWindow(game, GetSelectedSerializer(), GetSaveFilePath());
     }
 

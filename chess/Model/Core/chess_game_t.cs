@@ -5,47 +5,47 @@
 namespace Model.Core;
 
 public class chess_game_t {
-    private readonly List<piece_move_t> _moveHistory = [];
+    private readonly List<piece_move_t> move_history = [];
 
     public event Action<game_state_status_t>? StateChanged;
 
-    public chess_game_t(board_t board, piece_color_t currentTurn, IEnumerable<piece_move_t>? moveHistory = null) {
-        Board = board;
-        CurrentTurn = currentTurn;
-        if (moveHistory is not null) {
-            _moveHistory.AddRange(moveHistory);
+    public chess_game_t(board_t board, piece_color_t current_turn, IEnumerable<piece_move_t>? move_history = null) {
+        this.board = board;
+        this.current_turn = current_turn;
+        if (move_history is not null) {
+            this.move_history.AddRange(move_history);
         }
 
-        UpdateGameState();
+        update_game_state();
     }
 
-    public board_t Board { get; private set; }
+    public board_t board { get; private set; }
 
-    public piece_color_t CurrentTurn { get; private set; }
+    public piece_color_t current_turn { get; private set; }
 
-    public game_state_status_t Status { get; private set; }
+    public game_state_status_t status { get; private set; }
 
-    public IReadOnlyList<piece_move_t> MoveHistory => _moveHistory;
+    public IReadOnlyList<piece_move_t> get_move_history => this.move_history;
 
-    public bool CanUndo => _moveHistory.Count > 0;
+    public bool can_undo => this.move_history.Count > 0;
 
-    public static chess_game_t CreateNewGame() {
+    public static chess_game_t create_new_game() {
         var board = new board_t();
-        PlaceStartingPieces(board);
+        place_starting_pieces(board);
         return new chess_game_t(board, piece_color_t.PIECE_COLOR_WHITE);
     }
 
-    public IReadOnlyCollection<position_t> GetLegalMoves(position_t from) {
-        var piece = Board.piece_get(from);
-        if (piece is null || piece.get_color != CurrentTurn) {
+    public IReadOnlyCollection<position_t> get_legal_moves(position_t from) {
+        var piece = board.piece_get(from);
+        if (piece is null || piece.get_color != current_turn) {
             return [];
         }
 
-        return [.. piece.get_available_moves(Board).Where(target => WouldKeepKingSafe(Board, from, target, piece.get_color))];
+        return [.. piece.get_available_moves(board).Where(target => would_keep_king_safe(board, from, target, piece.get_color))];
     }
 
-    public move_execution_result_t TryMove(position_t from, position_t to) {
-        if (Status is game_state_status_t.GAME_STATUS_IN_CHECKMATE or game_state_status_t.GAME_STATUS_STALEMATE) {
+    public move_execution_result_t try_move(position_t from, position_t to) {
+        if (status is game_state_status_t.GAME_STATUS_IN_CHECKMATE or game_state_status_t.GAME_STATUS_STALEMATE) {
             return move_execution_result_t.MOVE_EXECUTION_RESULT_GAME_FINISHED;
         }
 
@@ -53,45 +53,45 @@ public class chess_game_t {
             return move_execution_result_t.MOVE_EXECUTION_RESULT_CANCELLED_SELECTION;
         }
 
-        var movingPiece = Board.piece_get(from);
+        var movingPiece = board.piece_get(from);
         if (movingPiece is null) {
             return move_execution_result_t.MOVE_EXECUTION_RESULT_INVALID_SOURCE;
         }
 
-        if (movingPiece.get_color != CurrentTurn) {
+        if (movingPiece.get_color != current_turn) {
             return move_execution_result_t.MOVE_EXECUTION_RESULT_WRONG_TURN;
         }
 
-        if (!GetLegalMoves(from).Contains(to)) {
+        if (!get_legal_moves(from).Contains(to)) {
             return move_execution_result_t.MOVE_EXECUTION_RESULT_INVALID_TARGET;
         }
 
-        var capturedPiece = Board.piece_get(to);
-        Board.try_move(from, to, out _);
-        _moveHistory.Add(new piece_move_t(movingPiece.get_type, movingPiece.get_color, from, to, capturedPiece?.get_type));
+        var captured_piece = board.piece_get(to);
+        board.try_move(from, to, out _);
+        this.move_history.Add(new piece_move_t(movingPiece.get_type, movingPiece.get_color, from, to, captured_piece?.get_type));
 
-        CurrentTurn = Toggle(CurrentTurn);
-        UpdateGameState();
+        current_turn = toggle_colors(current_turn);
+        update_game_state();
         return move_execution_result_t.MOVE_EXECUTION_RESULT_SUCCESS;
     }
 
-    public move_execution_result_t TryMove(piece_move_t move) => TryMove(move.get_position_from, move.get_position_to);
+    public move_execution_result_t TryMove(piece_move_t move) => try_move(move.get_position_from, move.get_position_to);
 
-    public bool TryUndoLastMove() {
-        if (!CanUndo) {
+    public bool try_undo_last_move() {
+        if (!can_undo) {
             return false;
         }
 
-        _moveHistory.RemoveAt(_moveHistory.Count - 1);
-        RebuildBoardFromHistory();
+        this.move_history.RemoveAt(this.move_history.Count - 1);
+        rebuild_board_from_history();
         return true;
     }
 
-    public bool IsInCheck(piece_color_t color) => IsKingInCheck(color, Board);
+    public bool is_in_check(piece_color_t color) => is_king_in_check(color, board);
 
-    internal bool HasAnyLegalMove(piece_color_t color) {
-        foreach (var piece in Board.pieces_getall().Where(piece => piece.get_color == color)) {
-            if (piece.get_available_moves(Board).Any(target => WouldKeepKingSafe(Board, piece.get_position, target, color))) {
+    internal bool has_any_legal_move(piece_color_t color) {
+        foreach (var piece in board.pieces_getall().Where(piece => piece.get_color == color)) {
+            if (piece.get_available_moves(board).Any(target => would_keep_king_safe(board, piece.get_position, target, color))) {
                 return true;
             }
         }
@@ -99,82 +99,79 @@ public class chess_game_t {
         return false;
     }
 
-    internal bool IsInCheck(piece_color_t color, board_t board) => IsKingInCheck(color, board);
+    internal bool is_in_check(piece_color_t color, board_t board) => is_king_in_check(color, board);
 
-    private void UpdateGameState() {
-        var previousStatus = Status;
-        Status = DetermineStateFor(CurrentTurn);
+    private void update_game_state() {
+        var previousStatus = status;
+        status = determine_state_for(current_turn);
 
-        if (Status != previousStatus) {
-            StateChanged?.Invoke(Status);
+        if (status != previousStatus) {
+            StateChanged?.Invoke(status);
         }
     }
 
-    private game_state_status_t DetermineStateFor(piece_color_t color) {
-        if (IsCheckmate(color)) {
+    private game_state_status_t determine_state_for(piece_color_t color) {
+        if (is_checkmate(color)) {
             return game_state_status_t.GAME_STATUS_IN_CHECKMATE;
         }
 
-        if (IsStalemate(color)) {
+        if (is_stalemate(color)) {
             return game_state_status_t.GAME_STATUS_STALEMATE;
         }
 
-        return IsInCheck(color) ? game_state_status_t.GAME_STATUS_CHECK : game_state_status_t.GAME_STATUS_IN_PROGRESS;
+        return is_in_check(color) ? game_state_status_t.GAME_STATUS_CHECK : game_state_status_t.GAME_STATUS_IN_PROGRESS;
     }
 
-    private static bool WouldKeepKingSafe(board_t board, position_t from, position_t to, piece_color_t movingColor) {
+    private static bool would_keep_king_safe(board_t board, position_t from, position_t to, piece_color_t movingColor) {
         var clonedBoard = board.make_clone();
         clonedBoard.try_move(from, to, out _);
-        return !IsKingInCheck(movingColor, clonedBoard);
+        return !is_king_in_check(movingColor, clonedBoard);
     }
 
-    private static bool IsKingInCheck(piece_color_t color, board_t board) {
+    private static bool is_king_in_check(piece_color_t color, board_t board) {
         var king = board.pieces_getall<king_piece_t>().FirstOrDefault(piece => piece.get_color == color);
-        if (king is null) {
-            return false;
-        }
+        if (king is null) { return false; }
 
-        return board.pieces_getall()
-            .Where(piece => piece.get_color != color)
-            .Any(piece => piece.can_attack(king.get_position, board));
+        return board.pieces_getall().Where(piece => piece.get_color != color).Any(piece => piece.can_attack(king.get_position, board));
     }
 
-    private static piece_color_t Toggle(piece_color_t color) => color == piece_color_t.PIECE_COLOR_WHITE ? piece_color_t.PIECE_COLOR_BLACK : piece_color_t.PIECE_COLOR_WHITE;
+    private static piece_color_t toggle_colors(piece_color_t color) =>
+        color == piece_color_t.PIECE_COLOR_WHITE ? piece_color_t.PIECE_COLOR_BLACK : piece_color_t.PIECE_COLOR_WHITE;
 
-    private void RebuildBoardFromHistory() {
+    private void rebuild_board_from_history() {
         var rebuiltBoard = new board_t();
-        PlaceStartingPieces(rebuiltBoard);
+        place_starting_pieces(rebuiltBoard);
 
-        var currentTurn = piece_color_t.PIECE_COLOR_WHITE;
-        foreach (var move in _moveHistory) {
+        var current_turn = piece_color_t.PIECE_COLOR_WHITE;
+        foreach (var move in this.move_history) {
             rebuiltBoard.try_move(move.get_position_from, move.get_position_to, out _);
-            currentTurn = Toggle(currentTurn);
+            current_turn = toggle_colors(current_turn);
         }
 
-        Board = rebuiltBoard;
-        CurrentTurn = currentTurn;
-        UpdateGameState();
+        board = rebuiltBoard;
+        this.current_turn = current_turn;
+        update_game_state();
     }
-    private bool IsCheckmate(piece_color_t color) => IsInCheck(color) && !HasAnyLegalMove(color);
+    private bool is_checkmate(piece_color_t color) => is_in_check(color) && !has_any_legal_move(color);
 
-    private bool IsStalemate(piece_color_t color) {
-        if (IsInCheck(color)) {
+    private bool is_stalemate(piece_color_t color) {
+        if (is_in_check(color)) {
             return false;
         }
 
-        if (!HasAnyLegalMove(color)) {
+        if (!has_any_legal_move(color)) {
             return true;
         }
 
-        return IsSixReversibleHalfMovesReached();
+        return is_six_reversible_half_moves_reached();
     }
 
-    private bool IsSixReversibleHalfMovesReached() {
-        if (_moveHistory.Count < 6) {
+    private bool is_six_reversible_half_moves_reached() {
+        if (this.move_history.Count < 6) {
             return false;
         }
 
-        var lastMoves = _moveHistory.TakeLast(6).ToArray();
+        var lastMoves = this.move_history.TakeLast(6).ToArray();
         for (var index = 1; index < lastMoves.Length; index += 2) {
             if (!lastMoves[index].is_reverse_of(lastMoves[index - 1])) {
                 return false;
@@ -184,7 +181,7 @@ public class chess_game_t {
         return true;
     }
 
-    private static void PlaceStartingPieces(board_t board) {
+    private static void place_starting_pieces(board_t board) {
         for (var column = 0; column < 8; column += 1) {
             board.piece_place(new pawn_piece_t(piece_color_t.PIECE_COLOR_WHITE, new position_t(6, column)));
             board.piece_place(new pawn_piece_t(piece_color_t.PIECE_COLOR_BLACK, new position_t(1, column)));

@@ -37,7 +37,7 @@ public partial class GameWindow : Window {
 
     public GameWindow()
         : this(
-            chess_game_t.CreateNewGame(),
+            chess_game_t.create_new_game(),
             new JsonGameSerializer(),
             Path.Combine(Path.GetTempPath(), "chess-preview.json")) {
     }
@@ -161,7 +161,7 @@ public partial class GameWindow : Window {
     }
 
     private void HandleCellClick(position_t position) {
-        var clickedPiece = _game.Board.piece_get(position);
+        var clickedPiece = _game.board.piece_get(position);
 
         if (_selectedPosition is null) {
             if (!TrySelectPiece(position, clickedPiece)) {
@@ -178,12 +178,12 @@ public partial class GameWindow : Window {
         }
 
         if (_availableMoves.Contains(position)) {
-            var result = _game.TryMove(_selectedPosition.Value, position);
+            var result = _game.try_move(_selectedPosition.Value, position);
             HandleMoveResult(result, _selectedPosition.Value, position);
             return;
         }
 
-        if (clickedPiece is not null && clickedPiece.get_color == _game.CurrentTurn) {
+        if (clickedPiece is not null && clickedPiece.get_color == _game.current_turn) {
             TrySelectPiece(position, clickedPiece);
             UpdateBoard();
             return;
@@ -198,13 +198,13 @@ public partial class GameWindow : Window {
             return false;
         }
 
-        if (piece.get_color != _game.CurrentTurn) {
+        if (piece.get_color != _game.current_turn) {
             UpdateSidebar("Сейчас ходит другой цвет.");
             return false;
         }
 
         _selectedPosition = position;
-        _availableMoves = _game.GetLegalMoves(position);
+        _availableMoves = _game.get_legal_moves(position);
         UpdateSidebar(_availableMoves.Count == 0
             ? "Для выбранной фигуры сейчас нет допустимых ходов."
             : $"Выбрана фигура {GetPieceName(piece)} на {position}.");
@@ -245,7 +245,7 @@ public partial class GameWindow : Window {
             for (var column = 0; column < BoardDimension; column += 1) {
                 var position = new position_t(row, column);
                 var button = _boardButtons[row, column];
-                var piece = _game.Board.piece_get(position);
+                var piece = _game.board.piece_get(position);
 
                 button.Content = GetPieceSymbol(piece);
                 button.Background = GetCellBackground(position);
@@ -257,13 +257,13 @@ public partial class GameWindow : Window {
     }
 
     private void UpdateSidebar(string? detailMessage = null) {
-        TurnTextBlock.Text = GetTurnLabel(_game.CurrentTurn);
+        TurnTextBlock.Text = GetTurnLabel(_game.current_turn);
         StateTextBlock.Text = CombineStateText(detailMessage);
         SavePathTextBlock.Text = _saveFilePath;
     }
 
     private void UpdateActionButtons() {
-        UndoMoveButton.IsEnabled = _game.CanUndo;
+        UndoMoveButton.IsEnabled = _game.can_undo;
     }
 
     private string CombineStateText(string? detailMessage) {
@@ -274,10 +274,10 @@ public partial class GameWindow : Window {
     }
 
     private string GetGameStateText() {
-        return _game.Status switch {
+        return _game.status switch {
             game_state_status_t.GAME_STATUS_IN_PROGRESS => "Партия продолжается.",
-            game_state_status_t.GAME_STATUS_CHECK => $"Шах: под ударом {GetColorName(_game.CurrentTurn)} король.",
-            game_state_status_t.GAME_STATUS_IN_CHECKMATE => $"Мат: {GetColorName(_game.CurrentTurn)} проиграли.",
+            game_state_status_t.GAME_STATUS_CHECK => $"Шах: под ударом {GetColorName(_game.current_turn)} король.",
+            game_state_status_t.GAME_STATUS_IN_CHECKMATE => $"Мат: {GetColorName(_game.current_turn)} проиграли.",
             game_state_status_t.GAME_STATUS_STALEMATE => "Пат: партия завершена вничью.",
             _ => "Неизвестное состояние.",
         };
@@ -300,13 +300,13 @@ public partial class GameWindow : Window {
     private void RefreshMoveLog() {
         MoveLogStackPanel.Children.Clear();
 
-        if (_game.MoveHistory.Count == 0) {
+        if (_game.get_move_history.Count == 0) {
             MoveLogStackPanel.Children.Add(CreateEmptyMoveLogState());
             return;
         }
 
-        for (var index = _game.MoveHistory.Count - 1; index >= 0; index -= 1) {
-            var move = _game.MoveHistory[index];
+        for (var index = _game.get_move_history.Count - 1; index >= 0; index -= 1) {
+            var move = _game.get_move_history[index];
             MoveLogStackPanel.Children.Add(CreateMoveLogEntry(move, index + 1));
         }
     }
@@ -408,7 +408,7 @@ public partial class GameWindow : Window {
     }
 
     private void UndoMoveButton_OnClick(object? sender, RoutedEventArgs e) {
-        if (!_game.TryUndoLastMove()) {
+        if (!_game.try_undo_last_move()) {
             UpdateSidebar("Пока нет ходов для отмены.");
             return;
         }

@@ -9,9 +9,9 @@ namespace Model.Data;
 internal static class GameSnapshotMapper {
     public static GameSnapshot ToSnapshot(chess_game_t game) {
         return new GameSnapshot {
-            CurrentTurn = game.CurrentTurn,
-            Status = game.Status,
-            Pieces = [.. game.Board.pieces_getall()
+            CurrentTurn = game.current_turn,
+            Status = game.status,
+            Pieces = [.. game.board.pieces_getall()
                 .Select(piece => new PieceSnapshot {
                     Type = piece.get_type.ToString(),
                     Color = piece.get_color,
@@ -19,7 +19,7 @@ internal static class GameSnapshotMapper {
                     Column = piece.get_position.column,
                     MoveCount = piece.get_move_count,
                 })],
-            Moves = [.. game.MoveHistory
+            Moves = [.. game.get_move_history
                 .Select(move => new MoveSnapshot {
                     PieceType = move.get_piece_type,
                     PieceColor = move.get_piece_color,
