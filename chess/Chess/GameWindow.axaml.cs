@@ -192,7 +192,7 @@ public partial class GameWindow : Window {
         UpdateSidebar("Эта клетка недоступна для выбранной фигуры.");
     }
 
-    private bool TrySelectPiece(position_t position, Piece? piece) {
+    private bool TrySelectPiece(position_t position, piece_t? piece) {
         if (piece is null) {
             UpdateSidebar("На этой клетке нет фигуры.");
             return false;
@@ -349,7 +349,7 @@ public partial class GameWindow : Window {
         return $"{GetTurnLabel(move.get_piece_color)}: {GetPieceName(move.get_piece_type)} {move.get_position_from} -> {move.get_position_to}{captureText}";
     }
 
-    private static string GetPieceSymbol(Piece? piece) {
+    private static string GetPieceSymbol(piece_t? piece) {
         if (piece is null) {
             return string.Empty;
         }
@@ -371,7 +371,7 @@ public partial class GameWindow : Window {
         };
     }
 
-    private static string GetPieceName(Piece piece) {
+    private static string GetPieceName(piece_t piece) {
         return GetPieceName(piece.get_type);
     }
 

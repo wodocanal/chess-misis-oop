@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class Knight(piece_color_t color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
+public sealed class Knight(piece_color_t color, position_t position, int moveCount = 0) : piece_t(color, position, moveCount) {
     private static readonly board_vector_t[] offsets =
     [
         new(-2, -1),
@@ -23,5 +23,5 @@ public sealed class Knight(piece_color_t color, position_t position, int moveCou
 
     public override IReadOnlyCollection<position_t> get_available_moves(Board board) => MoveGenerator.generate_stepping_moves(this, board, offsets);
 
-    public override Piece make_clone() => new Knight(get_color, get_position, get_move_count);
+    public override piece_t make_clone() => new Knight(get_color, get_position, get_move_count);
 }

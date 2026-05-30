@@ -5,11 +5,11 @@
 namespace Model.Core;
 
 public sealed class Board {
-    private readonly GridMap<Piece> cells = new(8, 8);
+    private readonly GridMap<piece_t> cells = new(8, 8);
 
-    public Piece? piece_get(position_t position) => position.is_valid ? this.cells.get(position) : null;
+    public piece_t? piece_get(position_t position) => position.is_valid ? this.cells.get(position) : null;
 
-    public Piece? piece_get(int row, int column) => this.piece_get(new position_t(row, column));
+    public piece_t? piece_get(int row, int column) => this.piece_get(new position_t(row, column));
 
     public bool is_empty(position_t position) => this.piece_get(position) is null;
 
@@ -23,13 +23,13 @@ public sealed class Board {
         return piece is not null && piece.get_color == color;
     }
 
-    public void piece_place(Piece piece) => this.cells.put(piece.get_position, piece);
+    public void piece_place(piece_t piece) => this.cells.put(piece.get_position, piece);
 
-    public void piece_set(position_t position, Piece? piece) => this.cells.put(position, piece);
+    public void piece_set(position_t position, piece_t? piece) => this.cells.put(position, piece);
 
     public void piece_remove(position_t position) => this.cells.put(position, null);
 
-    public bool try_move(position_t from, position_t to, out Piece? captured_piece) {
+    public bool try_move(position_t from, position_t to, out piece_t? captured_piece) {
         captured_piece = null;
         var moving_piece = this.piece_get(from);
         if (moving_piece is null) { return false; }
@@ -43,9 +43,9 @@ public sealed class Board {
         return true;
     }
 
-    public IReadOnlyCollection<Piece> pieces_getall() => [.. this.cells.to_enumerable().Select(entry => entry.Value).OfType<Piece>()];
+    public IReadOnlyCollection<piece_t> pieces_getall() => [.. this.cells.to_enumerable().Select(entry => entry.Value).OfType<piece_t>()];
 
-    public IReadOnlyCollection<T> pieces_getall<T>() where T : Piece => [.. this.pieces_getall().OfType<T>()];
+    public IReadOnlyCollection<T> pieces_getall<T>() where T : piece_t => [.. this.pieces_getall().OfType<T>()];
 
     public Board make_clone() {
         var ret = new Board();

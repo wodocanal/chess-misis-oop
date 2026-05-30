@@ -50,7 +50,7 @@ internal static class GameSnapshotMapper {
         return new ChessGame(board, snapshot.CurrentTurn, moves);
     }
 
-    private static Piece CreatePiece(PieceSnapshot snapshot) {
+    private static piece_t CreatePiece(PieceSnapshot snapshot) {
         var position = new position_t(snapshot.Row, snapshot.Column);
         return Enum.Parse<piece_type_t>(snapshot.Type) switch {
             piece_type_t.PIECE_KING => new King(snapshot.Color, position, snapshot.MoveCount),
