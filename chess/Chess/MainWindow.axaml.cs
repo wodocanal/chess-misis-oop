@@ -11,7 +11,7 @@ using Model.Data;
 namespace Chess;
 
 public partial class MainWindow : Window {
-    private readonly IamInterfaceThatReperentsThatThisIsGameSerializer[] _serializers =
+    private readonly IamInterfaceThatReperentsThatThisIsGameSerializer[] serializers =
     [
         new json_game_serializer_t(),
         new xml_game_serializer_t(),
@@ -19,10 +19,10 @@ public partial class MainWindow : Window {
 
     public MainWindow() {
         InitializeComponent();
-        InitializeControls();
+        initialize_controls();
     }
 
-    private void InitializeControls() {
+    private void initialize_controls() {
         FormatComboBox.ItemsSource = Enum.GetValues<serialization_format_t>();
         FormatComboBox.SelectedItem = serialization_format_t.SERIALIZATION_FORMAT_JSON;
         FormatComboBox.SelectionChanged += FormatComboBox_OnSelectionChanged;
@@ -30,33 +30,33 @@ public partial class MainWindow : Window {
         SaveFolderTextBox.Text = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "Chess");
-        UpdateSuggestedSavePath();
+        update_suggested_save_path();
     }
 
     private void NewGameButton_OnClick(object? sender, RoutedEventArgs e) {
         var game = chess_game_t.create_new_game();
-        OpenGameWindow(game, GetSelectedSerializer(), GetSaveFilePath());
+        open_game_window(game, get_selected_serializer(), get_save_file_path());
     }
 
     private void ContinueGameButton_OnClick(object? sender, RoutedEventArgs e) {
         var filePath = SaveFileTextBox.Text?.Trim();
         if (string.IsNullOrWhiteSpace(filePath)) {
-            SetValidationMessage("Для продолжения игры укажите путь к существующему файлу сохранения.");
+            set_validation_message("Для продолжения игры укажите путь к существующему файлу сохранения.");
             return;
         }
 
-        var validation = save_file_validator_t.Validate(filePath, _serializers);
+        var validation = save_file_validator_t.Validate(filePath, serializers);
         if (!validation.is_valid) {
-            SetValidationMessage(validation.get_message);
+            set_validation_message(validation.get_message);
             return;
         }
 
         try {
-            var serializer = _serializers.First(candidate => candidate.get_format == validation.get_format);
+            var serializer = serializers.First(candidate => candidate.get_format == validation.get_format);
             var game = serializer.load(filePath);
-            OpenGameWindow(game, serializer, filePath);
+            open_game_window(game, serializer, filePath);
         } catch (Exception exception) {
-            SetValidationMessage($"Не удалось загрузить сохранение: {exception.Message}");
+            set_validation_message($"Не удалось загрузить сохранение: {exception.Message}");
         }
     }
 
@@ -69,8 +69,8 @@ public partial class MainWindow : Window {
         var path = folders.FirstOrDefault()?.TryGetLocalPath();
         if (!string.IsNullOrWhiteSpace(path)) {
             SaveFolderTextBox.Text = path;
-            UpdateSuggestedSavePath();
-            SetValidationMessage("Папка сохранения обновлена.");
+            update_suggested_save_path();
+            set_validation_message("Папка сохранения обновлена.");
         }
     }
 
@@ -90,33 +90,33 @@ public partial class MainWindow : Window {
         var path = files.FirstOrDefault()?.TryGetLocalPath();
         if (!string.IsNullOrWhiteSpace(path)) {
             SaveFileTextBox.Text = path;
-            SetValidationMessage("Файл сохранения выбран.");
+            set_validation_message("Файл сохранения выбран.");
         }
     }
 
     private void FormatComboBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e) {
-        UpdateSuggestedSavePath();
+        update_suggested_save_path();
     }
 
-    private void OpenGameWindow(chess_game_t game, IamInterfaceThatReperentsThatThisIsGameSerializer serializer, string saveFilePath) {
+    private void open_game_window(chess_game_t game, IamInterfaceThatReperentsThatThisIsGameSerializer serializer, string saveFilePath) {
         var gameWindow = new GameWindow(game, serializer, saveFilePath);
         gameWindow.Closed += (_, _) => {
             Show();
             SaveFileTextBox.Text = saveFilePath;
-            SetValidationMessage("Окно партии закрыто. При наличии ходов партия сохранена автоматически.");
+            set_validation_message("Окно партии закрыто. При наличии ходов партия сохранена автоматически.");
         };
 
         gameWindow.Show();
         Hide();
     }
 
-    private IamInterfaceThatReperentsThatThisIsGameSerializer GetSelectedSerializer() {
+    private IamInterfaceThatReperentsThatThisIsGameSerializer get_selected_serializer() {
         var selected = FormatComboBox.SelectedItem as serialization_format_t?
             ?? serialization_format_t.SERIALIZATION_FORMAT_JSON;
-        return _serializers.First(serializer => serializer.get_format == selected);
+        return serializers.First(serializer => serializer.get_format == selected);
     }
 
-    private string GetSaveFilePath() {
+    private string get_save_file_path() {
         var explicitPath = SaveFileTextBox.Text?.Trim();
         if (!string.IsNullOrWhiteSpace(explicitPath)) {
             return explicitPath;
@@ -129,16 +129,16 @@ public partial class MainWindow : Window {
                 "Chess");
         }
 
-        return Path.Combine(folderPath, $"autosave{GetSelectedSerializer().get_file_extension}");
+        return Path.Combine(folderPath, $"autosave{get_selected_serializer().get_file_extension}");
     }
 
-    private void UpdateSuggestedSavePath() {
+    private void update_suggested_save_path() {
         if (string.IsNullOrWhiteSpace(SaveFileTextBox.Text)) {
-            SaveFileTextBox.Text = GetSaveFilePath();
+            SaveFileTextBox.Text = get_save_file_path();
         }
     }
 
-    private void SetValidationMessage(string message) {
+    private void set_validation_message(string message) {
         ValidationTextBlock.Text = message;
     }
 }
