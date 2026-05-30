@@ -13,7 +13,7 @@ public abstract class game_serializer_t : IamInterfaceThatReperentsThatThisIsGam
 
     public bool can_read(string filePath) => string.Equals(Path.GetExtension(filePath), get_file_extension, StringComparison.OrdinalIgnoreCase);
 
-    public void save(chess_game_t game, string filePath) => save(GameSnapshotMapper.ToSnapshot(game), filePath);
+    public void save(chess_game_t game, string filePath) => save(game_snapshot_mapper_t.to_snapshot(game), filePath);
 
     public void save(game_snapshot_t snapshot, string filePath) {
         var directory = Path.GetDirectoryName(filePath);
@@ -33,7 +33,7 @@ public abstract class game_serializer_t : IamInterfaceThatReperentsThatThisIsGam
 
         var content = File.ReadAllText(filePath);
         var snapshot = deserialize_snapshot(content);
-        return GameSnapshotMapper.ToGame(snapshot);
+        return game_snapshot_mapper_t.to_game(snapshot);
     }
 
     protected abstract string serialize_snapshot(game_snapshot_t snapshot);

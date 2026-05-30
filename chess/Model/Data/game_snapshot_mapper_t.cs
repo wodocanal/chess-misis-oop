@@ -6,8 +6,8 @@ using Model.Core;
 
 namespace Model.Data;
 
-internal static class GameSnapshotMapper {
-    public static game_snapshot_t ToSnapshot(chess_game_t game) {
+internal static class game_snapshot_mapper_t {
+    public static game_snapshot_t to_snapshot(chess_game_t game) {
         return new game_snapshot_t {
             get_current_turn = game.current_turn,
             get_status = game.status,
@@ -32,10 +32,10 @@ internal static class GameSnapshotMapper {
         };
     }
 
-    public static chess_game_t ToGame(game_snapshot_t snapshot) {
+    public static chess_game_t to_game(game_snapshot_t snapshot) {
         var board = new board_t();
         foreach (var pieceSnapshot in snapshot.get_pieces) {
-            board.piece_place(CreatePiece(pieceSnapshot));
+            board.piece_place(create_piece(pieceSnapshot));
         }
 
         var moves = snapshot.get_moves.Select(move => new piece_move_t(
@@ -50,7 +50,7 @@ internal static class GameSnapshotMapper {
         return new chess_game_t(board, snapshot.get_current_turn, moves);
     }
 
-    private static piece_t CreatePiece(piece_snapshot_t snapshot) {
+    private static piece_t create_piece(piece_snapshot_t snapshot) {
         var position = new position_t(snapshot.row, snapshot.column);
         return Enum.Parse<piece_type_t>(snapshot.type) switch {
             piece_type_t.PIECE_TYPE_KING => new king_piece_t(snapshot.color, position, snapshot.move_count),
