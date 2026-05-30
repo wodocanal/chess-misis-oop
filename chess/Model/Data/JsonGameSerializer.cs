@@ -16,9 +16,9 @@ public sealed class JsonGameSerializer : GameSerializerBase {
         },
     };
 
-    public override SerializationFormat Format => SerializationFormat.Json;
+    public override serialization_format_t get_format => serialization_format_t.SERIALIZATION_FORMAT_JSON;
 
-    public override string FileExtension => ".json";
+    public override string get_file_extension => ".json";
 
     protected override string SerializeSnapshot(GameSnapshot snapshot) => JsonSerializer.Serialize(snapshot, SerializerOptions);
 

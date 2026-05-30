@@ -5,7 +5,7 @@
 namespace Model.Data;
 
 public sealed class SaveFileValidationResult {
-    private SaveFileValidationResult(bool isValid, string message, SerializationFormat? format) {
+    private SaveFileValidationResult(bool isValid, string message, serialization_format_t? format) {
         IsValid = isValid;
         Message = message;
         Format = format;
@@ -15,9 +15,9 @@ public sealed class SaveFileValidationResult {
 
     public string Message { get; }
 
-    public SerializationFormat? Format { get; }
+    public serialization_format_t? Format { get; }
 
-    public static SaveFileValidationResult Valid(SerializationFormat format) => new SaveFileValidationResult(true, "Save file is valid.", format);
+    public static SaveFileValidationResult Valid(serialization_format_t format) => new SaveFileValidationResult(true, "Save file is valid.", format);
 
     public static SaveFileValidationResult Invalid(string message) => new SaveFileValidationResult(false, message, null);
 }

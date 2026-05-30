@@ -7,9 +7,9 @@ using System.Xml.Serialization;
 namespace Model.Data;
 
 public sealed class XmlGameSerializer : GameSerializerBase {
-    public override SerializationFormat Format => SerializationFormat.Xml;
+    public override serialization_format_t get_format => serialization_format_t.SERIALIZATION_FORMAT_XML;
 
-    public override string FileExtension => ".xml";
+    public override string get_file_extension => ".xml";
 
     protected override string SerializeSnapshot(GameSnapshot snapshot) {
         var serializer = new XmlSerializer(typeof(GameSnapshot));

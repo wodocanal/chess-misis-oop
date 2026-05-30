@@ -5,7 +5,7 @@
 namespace Model.Data;
 
 public static class SaveFileValidator {
-    public static SaveFileValidationResult Validate(string filePath, IEnumerable<GameSerializer> serializers) {
+    public static SaveFileValidationResult Validate(string filePath, IEnumerable<IamInterfaceThatReperentsThatThisIsGameSerializer> serializers) {
         if (string.IsNullOrWhiteSpace(filePath)) {
             return SaveFileValidationResult.Invalid("Не указан путь к файлу.");
         }
@@ -14,14 +14,14 @@ public static class SaveFileValidator {
             return SaveFileValidationResult.Invalid("Указанный файл не существует.");
         }
 
-        var serializer = serializers.FirstOrDefault(candidate => candidate.CanRead(filePath));
+        var serializer = serializers.FirstOrDefault(candidate => candidate.can_read(filePath));
         if (serializer is null) {
             return SaveFileValidationResult.Invalid("Формат файла не поддерживается. Используйте JSON или XML.");
         }
 
         try {
-            serializer.Load(filePath);
-            return SaveFileValidationResult.Valid(serializer.Format);
+            serializer.load(filePath);
+            return SaveFileValidationResult.Valid(serializer.get_format);
         } catch {
             return SaveFileValidationResult.Invalid("Файл не соответствует ожидаемому формату сохранения шахматной партии.");
         }

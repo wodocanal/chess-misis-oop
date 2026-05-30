@@ -29,7 +29,7 @@ public partial class GameWindow : Window {
 
     private readonly Button[,] _boardButtons = new Button[8, 8];
     private readonly chess_game_t _game;
-    private readonly GameSerializer _serializer;
+    private readonly IamInterfaceThatReperentsThatThisIsGameSerializer _serializer;
     private readonly string _saveFilePath;
 
     private position_t? _selectedPosition;
@@ -42,7 +42,7 @@ public partial class GameWindow : Window {
             Path.Combine(Path.GetTempPath(), "chess-preview.json")) {
     }
 
-    public GameWindow(chess_game_t game, GameSerializer serializer, string saveFilePath) {
+    public GameWindow(chess_game_t game, IamInterfaceThatReperentsThatThisIsGameSerializer serializer, string saveFilePath) {
         _game = game;
         _serializer = serializer;
         _saveFilePath = saveFilePath;
@@ -430,6 +430,6 @@ public partial class GameWindow : Window {
     }
 
     private void SaveGame() {
-        _serializer.Save(_game, _saveFilePath);
+        _serializer.save(_game, _saveFilePath);
     }
 }

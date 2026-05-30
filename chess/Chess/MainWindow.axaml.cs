@@ -11,7 +11,7 @@ using Model.Data;
 namespace Chess;
 
 public partial class MainWindow : Window {
-    private readonly GameSerializer[] _serializers =
+    private readonly IamInterfaceThatReperentsThatThisIsGameSerializer[] _serializers =
     [
         new JsonGameSerializer(),
         new XmlGameSerializer(),
@@ -23,8 +23,8 @@ public partial class MainWindow : Window {
     }
 
     private void InitializeControls() {
-        FormatComboBox.ItemsSource = Enum.GetValues<SerializationFormat>();
-        FormatComboBox.SelectedItem = SerializationFormat.Json;
+        FormatComboBox.ItemsSource = Enum.GetValues<serialization_format_t>();
+        FormatComboBox.SelectedItem = serialization_format_t.SERIALIZATION_FORMAT_JSON;
         FormatComboBox.SelectionChanged += FormatComboBox_OnSelectionChanged;
 
         SaveFolderTextBox.Text = Path.Combine(
@@ -52,8 +52,8 @@ public partial class MainWindow : Window {
         }
 
         try {
-            var serializer = _serializers.First(candidate => candidate.Format == validation.Format);
-            var game = serializer.Load(filePath);
+            var serializer = _serializers.First(candidate => candidate.get_format == validation.Format);
+            var game = serializer.load(filePath);
             OpenGameWindow(game, serializer, filePath);
         } catch (Exception exception) {
             SetValidationMessage($"Не удалось загрузить сохранение: {exception.Message}");
@@ -98,7 +98,7 @@ public partial class MainWindow : Window {
         UpdateSuggestedSavePath();
     }
 
-    private void OpenGameWindow(chess_game_t game, GameSerializer serializer, string saveFilePath) {
+    private void OpenGameWindow(chess_game_t game, IamInterfaceThatReperentsThatThisIsGameSerializer serializer, string saveFilePath) {
         var gameWindow = new GameWindow(game, serializer, saveFilePath);
         gameWindow.Closed += (_, _) => {
             Show();
@@ -110,10 +110,10 @@ public partial class MainWindow : Window {
         Hide();
     }
 
-    private GameSerializer GetSelectedSerializer() {
-        var selected = FormatComboBox.SelectedItem as SerializationFormat?
-            ?? SerializationFormat.Json;
-        return _serializers.First(serializer => serializer.Format == selected);
+    private IamInterfaceThatReperentsThatThisIsGameSerializer GetSelectedSerializer() {
+        var selected = FormatComboBox.SelectedItem as serialization_format_t?
+            ?? serialization_format_t.SERIALIZATION_FORMAT_JSON;
+        return _serializers.First(serializer => serializer.get_format == selected);
     }
 
     private string GetSaveFilePath() {
@@ -129,7 +129,7 @@ public partial class MainWindow : Window {
                 "Chess");
         }
 
-        return Path.Combine(folderPath, $"autosave{GetSelectedSerializer().FileExtension}");
+        return Path.Combine(folderPath, $"autosave{GetSelectedSerializer().get_file_extension}");
     }
 
     private void UpdateSuggestedSavePath() {

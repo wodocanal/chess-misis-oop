@@ -6,14 +6,14 @@ using Model.Core;
 
 namespace Model.Data;
 
-public abstract class GameSerializerBase : GameSerializer {
-    public abstract SerializationFormat Format { get; }
+public abstract class GameSerializerBase : IamInterfaceThatReperentsThatThisIsGameSerializer {
+    public abstract serialization_format_t get_format { get; }
 
-    public abstract string FileExtension { get; }
+    public abstract string get_file_extension { get; }
 
-    public bool CanRead(string filePath) => string.Equals(Path.GetExtension(filePath), FileExtension, StringComparison.OrdinalIgnoreCase);
+    public bool can_read(string filePath) => string.Equals(Path.GetExtension(filePath), get_file_extension, StringComparison.OrdinalIgnoreCase);
 
-    public void Save(chess_game_t game, string filePath) => Save(GameSnapshotMapper.ToSnapshot(game), filePath);
+    public void save(chess_game_t game, string filePath) => Save(GameSnapshotMapper.ToSnapshot(game), filePath);
 
     public void Save(GameSnapshot snapshot, string filePath) {
         var directory = Path.GetDirectoryName(filePath);
@@ -24,7 +24,7 @@ public abstract class GameSerializerBase : GameSerializer {
         File.WriteAllText(filePath, SerializeSnapshot(snapshot));
     }
 
-    public chess_game_t Load(string filePath) {
+    public chess_game_t load(string filePath) {
         if (!File.Exists(filePath)) {
             throw new FileNotFoundException("Save file was not found.", filePath);
         }
