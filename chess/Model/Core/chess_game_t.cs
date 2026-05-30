@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public class chess_game_t {
+public partial class chess_game_t {
     private readonly List<piece_move_t> move_history = [];
 
     public event Action<game_state_status_t>? StateChanged;
@@ -152,34 +152,8 @@ public class chess_game_t {
         this.current_turn = current_turn;
         update_game_state();
     }
-    private bool is_checkmate(piece_color_t color) => is_in_check(color) && !has_any_legal_move(color);
 
-    private bool is_stalemate(piece_color_t color) {
-        if (is_in_check(color)) {
-            return false;
-        }
 
-        if (!has_any_legal_move(color)) {
-            return true;
-        }
-
-        return is_six_reversible_half_moves_reached();
-    }
-
-    private bool is_six_reversible_half_moves_reached() {
-        if (this.move_history.Count < 6) {
-            return false;
-        }
-
-        var lastMoves = this.move_history.TakeLast(6).ToArray();
-        for (var index = 1; index < lastMoves.Length; index += 2) {
-            if (!lastMoves[index].is_reverse_of(lastMoves[index - 1])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
     private static void place_starting_pieces(board_t board) {
         for (var column = 0; column < 8; column += 1) {
