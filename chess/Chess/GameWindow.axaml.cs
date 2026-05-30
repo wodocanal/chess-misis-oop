@@ -161,7 +161,7 @@ public partial class GameWindow : Window {
     }
 
     private void HandleCellClick(position_t position) {
-        var clickedPiece = _game.Board.get_piece(position);
+        var clickedPiece = _game.Board.piece_get(position);
 
         if (_selectedPosition is null) {
             if (!TrySelectPiece(position, clickedPiece)) {
@@ -245,7 +245,7 @@ public partial class GameWindow : Window {
             for (var column = 0; column < BoardDimension; column += 1) {
                 var position = new position_t(row, column);
                 var button = _boardButtons[row, column];
-                var piece = _game.Board.get_piece(position);
+                var piece = _game.Board.piece_get(position);
 
                 button.Content = GetPieceSymbol(piece);
                 button.Background = GetCellBackground(position);

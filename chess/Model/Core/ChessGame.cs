@@ -36,7 +36,7 @@ public partial class ChessGame {
     }
 
     public IReadOnlyCollection<position_t> GetLegalMoves(position_t from) {
-        var piece = Board.get_piece(from);
+        var piece = Board.piece_get(from);
         if (piece is null || piece.get_color != CurrentTurn) {
             return [];
         }
@@ -53,7 +53,7 @@ public partial class ChessGame {
             return MoveExecutionResult.CancelledSelection;
         }
 
-        var movingPiece = Board.get_piece(from);
+        var movingPiece = Board.piece_get(from);
         if (movingPiece is null) {
             return MoveExecutionResult.InvalidSource;
         }
@@ -66,7 +66,7 @@ public partial class ChessGame {
             return MoveExecutionResult.InvalidTarget;
         }
 
-        var capturedPiece = Board.get_piece(to);
+        var capturedPiece = Board.piece_get(to);
         Board.try_move(from, to, out _);
         _moveHistory.Add(new Move(movingPiece.get_type, movingPiece.get_color, from, to, capturedPiece?.get_type));
 
@@ -90,7 +90,7 @@ public partial class ChessGame {
     public bool IsInCheck(piece_color_t color) => IsKingInCheck(color, Board);
 
     internal bool HasAnyLegalMove(piece_color_t color) {
-        foreach (var piece in Board.get_pieces().Where(piece => piece.get_color == color)) {
+        foreach (var piece in Board.pieces_getall().Where(piece => piece.get_color == color)) {
             if (piece.get_available_moves(Board).Any(target => WouldKeepKingSafe(Board, piece.get_position, target, color))) {
                 return true;
             }
@@ -129,12 +129,12 @@ public partial class ChessGame {
     }
 
     private static bool IsKingInCheck(piece_color_t color, Board board) {
-        var king = board.get_pieces<King>().FirstOrDefault(piece => piece.get_color == color);
+        var king = board.pieces_getall<King>().FirstOrDefault(piece => piece.get_color == color);
         if (king is null) {
             return false;
         }
 
-        return board.get_pieces()
+        return board.pieces_getall()
             .Where(piece => piece.get_color != color)
             .Any(piece => piece.can_attack(king.get_position, board));
     }
@@ -158,26 +158,26 @@ public partial class ChessGame {
 
     private static void PlaceStartingPieces(Board board) {
         for (var column = 0; column < 8; column += 1) {
-            board.place_piece(new Pawn(piece_color_t.PIECE_COLOR_WHITE, new position_t(6, column)));
-            board.place_piece(new Pawn(piece_color_t.PIECE_COLOR_BLACK, new position_t(1, column)));
+            board.piece_place(new Pawn(piece_color_t.PIECE_COLOR_WHITE, new position_t(6, column)));
+            board.piece_place(new Pawn(piece_color_t.PIECE_COLOR_BLACK, new position_t(1, column)));
         }
 
-        board.place_piece(new Rook(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 0)));
-        board.place_piece(new Knight(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 1)));
-        board.place_piece(new Bishop(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 2)));
-        board.place_piece(new Queen(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 3)));
-        board.place_piece(new King(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 4)));
-        board.place_piece(new Bishop(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 5)));
-        board.place_piece(new Knight(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 6)));
-        board.place_piece(new Rook(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 7)));
+        board.piece_place(new Rook(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 0)));
+        board.piece_place(new Knight(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 1)));
+        board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 2)));
+        board.piece_place(new Queen(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 3)));
+        board.piece_place(new King(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 4)));
+        board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 5)));
+        board.piece_place(new Knight(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 6)));
+        board.piece_place(new Rook(piece_color_t.PIECE_COLOR_WHITE, new position_t(7, 7)));
 
-        board.place_piece(new Rook(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 0)));
-        board.place_piece(new Knight(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 1)));
-        board.place_piece(new Bishop(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 2)));
-        board.place_piece(new Queen(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 3)));
-        board.place_piece(new King(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 4)));
-        board.place_piece(new Bishop(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 5)));
-        board.place_piece(new Knight(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 6)));
-        board.place_piece(new Rook(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 7)));
+        board.piece_place(new Rook(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 0)));
+        board.piece_place(new Knight(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 1)));
+        board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 2)));
+        board.piece_place(new Queen(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 3)));
+        board.piece_place(new King(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 4)));
+        board.piece_place(new Bishop(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 5)));
+        board.piece_place(new Knight(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 6)));
+        board.piece_place(new Rook(piece_color_t.PIECE_COLOR_BLACK, new position_t(0, 7)));
     }
 }
