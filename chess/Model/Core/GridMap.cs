@@ -20,8 +20,8 @@ public sealed class GridMap<T>(int rows, int columns) {
     }
 
     public IEnumerable<(Position Position, T? Value)> Enumerate() {
-        for (var row = 0; row < Rows; row++) {
-            for (var column = 0; column < Columns; column++) {
+        for (var row = 0; row < Rows; row += 1) {
+            for (var column = 0; column < Columns; column += 1) {
                 var position = new Position(row, column);
                 yield return (position, _cells[row, column]);
             }

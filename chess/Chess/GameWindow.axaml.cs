@@ -69,13 +69,13 @@ public partial class GameWindow : Window {
         BoardGrid.ColumnDefinitions.Clear();
         BoardGrid.Children.Clear();
 
-        for (var index = 0; index < BoardDimension; index++) {
+        for (var index = 0; index < BoardDimension; index += 1) {
             BoardGrid.RowDefinitions.Add(new RowDefinition(new GridLength(CellSize)));
             BoardGrid.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(CellSize)));
         }
 
-        for (var row = 0; row < BoardDimension; row++) {
-            for (var column = 0; column < BoardDimension; column++) {
+        for (var row = 0; row < BoardDimension; row += 1) {
+            for (var column = 0; column < BoardDimension; column += 1) {
                 var position = new Position(row, column);
                 var button = new Button {
                     Width = CellSize,
@@ -109,7 +109,7 @@ public partial class GameWindow : Window {
         targetGrid.ColumnDefinitions.Clear();
         targetGrid.Children.Clear();
 
-        for (var column = 0; column < BoardDimension; column++) {
+        for (var column = 0; column < BoardDimension; column += 1) {
             targetGrid.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(CellSize)));
 
             var label = CreateHorizontalCoordinateLabel(((char)('A' + column)).ToString());
@@ -125,7 +125,7 @@ public partial class GameWindow : Window {
         targetGrid.RowDefinitions.Clear();
         targetGrid.Children.Clear();
 
-        for (var row = 0; row < BoardDimension; row++) {
+        for (var row = 0; row < BoardDimension; row += 1) {
             targetGrid.RowDefinitions.Add(new RowDefinition(new GridLength(CellSize)));
 
             var label = CreateVerticalCoordinateLabel((BoardDimension - row).ToString());
@@ -241,8 +241,8 @@ public partial class GameWindow : Window {
     }
 
     private void UpdateBoard() {
-        for (var row = 0; row < BoardDimension; row++) {
-            for (var column = 0; column < BoardDimension; column++) {
+        for (var row = 0; row < BoardDimension; row += 1) {
+            for (var column = 0; column < BoardDimension; column += 1) {
                 var position = new Position(row, column);
                 var button = _boardButtons[row, column];
                 var piece = _game.Board.GetPiece(position);
@@ -305,7 +305,7 @@ public partial class GameWindow : Window {
             return;
         }
 
-        for (var index = _game.MoveHistory.Count - 1; index >= 0; index--) {
+        for (var index = _game.MoveHistory.Count - 1; index >= 0; index -= 1) {
             var move = _game.MoveHistory[index];
             MoveLogStackPanel.Children.Add(CreateMoveLogEntry(move, index + 1));
         }

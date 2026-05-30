@@ -23,7 +23,7 @@ public abstract class Piece(PieceColor color, Position position, int moveCount =
 
     public virtual void MoveTo(Position target) {
         Position = target;
-        MoveCount++;
+        MoveCount += 1;
     }
 
     public abstract Piece Clone();

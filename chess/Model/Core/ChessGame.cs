@@ -165,7 +165,7 @@ public partial class ChessGame {
     }
 
     private static void PlaceStartingPieces(Board board) {
-        for (var column = 0; column < 8; column++) {
+        for (var column = 0; column < 8; column += 1) {
             board.PlacePiece(new Pawn(PieceColor.White, new Position(6, column)));
             board.PlacePiece(new Pawn(PieceColor.Black, new Position(1, column)));
         }
