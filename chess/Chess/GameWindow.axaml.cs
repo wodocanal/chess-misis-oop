@@ -211,9 +211,9 @@ public partial class GameWindow : Window {
         return true;
     }
 
-    private void HandleMoveResult(MoveExecutionResult result, position_t from, position_t to) {
+    private void HandleMoveResult(move_execution_result_t result, position_t from, position_t to) {
         switch (result) {
-            case MoveExecutionResult.Success:
+            case move_execution_result_t.MOVE_EXECUTION_RESULT_SUCCESS:
                 _selectedPosition = null;
                 _availableMoves = [];
                 UpdateBoard();
@@ -221,17 +221,17 @@ public partial class GameWindow : Window {
                 UpdateSidebar($"Ход выполнен: {from} -> {to}.");
                 UpdateActionButtons();
                 return;
-            case MoveExecutionResult.CancelledSelection:
+            case move_execution_result_t.MOVE_EXECUTION_RESULT_CANCELLED_SELECTION:
                 ClearSelection("Выбор отменён.");
                 return;
-            case MoveExecutionResult.WrongTurn:
+            case move_execution_result_t.MOVE_EXECUTION_RESULT_WRONG_TURN:
                 UpdateSidebar("Сейчас ходит другой цвет.");
                 return;
-            case MoveExecutionResult.InvalidSource:
-            case MoveExecutionResult.InvalidTarget:
+            case move_execution_result_t.MOVE_EXECUTION_RESULT_INVALID_SOURCE:
+            case move_execution_result_t.MOVE_EXECUTION_RESULT_INVALID_TARGET:
                 UpdateSidebar("Недопустимый ход.");
                 return;
-            case MoveExecutionResult.GameFinished:
+            case move_execution_result_t.MOVE_EXECUTION_RESULT_GAME_FINISHED:
                 UpdateSidebar("Партия уже завершена.");
                 return;
             default:

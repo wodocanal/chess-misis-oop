@@ -44,26 +44,26 @@ public partial class ChessGame {
         return [.. piece.get_available_moves(Board).Where(target => WouldKeepKingSafe(Board, from, target, piece.get_color))];
     }
 
-    public MoveExecutionResult TryMove(position_t from, position_t to) {
+    public move_execution_result_t TryMove(position_t from, position_t to) {
         if (Status is game_state_status_t.GAME_STATUS_IN_CHECKMATE or game_state_status_t.GAME_STATUS_STALEMATE) {
-            return MoveExecutionResult.GameFinished;
+            return move_execution_result_t.MOVE_EXECUTION_RESULT_GAME_FINISHED;
         }
 
         if (from == to) {
-            return MoveExecutionResult.CancelledSelection;
+            return move_execution_result_t.MOVE_EXECUTION_RESULT_CANCELLED_SELECTION;
         }
 
         var movingPiece = Board.piece_get(from);
         if (movingPiece is null) {
-            return MoveExecutionResult.InvalidSource;
+            return move_execution_result_t.MOVE_EXECUTION_RESULT_INVALID_SOURCE;
         }
 
         if (movingPiece.get_color != CurrentTurn) {
-            return MoveExecutionResult.WrongTurn;
+            return move_execution_result_t.MOVE_EXECUTION_RESULT_WRONG_TURN;
         }
 
         if (!GetLegalMoves(from).Contains(to)) {
-            return MoveExecutionResult.InvalidTarget;
+            return move_execution_result_t.MOVE_EXECUTION_RESULT_INVALID_TARGET;
         }
 
         var capturedPiece = Board.piece_get(to);
@@ -72,10 +72,10 @@ public partial class ChessGame {
 
         CurrentTurn = Toggle(CurrentTurn);
         UpdateGameState();
-        return MoveExecutionResult.Success;
+        return move_execution_result_t.MOVE_EXECUTION_RESULT_SUCCESS;
     }
 
-    public MoveExecutionResult TryMove(Move move) => TryMove(move.get_position_from, move.get_position_to);
+    public move_execution_result_t TryMove(Move move) => TryMove(move.get_position_from, move.get_position_to);
 
     public bool TryUndoLastMove() {
         if (!CanUndo) {
