@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class GridMap<T>(int rows, int columns) {
+public sealed class grid_mapping_t<T>(int rows, int columns) {
     private readonly T?[,] cells = new T?[rows, columns];
 
     public int get_rows { get; } = rows;

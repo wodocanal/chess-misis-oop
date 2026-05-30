@@ -5,7 +5,7 @@
 namespace Model.Core;
 
 public sealed class board_t {
-    private readonly GridMap<piece_t> cells = new(8, 8);
+    private readonly grid_mapping_t<piece_t> cells = new(8, 8);
 
     public piece_t? piece_get(position_t position) => position.is_valid ? this.cells.get(position) : null;
 
