@@ -9,7 +9,7 @@ namespace Model.Data;
 public sealed class GameSnapshot {
     public int SchemaVersion { get; set; } = 1;
 
-    public PieceColor CurrentTurn { get; set; }
+    public piece_color_t CurrentTurn { get; set; }
 
     public GameStateStatus Status { get; set; }
 

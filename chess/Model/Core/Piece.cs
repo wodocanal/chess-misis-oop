@@ -4,8 +4,8 @@
 
 namespace Model.Core;
 
-public abstract class Piece(PieceColor color, position_t position, int moveCount = 0) : IamInterfaceThatReperentsThatThisIsPiece {
-    public PieceColor get_color { get; } = color;
+public abstract class Piece(piece_color_t color, position_t position, int moveCount = 0) : IamInterfaceThatReperentsThatThisIsPiece {
+    public piece_color_t get_color { get; } = color;
 
     public abstract piece_type_t get_type { get; }
 

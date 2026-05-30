@@ -9,7 +9,7 @@ namespace Model.Data;
 public sealed class MoveSnapshot {
     public piece_type_t PieceType { get; set; }
 
-    public PieceColor PieceColor { get; set; }
+    public piece_color_t PieceColor { get; set; }
 
     public int FromRow { get; set; }
 

@@ -9,7 +9,7 @@ namespace Model.Data;
 public sealed class PieceSnapshot {
     public string Type { get; set; } = string.Empty;
 
-    public PieceColor Color { get; set; }
+    public piece_color_t Color { get; set; }
 
     public int Row { get; set; }
 

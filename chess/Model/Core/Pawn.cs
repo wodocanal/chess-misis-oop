@@ -4,14 +4,14 @@
 
 namespace Model.Core;
 
-public sealed class Pawn(PieceColor color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
+public sealed class Pawn(piece_color_t color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
     public override piece_type_t get_type => piece_type_t.PIECE_PAWN;
 
     public override string get_symbol => "P";
 
     public override IReadOnlyCollection<position_t> get_available_moves(Board board) {
         var result = new List<position_t>();
-        var direction = get_color == PieceColor.White ? -1 : 1;
+        var direction = get_color == piece_color_t.PIECE_COLOR_WHITE ? -1 : 1;
 
         var singleStep = get_position + new board_vector_t(direction, 0);
         if (singleStep.is_valid && board.IsEmpty(singleStep)) {
@@ -34,7 +34,7 @@ public sealed class Pawn(PieceColor color, position_t position, int moveCount = 
     }
 
     public override bool can_attack(position_t target, Board board) {
-        var direction = get_color == PieceColor.White ? -1 : 1;
+        var direction = get_color == piece_color_t.PIECE_COLOR_WHITE ? -1 : 1;
         return target == get_position + new board_vector_t(direction, -1)
             || target == get_position + new board_vector_t(direction, 1);
     }

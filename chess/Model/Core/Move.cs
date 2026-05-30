@@ -4,10 +4,10 @@
 
 namespace Model.Core;
 
-public sealed class Move(piece_type_t pieceType, PieceColor pieceColor, position_t from, position_t to, piece_type_t? capturedPieceType = null) {
+public sealed class Move(piece_type_t pieceType, piece_color_t pieceColor, position_t from, position_t to, piece_type_t? capturedPieceType = null) {
     public piece_type_t PieceType { get; } = pieceType;
 
-    public PieceColor PieceColor { get; } = pieceColor;
+    public piece_color_t PieceColor { get; } = pieceColor;
 
     public position_t From { get; } = from;
 

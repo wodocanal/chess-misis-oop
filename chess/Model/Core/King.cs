@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class King(PieceColor color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
+public sealed class King(piece_color_t color, position_t position, int moveCount = 0) : Piece(color, position, moveCount) {
     private static readonly board_vector_t[] offsets =
     [
         board_vector_t.north,

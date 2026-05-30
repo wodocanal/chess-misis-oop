@@ -249,7 +249,7 @@ public partial class GameWindow : Window {
 
                 button.Content = GetPieceSymbol(piece);
                 button.Background = GetCellBackground(position);
-                button.Foreground = piece?.get_color == PieceColor.White
+                button.Foreground = piece?.get_color == piece_color_t.PIECE_COLOR_WHITE
                     ? Brushes.White
                     : Brushes.Black;
             }
@@ -355,18 +355,18 @@ public partial class GameWindow : Window {
         }
 
         return (piece.get_type, piece.get_color) switch {
-            (piece_type_t.PIECE_KING, PieceColor.White) => "♔",
-            (piece_type_t.PIECE_QUEEN, PieceColor.White) => "♕",
-            (piece_type_t.PIECE_ROOK, PieceColor.White) => "♖",
-            (piece_type_t.PIECE_BISHOP, PieceColor.White) => "♗",
-            (piece_type_t.PIECE_KNIGHT, PieceColor.White) => "♘",
-            (piece_type_t.PIECE_PAWN, PieceColor.White) => "♙",
-            (piece_type_t.PIECE_KING, PieceColor.Black) => "♚",
-            (piece_type_t.PIECE_QUEEN, PieceColor.Black) => "♛",
-            (piece_type_t.PIECE_ROOK, PieceColor.Black) => "♜",
-            (piece_type_t.PIECE_BISHOP, PieceColor.Black) => "♝",
-            (piece_type_t.PIECE_KNIGHT, PieceColor.Black) => "♞",
-            (piece_type_t.PIECE_PAWN, PieceColor.Black) => "♟",
+            (piece_type_t.PIECE_KING, piece_color_t.PIECE_COLOR_WHITE) => "♔",
+            (piece_type_t.PIECE_QUEEN, piece_color_t.PIECE_COLOR_WHITE) => "♕",
+            (piece_type_t.PIECE_ROOK, piece_color_t.PIECE_COLOR_WHITE) => "♖",
+            (piece_type_t.PIECE_BISHOP, piece_color_t.PIECE_COLOR_WHITE) => "♗",
+            (piece_type_t.PIECE_KNIGHT, piece_color_t.PIECE_COLOR_WHITE) => "♘",
+            (piece_type_t.PIECE_PAWN, piece_color_t.PIECE_COLOR_WHITE) => "♙",
+            (piece_type_t.PIECE_KING, piece_color_t.PIECE_COLOR_BLACK) => "♚",
+            (piece_type_t.PIECE_QUEEN, piece_color_t.PIECE_COLOR_BLACK) => "♛",
+            (piece_type_t.PIECE_ROOK, piece_color_t.PIECE_COLOR_BLACK) => "♜",
+            (piece_type_t.PIECE_BISHOP, piece_color_t.PIECE_COLOR_BLACK) => "♝",
+            (piece_type_t.PIECE_KNIGHT, piece_color_t.PIECE_COLOR_BLACK) => "♞",
+            (piece_type_t.PIECE_PAWN, piece_color_t.PIECE_COLOR_BLACK) => "♟",
             _ => piece.get_symbol,
         };
     }
@@ -387,12 +387,12 @@ public partial class GameWindow : Window {
         };
     }
 
-    private static string GetTurnLabel(PieceColor color) {
-        return color == PieceColor.White ? "Белые" : "Чёрные";
+    private static string GetTurnLabel(piece_color_t color) {
+        return color == piece_color_t.PIECE_COLOR_WHITE ? "Белые" : "Чёрные";
     }
 
-    private static string GetColorName(PieceColor color) {
-        return color == PieceColor.White ? "белый" : "чёрный";
+    private static string GetColorName(piece_color_t color) {
+        return color == piece_color_t.PIECE_COLOR_WHITE ? "белый" : "чёрный";
     }
 
     private void ClearSelection(string message) {

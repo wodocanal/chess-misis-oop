@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public enum PieceColor {
-    White,
-    Black,
+public enum piece_color_t {
+    PIECE_COLOR_WHITE,
+    PIECE_COLOR_BLACK,
 }

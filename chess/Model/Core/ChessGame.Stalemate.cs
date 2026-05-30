@@ -5,7 +5,7 @@
 namespace Model.Core;
 
 public partial class ChessGame {
-    private bool IsStalemate(PieceColor color) {
+    private bool IsStalemate(piece_color_t color) {
         if (IsInCheck(color)) {
             return false;
         }
