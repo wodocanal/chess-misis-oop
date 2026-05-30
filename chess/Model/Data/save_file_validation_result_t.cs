@@ -17,7 +17,7 @@ public sealed class save_file_validation_result_t {
 
     public serialization_format_t? get_format { get; }
 
-    public static save_file_validation_result_t make_valid(serialization_format_t format) => new save_file_validation_result_t(true, "Save file is valid.", format);
+    public static save_file_validation_result_t create_valid(serialization_format_t format) => new save_file_validation_result_t(true, "Save file is valid.", format);
 
-    public static save_file_validation_result_t make_invalid(string message) => new save_file_validation_result_t(false, message, null);
+    public static save_file_validation_result_t create_invalid(string message) => new save_file_validation_result_t(false, message, null);
 }

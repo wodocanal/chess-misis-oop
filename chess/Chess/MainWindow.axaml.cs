@@ -45,7 +45,7 @@ public partial class MainWindow : Window {
             return;
         }
 
-        var validation = SaveFileValidator.Validate(filePath, _serializers);
+        var validation = save_file_validator_t.Validate(filePath, _serializers);
         if (!validation.is_valid) {
             SetValidationMessage(validation.get_message);
             return;
