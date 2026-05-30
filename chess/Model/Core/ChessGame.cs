@@ -5,11 +5,11 @@
 namespace Model.Core;
 
 public partial class ChessGame {
-    private readonly List<Move> _moveHistory = [];
+    private readonly List<piece_move_t> _moveHistory = [];
 
     public event Action<game_state_status_t>? StateChanged;
 
-    public ChessGame(Board board, piece_color_t currentTurn, IEnumerable<Move>? moveHistory = null) {
+    public ChessGame(Board board, piece_color_t currentTurn, IEnumerable<piece_move_t>? moveHistory = null) {
         Board = board;
         CurrentTurn = currentTurn;
         if (moveHistory is not null) {
@@ -25,7 +25,7 @@ public partial class ChessGame {
 
     public game_state_status_t Status { get; private set; }
 
-    public IReadOnlyList<Move> MoveHistory => _moveHistory;
+    public IReadOnlyList<piece_move_t> MoveHistory => _moveHistory;
 
     public bool CanUndo => _moveHistory.Count > 0;
 
@@ -68,14 +68,14 @@ public partial class ChessGame {
 
         var capturedPiece = Board.piece_get(to);
         Board.try_move(from, to, out _);
-        _moveHistory.Add(new Move(movingPiece.get_type, movingPiece.get_color, from, to, capturedPiece?.get_type));
+        _moveHistory.Add(new piece_move_t(movingPiece.get_type, movingPiece.get_color, from, to, capturedPiece?.get_type));
 
         CurrentTurn = Toggle(CurrentTurn);
         UpdateGameState();
         return move_execution_result_t.MOVE_EXECUTION_RESULT_SUCCESS;
     }
 
-    public move_execution_result_t TryMove(Move move) => TryMove(move.get_position_from, move.get_position_to);
+    public move_execution_result_t TryMove(piece_move_t move) => TryMove(move.get_position_from, move.get_position_to);
 
     public bool TryUndoLastMove() {
         if (!CanUndo) {

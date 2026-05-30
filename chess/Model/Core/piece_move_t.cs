@@ -4,7 +4,7 @@
 
 namespace Model.Core;
 
-public sealed class Move(piece_type_t piece_type, piece_color_t piece_color, position_t from, position_t to, piece_type_t? captured_piece_type = null) {
+public sealed class piece_move_t(piece_type_t piece_type, piece_color_t piece_color, position_t from, position_t to, piece_type_t? captured_piece_type = null) {
     public piece_type_t get_piece_type { get; } = piece_type;
 
     public piece_color_t get_piece_color { get; } = piece_color;
@@ -15,7 +15,7 @@ public sealed class Move(piece_type_t piece_type, piece_color_t piece_color, pos
 
     public piece_type_t? get_captured_piece_type { get; } = captured_piece_type;
 
-    public bool is_reverse_of(Move other) {
+    public bool is_reverse_of(piece_move_t other) {
         return get_piece_type == other.get_piece_type
             && get_piece_color == other.get_piece_color
             && get_position_from == other.get_position_to

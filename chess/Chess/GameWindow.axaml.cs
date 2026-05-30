@@ -327,7 +327,7 @@ public partial class GameWindow : Window {
         };
     }
 
-    private static Border CreateMoveLogEntry(Move move, int moveNumber) {
+    private static Border CreateMoveLogEntry(piece_move_t move, int moveNumber) {
         return new Border {
             Padding = new Thickness(12),
             Background = Brush.Parse("#FBF7F0"),
@@ -342,7 +342,7 @@ public partial class GameWindow : Window {
         };
     }
 
-    private static string FormatMoveSummary(Move move) {
+    private static string FormatMoveSummary(piece_move_t move) {
         var captureText = move.get_captured_piece_type is null
             ? string.Empty
             : $", взята фигура: {GetPieceName(move.get_captured_piece_type.Value)}";

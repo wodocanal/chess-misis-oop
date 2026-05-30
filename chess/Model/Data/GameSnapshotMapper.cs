@@ -38,7 +38,7 @@ internal static class GameSnapshotMapper {
             board.piece_place(CreatePiece(pieceSnapshot));
         }
 
-        var moves = snapshot.Moves.Select(move => new Move(
+        var moves = snapshot.Moves.Select(move => new piece_move_t(
             move.PieceType,
             move.PieceColor,
             new position_t(move.FromRow, move.FromColumn),
