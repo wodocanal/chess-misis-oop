@@ -23,10 +23,10 @@ public sealed class Pawn(PieceColor color, Position position, int moveCount = 0)
             }
         }
 
-        foreach (var attackOffset in new[] { new BoardVector(direction, -1), new BoardVector(direction, 1) }) {
-            var attackPosition = get_position + attackOffset;
-            if (attackPosition.IsValid && board.IsEnemy(attackPosition, get_color)) {
-                result.Add(attackPosition);
+        foreach (var attack_offset in new[] { new BoardVector(direction, -1), new BoardVector(direction, 1) }) {
+            var attack_position = get_position + attack_offset;
+            if (attack_position.IsValid && board.IsEnemy(attack_position, get_color)) {
+                result.Add(attack_position);
             }
         }
 
