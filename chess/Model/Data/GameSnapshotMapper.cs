@@ -20,14 +20,14 @@ internal static class GameSnapshotMapper {
                     move_count = piece.get_move_count,
                 })],
             get_moves = [.. game.get_move_history
-                .Select(move => new MoveSnapshot {
-                    PieceType = move.get_piece_type,
-                    PieceColor = move.get_piece_color,
-                    FromRow = move.get_position_from.row,
-                    FromColumn = move.get_position_from.column,
-                    ToRow = move.get_position_to.row,
-                    ToColumn = move.get_position_to.column,
-                    CapturedPieceType = move.get_captured_piece_type?.ToString(),
+                .Select(move => new move_snapshot_t {
+                    piece_type = move.get_piece_type,
+                    piece_color = move.get_piece_color,
+                    from_row = move.get_position_from.row,
+                    from_column = move.get_position_from.column,
+                    to_row = move.get_position_to.row,
+                    to_column = move.get_position_to.column,
+                    captured_piece_type = move.get_captured_piece_type?.ToString(),
                 })],
         };
     }
@@ -39,13 +39,13 @@ internal static class GameSnapshotMapper {
         }
 
         var moves = snapshot.get_moves.Select(move => new piece_move_t(
-            move.PieceType,
-            move.PieceColor,
-            new position_t(move.FromRow, move.FromColumn),
-            new position_t(move.ToRow, move.ToColumn),
-            string.IsNullOrWhiteSpace(move.CapturedPieceType)
+            move.piece_type,
+            move.piece_color,
+            new position_t(move.from_row, move.from_column),
+            new position_t(move.to_row, move.to_column),
+            string.IsNullOrWhiteSpace(move.captured_piece_type)
                 ? null
-                : Enum.Parse<piece_type_t>(move.CapturedPieceType)));
+                : Enum.Parse<piece_type_t>(move.captured_piece_type)));
 
         return new chess_game_t(board, snapshot.get_current_turn, moves);
     }

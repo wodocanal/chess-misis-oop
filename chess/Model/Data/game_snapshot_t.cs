@@ -15,5 +15,5 @@ public sealed class game_snapshot_t {
 
     public List<piece_snapshot_t> get_pieces { get; set; } = [];
 
-    public List<MoveSnapshot> get_moves { get; set; } = [];
+    public List<move_snapshot_t> get_moves { get; set; } = [];
 }
