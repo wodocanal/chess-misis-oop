@@ -19,7 +19,7 @@ public sealed class Bishop(PieceColor color, Position position, int moveCount = 
             BoardVector.SouthWest);
     }
 
-    public override Piece Clone() {
-        return new Bishop(get_color, get_position, MoveCount);
+    public override Piece make_clone() {
+        return new Bishop(get_color, get_position, get_move_count);
     }
 }

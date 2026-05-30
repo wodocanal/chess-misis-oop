@@ -25,7 +25,7 @@ public sealed class Knight(PieceColor color, Position position, int moveCount = 
         return MoveGeneration.GetSteppingMoves(this, board, Offsets);
     }
 
-    public override Piece Clone() {
-        return new Knight(get_color, get_position, MoveCount);
+    public override Piece make_clone() {
+        return new Knight(get_color, get_position, get_move_count);
     }
 }

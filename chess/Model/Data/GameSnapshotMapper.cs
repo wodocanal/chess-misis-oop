@@ -17,7 +17,7 @@ internal static class GameSnapshotMapper {
                     Color = piece.get_color,
                     Row = piece.get_position.Row,
                     Column = piece.get_position.Column,
-                    MoveCount = piece.MoveCount,
+                    MoveCount = piece.get_move_count,
                 })],
             Moves = [.. game.MoveHistory
                 .Select(move => new MoveSnapshot {

@@ -11,7 +11,7 @@ public abstract class Piece(PieceColor color, Position position, int moveCount =
 
     public Position get_position { get; private set; } = position;
 
-    public int MoveCount { get; private set; } = moveCount;
+    public int get_move_count { get; private set; } = moveCount;
 
     public abstract string get_symbol { get; }
 
@@ -21,14 +21,14 @@ public abstract class Piece(PieceColor color, Position position, int moveCount =
 
     public abstract IReadOnlyCollection<Position> get_available_moves(Board board);
 
-    public virtual void MoveTo(Position target) {
+    public virtual void move_to(Position target) {
         get_position = target;
-        MoveCount += 1;
+        get_move_count += 1;
     }
 
-    public abstract Piece Clone();
+    public abstract Piece make_clone();
 
-    internal bool CanOccupy(Board board, Position position) {
+    internal bool can_occupy_tokmachka(Board board, Position position) {
         return position.IsValid && !board.IsFriendly(position, get_color);
     }
 }

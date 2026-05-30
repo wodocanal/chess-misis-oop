@@ -25,7 +25,7 @@ public sealed class King(PieceColor color, Position position, int moveCount = 0)
         return MoveGeneration.GetSteppingMoves(this, board, Offsets);
     }
 
-    public override Piece Clone() {
-        return new King(get_color, get_position, MoveCount);
+    public override Piece make_clone() {
+        return new King(get_color, get_position, get_move_count);
     }
 }

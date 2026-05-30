@@ -19,7 +19,7 @@ public sealed class Rook(PieceColor color, Position position, int moveCount = 0)
             BoardVector.West);
     }
 
-    public override Piece Clone() {
-        return new Rook(get_color, get_position, MoveCount);
+    public override Piece make_clone() {
+        return new Rook(get_color, get_position, get_move_count);
     }
 }

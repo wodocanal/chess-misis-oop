@@ -18,7 +18,7 @@ public sealed class Pawn(PieceColor color, Position position, int moveCount = 0)
             result.Add(singleStep);
 
             var doubleStep = get_position + new BoardVector(direction * 2, 0);
-            if (MoveCount == 0 && doubleStep.IsValid && board.IsEmpty(doubleStep)) {
+            if (get_move_count == 0 && doubleStep.IsValid && board.IsEmpty(doubleStep)) {
                 result.Add(doubleStep);
             }
         }
@@ -39,7 +39,7 @@ public sealed class Pawn(PieceColor color, Position position, int moveCount = 0)
             || target == get_position + new BoardVector(direction, 1);
     }
 
-    public override Piece Clone() {
-        return new Pawn(get_color, get_position, MoveCount);
+    public override Piece make_clone() {
+        return new Pawn(get_color, get_position, get_move_count);
     }
 }

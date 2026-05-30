@@ -31,6 +31,6 @@ internal static class MoveGeneration {
     public static IReadOnlyCollection<Position> GetSteppingMoves(Piece piece, Board board, params BoardVector[] offsets) {
         return [.. offsets
             .Select(offset => piece.get_position + offset)
-            .Where(position => piece.CanOccupy(board, position))];
+            .Where(position => piece.can_occupy_tokmachka(board, position))];
     }
 }

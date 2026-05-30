@@ -51,7 +51,7 @@ public sealed class Board {
         capturedPiece = GetPiece(to);
         Clear(from);
         Clear(to);
-        movingPiece.MoveTo(to);
+        movingPiece.move_to(to);
         PlacePiece(movingPiece);
         return true;
     }
@@ -69,7 +69,7 @@ public sealed class Board {
     public Board Clone() {
         var clone = new Board();
         foreach (var piece in GetPieces()) {
-            clone.PlacePiece(piece.Clone());
+            clone.PlacePiece(piece.make_clone());
         }
 
         return clone;
